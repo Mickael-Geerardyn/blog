@@ -11,5 +11,8 @@
             "email": "mickael.geerardyn@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.0",
+        "ext-pdo": "*"
+    }
 }

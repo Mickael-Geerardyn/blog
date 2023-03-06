@@ -10,10 +10,10 @@
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Custom Css -->
-    <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/css/main.css">
-    <link rel="stylesheet" href="../../assets/css/authentication.css">
-    <link rel="stylesheet" href="../../assets/css/color_skins.css">
+    <link rel="stylesheet" href="<?= $_SERVER['BASE_URI']?>assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $_SERVER['BASE_URI']?>assets/css/main.css">
+    <link rel="stylesheet" href="<?= $_SERVER['BASE_URI']?>assets/css/authentication.css">
+    <link rel="stylesheet" href="<?= $_SERVER['BASE_URI']?>assets/css/color_skins.css">
 </head>
 
 <body class="theme-cyan authentication sidebar-collapse">

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html class="no-js" lang="fr">
+<html lang="fr">
 
 <?= $head ?>
 
-<body class="theme-cyan">
+<body id="page-top" class="index">
 
 <?= $navBar ?>
 
 <?= $content ?>
 
-<?= $bodyEndScripts ?>
+<?= $footer ?>
+
+<?= $modals ?>
+
+<?= $scripts ?>
 
 </body>
 </html>

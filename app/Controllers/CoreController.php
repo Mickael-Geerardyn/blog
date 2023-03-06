@@ -25,7 +25,7 @@ abstract class CoreController
 			}
 
 		} catch (Exception $exception){
-			self::pageToDisplay('landing-portfolio', informations: ['error' => $exception->getMessage()]);
+			self::pageToDisplay('landing-blog', informations: ['error' => $exception->getMessage()]);
 		}
 
 	}
@@ -43,12 +43,15 @@ abstract class CoreController
 			$adminUserObject = UserService::getOwnerOfTheWebsite('contact@mickael-geerardyn.com');
 
 		} catch (Exception $exception){
-			self::pageToDisplay('landing-portfolio', ['error' => $exception->getMessage()]);
+			self::pageToDisplay('landing-blog', ['error' => $exception->getMessage()]);
 		}
 
-		require 'src/templates/header.tpl.php';
-		require 'src/templates/navbar.tpl.php';
-		require 'src/templates/'.$path.'.tpl.php';
-		require 'src/templates/body-scripts.tpl.php';
+		require '../app/templates/header.tpl.php';
+		require '../app/templates/navbar.tpl.php';
+		require '../app/templates/'.$path.'.tpl.php';
+		require '../app/templates/footer.tpl.php';
+		require '../app/templates/modals.tpl.php';
+		require '../app/templates/scripts.tpl.php';
+		require_once "../app/templates/layout.php";
 	}
 }
