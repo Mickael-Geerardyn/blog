@@ -1,4 +1,4 @@
-﻿<?php ob_start() ?>
+﻿{% block body %}
 
 <div class="page-header">
     <div class="page-header-image" style="background-image:url(<?= $_SERVER['BASE_URI'] ?>src/assets/images/login.jpg)"></div>
@@ -64,4 +64,4 @@
     </footer>
 </div>
 
-<?php $content = ob_get_clean() ?>
+{% endblock %}

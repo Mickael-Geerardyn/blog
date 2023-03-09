@@ -1,4 +1,4 @@
-<?php ob_start() ?>
+{% block navbar %}
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent">
@@ -24,4 +24,4 @@
 </nav>
 <!-- End Navbar -->
 
-<?php $navBar = ob_get_clean(); ?>
+{% endblock %}

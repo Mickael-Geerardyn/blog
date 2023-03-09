@@ -1,4 +1,4 @@
-<?php ob_start() ?>
+{% block footerScripts %}
 
 <!-- Jquery Core Js -->
 <script src="<?= $_SERVER['BASE_URI'] ?>src/assets/bundles/libscripts.bundle.js"></script>
@@ -20,5 +20,4 @@
     });
 </script>
 
-<?php $bodyEndScripts = ob_get_clean() ?>
-<?php require_once 'layout.php'?>
+{% endblock %}

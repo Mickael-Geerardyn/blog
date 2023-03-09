@@ -35,10 +35,10 @@ abstract class AdminCoreController
 		if(is_array($objectData)){
 			extract($objectData);
 		}
-		require_once 'src/templates/admin/header.tpl.php';
-		require_once 'src/templates/admin/navbar.tpl.php';
+		require_once 'src/templates/admin/base.html.twig';
+		require_once 'src/templates/admin/navbar.html.twig';
 		require_once 'src/templates/admin/' . $template . '.tpl.php';
-		require_once 'src/templates/admin/body-scripts.tpl.php';
+		require_once 'src/templates/admin/body-scripts.html.twig';
 	}
 
 	/**
@@ -49,10 +49,10 @@ abstract class AdminCoreController
 	 */
 	public static function displayLoginPage(string $template, object $ObjectData = null, array $informations = null): void
 	{
-		require_once 'src/templates/admin/login/header.tpl.php';
-		require_once 'src/templates/admin/login/navbar.tpl.php';
+		require_once 'src/templates/admin/login/base.html.twig';
+		require_once 'src/templates/admin/login/navbar.html.twig';
 		require_once 'src/templates/admin/login/' . $template . '.tpl.php';
-		require_once 'src/templates/admin/login/body-scripts.tpl.php';
+		require_once 'src/templates/admin/login/body-scripts.html.twig';
 	}
 
 }

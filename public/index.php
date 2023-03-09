@@ -7,7 +7,6 @@ use App\Controllers\PostController;
 use App\Controllers\UserController;
 
 require_once '../vendor/autoload.php';
-
 /**
  * Start new session for each new visitor.
  * Session will be open before write any code script and html entities (before DOCTYPE too)
@@ -79,7 +78,7 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$postPage->displayPostPage();
 			break;
 		default:
-			header('Location:'.$_SERVER['BASE_URI']."src/templates/admin/404.tpl.php");
+			header('Location:'.$_SERVER['BASE_URI']."src/templates/admin/404.html.twig");
 
 	}
 

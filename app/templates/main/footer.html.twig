@@ -1,4 +1,4 @@
-<?php ob_start(); ?>
+{% block footer %}
 
 <!-- Footer -->
 <footer class="text-center">
@@ -32,7 +32,8 @@
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>About Freelancer</h3>
-					<p>Freelance is a free to use, open source Bootstrap theme created by <a href="<?= $_SERVER['BASE_URI']?>">Start Bootstrap</a>.</p>
+					<p>Freelance is a free to use, open source Bootstrap
+						theme created by <a href="{{ _SERVER['BASE_URI'] }}">Start Bootstrap</a>.</p>
 				</div>
 			</div>
 		</div>
@@ -48,4 +49,4 @@
 	</div>
 </footer>
 
-<?php $footer = ob_get_clean() ?>
+{% endblock %}

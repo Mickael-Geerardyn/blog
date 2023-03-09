@@ -1,5 +1,4 @@
-<?php ob_start() ?>
-
+{% block body %}
 	<section class="content blog-page">
 		<div class="block-header">
 			<div class="row">
@@ -555,4 +554,4 @@
 		</div>
 	</section>
 
-<?php $content = ob_get_clean() ?>
+{% endblock %}

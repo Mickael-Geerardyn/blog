@@ -4,14 +4,29 @@ namespace App\Controllers;
 
 use App\Services\UserService;
 use Exception;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
 
 abstract class CoreController
 {
+	protected object $ownerUser;
+	private string $directory;
+	private FilesystemLoader $loader;
+	protected Environment $twigEnvironment;
 	// parse and clean the base url before index.php and store it in BASE_URI key on
 	// the $_SERVER['BASE_URI'] global variable for link and script html entities
 	public function __construct()
 	{
+
 		try {
+			$this->ownerUser = UserService::getOneUserByEmail("contact@mickael-geerardyn.com");
+
+			$this->directory = dirname(__DIR__, 1);
+
+
 			/**
 			 * filter_input is used to check the url contained in the 'REQUEST_URI'
 			 * key which is contained in the INPUT_SERVER const
@@ -24,34 +39,17 @@ abstract class CoreController
 				$_SERVER['BASE_URI'] = $_SERVER['REQUEST_URI'];
 			}
 
-		} catch (Exception $exception){
-			self::pageToDisplay('landing-blog', informations: ['error' => $exception->getMessage()]);
+			$this->loader = new FilesystemLoader($this->directory .'\templates');
+
+			$this->twigEnvironment = new Environment($this->loader, [
+				'cache' => $this->directory .'/var/cache',
+				'debug' => true,
+			]);
+
+		} catch (Exception|LoaderError|RuntimeError|SyntaxError $exception){
+			$this->twigEnvironment->render('/main/landing-blog.html.twig', ['error' => $exception->getMessage()]);
 		}
 
 	}
 
-	/**
-	 * @param string $path
-	 * @param object|array|null $objectData
-	 * @param array|null $informations
-	 * @return void
-	 * @throws Exception
-	 */
-		public static function pageToDisplay(string $path, object|array $objectData = null, array $informations = null, ): void
-	{
-		try{
-			$adminUserObject = UserService::getOwnerOfTheWebsite('contact@mickael-geerardyn.com');
-
-		} catch (Exception $exception){
-			self::pageToDisplay('landing-blog', ['error' => $exception->getMessage()]);
-		}
-
-		require '../app/templates/header.tpl.php';
-		require '../app/templates/navbar.tpl.php';
-		require '../app/templates/'.$path.'.tpl.php';
-		require '../app/templates/footer.tpl.php';
-		require '../app/templates/modals.tpl.php';
-		require '../app/templates/scripts.tpl.php';
-		require_once "../app/templates/layout.php";
-	}
 }

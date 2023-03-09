@@ -1,4 +1,4 @@
-﻿<?php ob_start() ?>
+﻿{% block footerScripts %}
 <!-- Jquery Core Js --> 
 <script src="<?= $_SERVER['BASE_URI'] ?>src/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
 <script src="<?= $_SERVER['BASE_URI'] ?>src/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
@@ -26,6 +26,4 @@
 <script src="<?= $_SERVER['BASE_URI'] ?>src/assets/bundles/footable.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
 <script src="<?= $_SERVER['BASE_URI'] ?>src/assets/js/pages/tables/footable.js"></script><!-- Custom Js -->
 
-<?php $bodyEndScripts = ob_get_clean(); ?>
-
-<?php require_once 'layout.php'?>
+{% endblock %}

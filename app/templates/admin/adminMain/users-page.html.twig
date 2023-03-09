@@ -1,4 +1,4 @@
-﻿<?php ob_start() ?>
+﻿{% block body %}
 
 <section class="content contact">
     <div class="block-header">
@@ -142,4 +142,5 @@
         </div>
     </div>
 </section>
-<?php $content = ob_get_clean() ?>
+
+{% endblock %}

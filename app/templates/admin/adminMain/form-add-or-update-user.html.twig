@@ -1,4 +1,4 @@
-﻿<?php ob_start() ?>
+﻿{% block body %}
 
     <section class="content">
         <?php if(!empty($informations) && is_array($informations)): ?>
@@ -131,4 +131,4 @@
         </div>
     </section>
 
-<?php $content = ob_get_clean() ?>
+{% endblock %}

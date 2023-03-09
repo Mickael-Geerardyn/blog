@@ -1,5 +1,4 @@
-<?php ob_start() ?>
-
+{% block navbar %}
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -672,4 +671,4 @@
 		</div>
 	</div>
 
-<?php $navBar = ob_get_clean(); ?>
+{% endblock %}

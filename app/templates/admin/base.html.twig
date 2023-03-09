@@ -1,12 +1,16 @@
-<?php ob_start() ?>
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
 
+{% block head %}
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
 
-		<title>Portfolio Dashboard</title>
+		<title>{% block title %}Portfolio Dashboard{% endblock %}</title>
+
+		{% block stylesheets %}
 		<link rel="icon" href="<?= $_SERVER['BASE_URI'] ?>src/templates/admin/favicon.ico" type="image/x-icon">
 		<!-- Favicon-->
 		<link rel="stylesheet" href="<?= $_SERVER['BASE_URI'] ?>src/assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -19,6 +23,16 @@
 		<link rel="stylesheet" href="<?= $_SERVER['BASE_URI'] ?>src/assets/css/blog.css">
 		<link rel="stylesheet" href="<?= $_SERVER['BASE_URI'] ?>src/assets/css/color_skins.css">
         <link rel="stylesheet" href="<?= $_SERVER['BASE_URI'] ?>src/assets/css/authentication.css">
+		{% endblock %}
 	</head>
+{% endblock %}
+<body class="theme-cyan">
 
-<?php $head = ob_get_clean() ?>
+{% block navbar %}{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footerScripts %}{% endblock %}
+
+</body>
+</html>
