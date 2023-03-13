@@ -15,11 +15,11 @@ class HomePageController extends CoreController
 		try {
 			parent::__construct();
 			$this->latestPosts = PostService::getHomePageRecentPosts();
+            return true;
 		} catch (Exception $exception){
-			$this->twigEnvironment->render('app/main/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+			$this->twigEnvironment->render('main/landing-blog.html.twig', ['error' => $exception->getMessage()]);
 			return false;
 		}
-
 	}
 
 	/**
@@ -29,13 +29,15 @@ class HomePageController extends CoreController
 	public function getHomePage(): bool
 	{
 		try {
-			$latestPosts = PostService::getHomePageRecentPosts();
-			$this->twigEnvironment->render('app/main/landing-blog.html.twig',
-				["ownerUser" => $this->ownerUser
-				,"latestsPosts" => $latestPosts]);
+            //$template = $this->twigEnvironment->load('main/landing-blog.html.twig');
+            //$template->render(["latestPosts" => $this->latestPosts]);
+			$this->twigEnvironment->render("main/landing-blog.html.twig",
+				["latestPosts" => $this->latestPosts]);
 			return true;
 		} catch (Exception $exception){
-			$this->twigEnvironment->render('app/main/landing-blog.html.twig', ["ownerUser" => $this->ownerUser ,'error' => $exception->getMessage()]);
+			var_dump($exception->getMessage());
+			$this->twigEnvironment->render("main/landing-blog.html.twig", ["ownerUser" => $this->ownerUser ,'error'
+            => $exception->getMessage()]);
 			return false;
 		}
 	}

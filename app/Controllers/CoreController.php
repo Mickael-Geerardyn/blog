@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Services\UserService;
@@ -8,12 +9,15 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
 abstract class CoreController
 {
+	protected const OWNER_USER_EMAIL = "contact@mickael-geerardyn.com";
 	protected object $ownerUser;
-	private string $directory;
+	protected string $directory;
 	private FilesystemLoader $loader;
 	protected Environment $twigEnvironment;
 	// parse and clean the base url before index.php and store it in BASE_URI key on
@@ -22,10 +26,9 @@ abstract class CoreController
 	{
 
 		try {
-			$this->ownerUser = UserService::getOneUserByEmail("contact@mickael-geerardyn.com");
+			$this->ownerUser = UserService::getOneUserByEmail(self::OWNER_USER_EMAIL);
 
 			$this->directory = dirname(__DIR__, 1);
-
 
 			/**
 			 * filter_input is used to check the url contained in the 'REQUEST_URI'
@@ -39,17 +42,21 @@ abstract class CoreController
 				$_SERVER['BASE_URI'] = $_SERVER['REQUEST_URI'];
 			}
 
-			$this->loader = new FilesystemLoader($this->directory .'\templates');
+			$this->loader = new FilesystemLoader($this->directory .'/templates');
 
 			$this->twigEnvironment = new Environment($this->loader, [
 				'cache' => $this->directory .'/var/cache',
 				'debug' => true,
+                'auto_reload' => true,
 			]);
 
+            $this->twigEnvironment->addExtension(new DebugExtension());
+            $this->twigEnvironment->addGlobal('_SERVER', $_SERVER);
+            $this->twigEnvironment->addGlobal('ownerUser', $this->ownerUser);
+
 		} catch (Exception|LoaderError|RuntimeError|SyntaxError $exception){
+			var_dump($exception->getMessage());
 			$this->twigEnvironment->render('/main/landing-blog.html.twig', ['error' => $exception->getMessage()]);
 		}
-
 	}
-
 }

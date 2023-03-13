@@ -40,7 +40,8 @@ class AdminUserController extends AdminCoreController
 	{
 		try{
 			UserService::unsetDataInSession();
-			HomePageController::getHomePage();
+			$homePage = new HomePageController();
+            $homePage->getHomePage();
 
 			return true;
 		} catch (UserExceptions $userExceptions) {
