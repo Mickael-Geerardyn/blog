@@ -79,7 +79,7 @@ class __TwigTemplate_92e410a9b188c162960d803db9d9b782d047cacdaaf93e9a2e0aa3abb5a
 
 ";
         // line 24
-        $this->loadTemplate("login-navbar.html.twig", "loginMain/login-base.html.twig", 24)->display($context);
+        $this->loadTemplate("loginMain/login-navbar.html.twig", "loginMain/login-base.html.twig", 24)->display($context);
         // line 25
         echo "
 ";
@@ -89,7 +89,7 @@ class __TwigTemplate_92e410a9b188c162960d803db9d9b782d047cacdaaf93e9a2e0aa3abb5a
         echo "
 ";
         // line 28
-        $this->loadTemplate("login-body-scripts.html.twig", "loginMain/login-base.html.twig", 28)->display($context);
+        $this->loadTemplate("loginMain/login-body-scripts.html.twig", "loginMain/login-base.html.twig", 28)->display($context);
         // line 29
         echo "
 </body>
@@ -149,11 +149,11 @@ class __TwigTemplate_92e410a9b188c162960d803db9d9b782d047cacdaaf93e9a2e0aa3abb5a
 
 <body class=\"theme-cyan authentication sidebar-collapse\">
 
-{% include \"login-navbar.html.twig\" %}
+{% include \"loginMain/login-navbar.html.twig\" %}
 
 {% block body %}{% endblock %}
 
-{% include \"login-body-scripts.html.twig\" %}
+{% include \"loginMain/login-body-scripts.html.twig\" %}
 
 </body>
 </html>", "loginMain/login-base.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\login\\loginMain\\login-base.html.twig");

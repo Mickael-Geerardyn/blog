@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* main/navbar.html.twig */
+/* main/login-admin-navbar.html.twig */
 class __TwigTemplate_b25c71bb682317132ac08d6d0008b963d1cfe6909808e3d78133e8cb1fa6de7c extends Template
 {
     private $source;
@@ -101,7 +101,7 @@ class __TwigTemplate_b25c71bb682317132ac08d6d0008b963d1cfe6909808e3d78133e8cb1fa
 
     public function getTemplateName()
     {
-        return "main/navbar.html.twig";
+        return "main/login-admin-navbar.html.twig";
     }
 
     public function isTraitable()
@@ -167,6 +167,6 @@ class __TwigTemplate_b25c71bb682317132ac08d6d0008b963d1cfe6909808e3d78133e8cb1fa
 \t</div>
 </header>
 
-", "main/navbar.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\navbar.html.twig");
+", "main/login-admin-navbar.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\login-admin-navbar.html.twig");
     }
 }

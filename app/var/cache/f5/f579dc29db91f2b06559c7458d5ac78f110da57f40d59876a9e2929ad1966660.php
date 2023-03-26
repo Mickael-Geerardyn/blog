@@ -32,13 +32,13 @@ class __TwigTemplate_3b91677e86ba04b7beb140ae58f2698a855d479c6bf1fe778b936dcf72c
     protected function doGetParent(array $context)
     {
         // line 1
-        return "base.html.twig";
+        return "login-admin-base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("base.html.twig", "/main/landing-blog.html.twig", 1);
+        $this->parent = $this->loadTemplate("login-admin-base.html.twig", "/main/landing-blog.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
@@ -269,7 +269,7 @@ class __TwigTemplate_3b91677e86ba04b7beb140ae58f2698a855d479c6bf1fe778b936dcf72c
 
     public function getSourceContext()
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("{% extends 'login-admin-base.html.twig' %}
 
 {% block body %}
     <!-- Portfolio Grid Section -->

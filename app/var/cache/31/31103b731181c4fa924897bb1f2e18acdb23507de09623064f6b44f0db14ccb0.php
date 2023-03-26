@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* main/landing-blog.html.twig */
+/* /landing-blog.html.twig */
 class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b63199ba91 extends Template
 {
     private $source;
@@ -32,13 +32,13 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
     protected function doGetParent(array $context)
     {
         // line 1
-        return "base.html.twig";
+        return "/base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = [])
     {
         $macros = $this->macros;
-        $this->parent = $this->loadTemplate("base.html.twig", "main/landing-blog.html.twig", 1);
+        $this->parent = $this->loadTemplate("/base.html.twig", "/landing-blog.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
@@ -47,7 +47,8 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
     {
         $macros = $this->macros;
         // line 4
-        echo "    <!-- Portfolio Grid Section -->
+        echo "
+    <!-- Portfolio Grid Section -->
     <section id=\"portfolio\">
         <div class=\"container\">
             <div class=\"row\">
@@ -56,89 +57,91 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                     <hr class=\"star-primary\">
                 </div>
             </div>
-            <div class=\"row\">
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal1\" class=\"portfolio-link\"
+            ";
+        // line 14
+        if ( !twig_test_empty(($context["latestPosts"] ?? null))) {
+            // line 15
+            echo "            <div class=\"row\">
+                ";
+            // line 16
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
+            foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
+                // line 17
+                echo "                <div class=\"col-sm-4 portfolio-item\">
+                    <a href=\"#portfolioModal";
+                // line 18
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getId", [], "method", false, false, false, 18), "html", null, true);
+                echo "\"
+                       class=\"portfolio-link\"
                        data-toggle=\"modal\">
                         <div class=\"caption\">
                             <div class=\"caption-content\">
                                 <i class=\"fa fa-search-plus fa-3x\"></i>
                             </div>
                         </div>
-                        <img src=\"public/assets/img/portfolio/cabin.png\"
+                        <img src=\"";
+                // line 26
+                echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
+                echo "assets/img/portfolio/cabin.png\"
                              class=\"img-responsive\" alt=\"\">
                     </a>
                 </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal2\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/cake.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal3\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/circus.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal4\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/game.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal5\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/safe.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal6\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/submarine.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-            </div>
-        </div>
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 31
+            echo "            </div>
+            ";
+        }
+        // line 33
+        echo "        </div>
     </section>
 
-    <!-- About Section -->
+    ";
+        // line 36
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
+        $context['loop'] = [
+          'parent' => $context['_parent'],
+          'index0' => 0,
+          'index'  => 1,
+          'first'  => true,
+        ];
+        if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof \Countable)) {
+            $length = count($context['_seq']);
+            $context['loop']['revindex0'] = $length - 1;
+            $context['loop']['revindex'] = $length;
+            $context['loop']['length'] = $length;
+            $context['loop']['last'] = 1 === $length;
+        }
+        foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
+            // line 37
+            echo "        ";
+            $this->loadTemplate("modals/modals.html.twig", "/landing-blog.html.twig", 37)->display($context);
+            // line 38
+            echo "    ";
+            ++$context['loop']['index0'];
+            ++$context['loop']['index'];
+            $context['loop']['first'] = false;
+            if (isset($context['loop']['length'])) {
+                --$context['loop']['revindex0'];
+                --$context['loop']['revindex'];
+                $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+            }
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 39
+        echo "    <!-- About Section -->
     <section class=\"success\" id=\"about\">
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>About</h2>
+                    <h2>A propos</h2>
                     <hr class=\"star-light\">
                 </div>
             </div>
@@ -155,11 +158,6 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         artist looking to share your projects, this template is
                         the perfect starting point!</p>
                 </div>
-                <div class=\"col-lg-8 col-lg-offset-2 text-center\">
-                    <a href=\"#\" class=\"btn btn-lg btn-outline\">
-                        <i class=\"fa fa-download\"></i> Download Theme
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -169,7 +167,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>Contact Me</h2>
+                    <h2>Me contacter</h2>
                     <hr class=\"star-primary\">
                 </div>
             </div>
@@ -180,18 +178,18 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                     <form name=\"sentMessage\" id=\"contactForm\" novalidate>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Name</label>
+                                <label>Nom</label>
                                 <input type=\"text\" class=\"form-control\"
-                                       placeholder=\"Name\" id=\"name\" required
+                                       placeholder=\"Nom\" id=\"name\" required
                                        data-validation-required-message=\"Please enter your name.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
                         </div>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Email Address</label>
+                                <label>Courriel</label>
                                 <input type=\"email\" class=\"form-control\"
-                                       placeholder=\"Email Address\" id=\"email\"
+                                       placeholder=\"Email\" id=\"email\"
                                        required
                                        data-validation-required-message=\"Please enter your email address.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -199,9 +197,9 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         </div>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Phone Number</label>
+                                <label>Numéro de téléphone</label>
                                 <input type=\"tel\" class=\"form-control\"
-                                       placeholder=\"Phone Number\" id=\"phone\"
+                                       placeholder=\"Numéro de téléphone\" id=\"phone\"
                                        required
                                        data-validation-required-message=\"Please enter your phone number.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -222,7 +220,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         <div class=\"row\">
                             <div class=\"form-group col-xs-12\">
                                 <button type=\"submit\"
-                                        class=\"btn btn-success btn-lg\">Send
+                                        class=\"btn btn-success btn-lg\">Envoyer
                                 </button>
                             </div>
                         </div>
@@ -236,7 +234,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getTemplateName()
     {
-        return "main/landing-blog.html.twig";
+        return "/landing-blog.html.twig";
     }
 
     public function isTraitable()
@@ -246,14 +244,15 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getDebugInfo()
     {
-        return array (  50 => 4,  46 => 3,  35 => 1,);
+        return array (  139 => 39,  125 => 38,  122 => 37,  105 => 36,  100 => 33,  96 => 31,  85 => 26,  74 => 18,  71 => 17,  67 => 16,  64 => 15,  62 => 14,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("{% extends '/base.html.twig' %}
 
 {% block body %}
+
     <!-- Portfolio Grid Section -->
     <section id=\"portfolio\">
         <div class=\"container\">
@@ -263,89 +262,37 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                     <hr class=\"star-primary\">
                 </div>
             </div>
+            {% if latestPosts is not empty %}
             <div class=\"row\">
+                {% for key, postObject in latestPosts %}
                 <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal1\" class=\"portfolio-link\"
+                    <a href=\"#portfolioModal{{ postObject.getId() }}\"
+                       class=\"portfolio-link\"
                        data-toggle=\"modal\">
                         <div class=\"caption\">
                             <div class=\"caption-content\">
                                 <i class=\"fa fa-search-plus fa-3x\"></i>
                             </div>
                         </div>
-                        <img src=\"public/assets/img/portfolio/cabin.png\"
+                        <img src=\"{{ _SERVER[\"BASE_URI\"] }}assets/img/portfolio/cabin.png\"
                              class=\"img-responsive\" alt=\"\">
                     </a>
                 </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal2\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/cake.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal3\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/circus.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal4\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/game.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal5\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/safe.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
-                <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal6\" class=\"portfolio-link\"
-                       data-toggle=\"modal\">
-                        <div class=\"caption\">
-                            <div class=\"caption-content\">
-                                <i class=\"fa fa-search-plus fa-3x\"></i>
-                            </div>
-                        </div>
-                        <img src=\"public/assets/img/portfolio/submarine.png\"
-                             class=\"img-responsive\" alt=\"\">
-                    </a>
-                </div>
+                {% endfor %}
             </div>
+            {% endif %}
         </div>
     </section>
 
+    {% for key, postObject in latestPosts %}
+        {% include \"modals/modals.html.twig\" %}
+    {% endfor %}
     <!-- About Section -->
     <section class=\"success\" id=\"about\">
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>About</h2>
+                    <h2>A propos</h2>
                     <hr class=\"star-light\">
                 </div>
             </div>
@@ -362,11 +309,6 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         artist looking to share your projects, this template is
                         the perfect starting point!</p>
                 </div>
-                <div class=\"col-lg-8 col-lg-offset-2 text-center\">
-                    <a href=\"#\" class=\"btn btn-lg btn-outline\">
-                        <i class=\"fa fa-download\"></i> Download Theme
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -376,7 +318,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>Contact Me</h2>
+                    <h2>Me contacter</h2>
                     <hr class=\"star-primary\">
                 </div>
             </div>
@@ -387,18 +329,18 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                     <form name=\"sentMessage\" id=\"contactForm\" novalidate>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Name</label>
+                                <label>Nom</label>
                                 <input type=\"text\" class=\"form-control\"
-                                       placeholder=\"Name\" id=\"name\" required
+                                       placeholder=\"Nom\" id=\"name\" required
                                        data-validation-required-message=\"Please enter your name.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
                         </div>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Email Address</label>
+                                <label>Courriel</label>
                                 <input type=\"email\" class=\"form-control\"
-                                       placeholder=\"Email Address\" id=\"email\"
+                                       placeholder=\"Email\" id=\"email\"
                                        required
                                        data-validation-required-message=\"Please enter your email address.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -406,9 +348,9 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         </div>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
-                                <label>Phone Number</label>
+                                <label>Numéro de téléphone</label>
                                 <input type=\"tel\" class=\"form-control\"
-                                       placeholder=\"Phone Number\" id=\"phone\"
+                                       placeholder=\"Numéro de téléphone\" id=\"phone\"
                                        required
                                        data-validation-required-message=\"Please enter your phone number.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -429,7 +371,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                         <div class=\"row\">
                             <div class=\"form-group col-xs-12\">
                                 <button type=\"submit\"
-                                        class=\"btn btn-success btn-lg\">Send
+                                        class=\"btn btn-success btn-lg\">Envoyer
                                 </button>
                             </div>
                         </div>
@@ -441,6 +383,6 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 {% endblock %}
 
 
-", "main/landing-blog.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\landing-blog.html.twig");
+", "/landing-blog.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\landing-blog.html.twig");
     }
 }

@@ -1,16 +1,18 @@
-﻿{% block body %}
+﻿{% extends "loginMain/login-base.html.twig" %}
+
+{% block body %}
 
 <div class="page-header">
-    <div class="page-header-image" style="background-image:url(<?= $_SERVER['BASE_URI'] ?>src/assets/images/login.jpg)"></div>
+    <div class="page-header-image" style="background-image:url({{ _SERVER["BASE_URI"] }}assets/images/login.jpg)"></div>
     <div class="container">
         <div class="col-md-12 content-center">
-			<?php if(!empty($informations['error'])): ?>
+            {% if error is not empty %}
                 <div class="alert alert-danger" role="alert">
                     <div class="container">
                         <div class="alert-icon">
                             <i class="zmdi zmdi-block"></i>
                         </div>
-                        <strong>Oh snap! </strong> <?= $informations['error'] ?>
+                        <strong>Oh snap! </strong> {{ error }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">
             <i class="zmdi zmdi-close"></i>
@@ -18,22 +20,18 @@
                         </button>
                     </div>
                 </div>
-			<?php endif; ?>
+            {% endif %}
             <div class="card-plain">
-                <form class="form" method="POST" action="<?= $_SERVER['BASE_URI'] ?>index.php?action=sign-in">
+                <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=sign-in">
                     <div class="header">
                         <div class="logo-container">
-                            <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/logo.svg" alt="">
+                            <img src="{{ _SERVER["BASE_URI"] }}assets/images/logo.svg" alt="">
                         </div>
                         <h5>Log in</h5>
                     </div>
                     <div class="content">                                                
                         <div class="input-group input-lg">
-                            <?php if (!empty($informations['email'])): ?>
-                            <input type="text" class="form-control" placeholder="<?= $informations['email'] ?>" name="email" />
-                            <?php else: ?>
                             <input type="text" class="form-control" placeholder="Email" name="email" />
-                            <?php endif; ?>
                             <span class="input-group-addon">
                                 <i class="zmdi zmdi-account-circle"></i>
                             </span>

@@ -3,19 +3,23 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\CommentModel;
 use App\Models\PostModel;
 use Exception;
 use PDO;
 
 class PostService
 {
+    const POSTS_PER_PAGE = 4;
+    const COMMENT_STATUS_PUBLISHED = CommentModel::STATUS_PUBLISHED;
+    const COMMENT_STATUS_PENDING = CommentModel::STATUS_PENDING;
 	/**
 	 * Method which return a number of recent posts with optionally parameter
 	 * @param int $limit
 	 * @return array
 	 * @throws Exception
 	 */
-	public static function getHomePageRecentPosts(int $limit = 4): array
+	public static function getHomePageRecentPosts(int $limit = self::POSTS_PER_PAGE): array
 	{
 		$statement = PostModel::getDataBase()
 			->prepare('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
@@ -41,13 +45,15 @@ class PostService
 	 * @return array
 	 * @throws Exception
 	 */
-	public static function getAllPosts(): array
+	public static function getPostWithItsComments(int $commentStatusPublished = self::COMMENT_STATUS_PUBLISHED): array
 	{
 		$statement = PostModel::getDataBase()
-			->query('SELECT post.id, title, heading, content, user_id, is_published, post.created_at, post.updated_at, firstname, lastname, email
-					 FROM post
-                     INNER JOIN user
-                     ON post.user_id= user.id;');
+			->query("SELECT post.id, post.title, heading, post.content, post.user_id, is_published, post.created_at, post.updated_at, comment.post_id ,comment.title, comment.content, status, comment.created_at, comment.updated_at
+                     FROM post
+                     INNER JOIN comment
+                     ON post.id = comment.post_id
+                     WHERE comment.status = $commentStatusPublished
+                     ORDER BY post.created_at DESC");
 
 		$statement->execute();
 
@@ -104,10 +110,8 @@ class PostService
 	public static function getOnePostByTitle(string $postTitle): object
 	{
 		$statement = PostModel::getDataBase()
-			->prepare('SELECT post.id, user.id, title, heading, content, user_id, is_published, post.created_at, post.updated_at, user.firstname, user.lastname
+			->prepare('SELECT *
 					   FROM post
-					   INNER JOIN user
-					   ON user_id = user.id
 					   WHERE title = :postTitle');
 
 		$statement->execute([

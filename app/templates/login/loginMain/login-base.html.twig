@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr">
 
-{% block head %}
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -11,7 +9,6 @@
 
 	<title>{% block title %}Page d'authentification{% endblock %}</title>
 
-	{% block stylesheets %}
 	<!-- Favicon-->
 	<link rel="icon" href="{{ _SERVER['BASE_URI'] }}assets/favicon.ico" type="image/x-icon">
 	<!-- Custom Css -->
@@ -19,19 +16,16 @@
 	<link rel="stylesheet" href="{{ _SERVER['BASE_URI'] }}assets/css/main.css">
 	<link rel="stylesheet" href="{{ _SERVER['BASE_URI'] }}assets/css/authentication.css">
 	<link rel="stylesheet" href="{{ _SERVER['BASE_URI'] }}assets/css/color_skins.css">
-	{% endblock %}
-</head>
 
-{% endblock %}
+</head>
 
 <body class="theme-cyan authentication sidebar-collapse">
 
-{% extends "navbar.html.twig" %}
-<h1>Avec un autre truc dedans</h1>
+{% include "loginMain/login-navbar.html.twig" %}
 
 {% block body %}{% endblock %}
 
-{% extends "body-scripts.html.twig" %}
+{% include "loginMain/login-body-scripts.html.twig" %}
 
 </body>
 </html>

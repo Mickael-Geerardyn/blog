@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* base.html.twig */
+/* login-admin-base.html.twig */
 class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4acfdb4d extends Template
 {
     private $source;
@@ -99,7 +99,7 @@ class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4ac
 
 ";
         // line 43
-        $this->loadTemplate("main/navbar.html.twig", "base.html.twig", 43)->display($context);
+        $this->loadTemplate("main/login-admin-navbar.html.twig", "login-admin-base.html.twig", 43)->display($context);
         // line 44
         echo "
 ";
@@ -109,17 +109,17 @@ class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4ac
         echo "
 ";
         // line 47
-        $this->loadTemplate("main/footer.html.twig", "base.html.twig", 47)->display($context);
+        $this->loadTemplate("main/footer.html.twig", "login-admin-base.html.twig", 47)->display($context);
         // line 48
         echo "
 ";
         // line 49
-        $this->loadTemplate("main/modals.html.twig", "base.html.twig", 49)->display($context);
+        $this->loadTemplate("main/modals.html.twig", "login-admin-base.html.twig", 49)->display($context);
         // line 50
         echo "
 ";
         // line 51
-        $this->loadTemplate("main/scripts.html.twig", "base.html.twig", 51)->display($context);
+        $this->loadTemplate("main/scripts.html.twig", "login-admin-base.html.twig", 51)->display($context);
         // line 52
         echo "
 </body>
@@ -151,7 +151,7 @@ class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4ac
 
     public function getTemplateName()
     {
-        return "base.html.twig";
+        return "login-admin-base.html.twig";
     }
 
     public function isTraitable()
@@ -208,7 +208,7 @@ class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4ac
 
 <body id=\"page-top\" class=\"index\">
 
-{% include \"main/navbar.html.twig\" %}
+{% include \"main/login-admin-navbar.html.twig\" %}
 
 {% block body %}{% endblock %}
 
@@ -224,6 +224,6 @@ class __TwigTemplate_40ee2936a395ca454874f3f6be970376f9ff6ed6c7b0d9977cdf8a1a4ac
 
 
 
-", "base.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\base.html.twig");
+", "login-admin-base.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\login-admin-base.html.twig");
     }
 }

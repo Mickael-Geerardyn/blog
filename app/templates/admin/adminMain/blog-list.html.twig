@@ -1,4 +1,6 @@
-﻿{% block body %}
+﻿{% extends '/admin-base.html.twig' %}
+
+{% block body %}
 <section class="content blog-page">
     <div class="block-header">
         <div class="row">
@@ -37,7 +39,7 @@
                             </div>
                         </div>
                         <p><?= $object['heading'] ?></p>
-                        <form id="form_validation" method="POST" action="<?= $_SERVER['BASE_URI'] ?>index.php?action=single-post">
+                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post">
                         <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Read More</button>
                             <input type="hidden" name="post-title" value="<?= $object['title'] ?>">
                         </form>

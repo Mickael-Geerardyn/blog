@@ -5,56 +5,19 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\HomePageController;
 use App\Models\UserModel;
+use App\Services\AuthService;
 use App\Services\UserService;
 use App\Services\UserExceptions;
 use Exception;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class AdminUserController extends AdminCoreController
 {
-
 	/**
 	 * @return bool
-	 * @throws UserExceptions
-	 */
-	public function userLogin(): bool
-	{
-		try {
-
-			UserService::userLogin();
-
-			return true;
-
-		} catch (UserExceptions|Exception $UserExceptions) {
-
-			self::displayLoginPage('sign-in', informations: ['error' => $UserExceptions->getMessage()]);
-
-			return false;
-		}
-	}
-
-	/**
-	 * @return bool
-	 * @throws UserExceptions
-	 */
-	public function userLogout(): bool
-	{
-		try{
-			UserService::unsetDataInSession();
-			$homePage = new HomePageController();
-            $homePage->getHomePage();
-
-			return true;
-		} catch (UserExceptions $userExceptions) {
-
-			self::displayCalledPage('landing-dashboard', informations:['error' => $userExceptions->getMessage()]);
-
-			return false;
-		}
-	}
-
-	/**
-	 * @return bool
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public function newUserRegister(): bool
 	{
@@ -85,13 +48,15 @@ class AdminUserController extends AdminCoreController
 
 			UserService::unsetDataInGlobalPost();
 
-			self::displayCalledPage('form-add-or-update-user', UserService::getOneUserById($lastRegisteredUserId));
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
+                ["userObject" => UserService::getOneUserById($lastRegisteredUserId)]);
 
 			return true;
 
 		} catch (UserExceptions | Exception $Exception) {
 
-			self::displayCalledPage('form-add-or-update-user', informations: ['error' => $Exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ['error' =>
+                $Exception->getMessage()]);
 
 			return false;
 		}
@@ -130,12 +95,10 @@ class AdminUserController extends AdminCoreController
 		try {
 			if(!UserService::checkIfUserIsAlreadyLoginInSession())
 			{
-				self::displayLoginPage('sign-in');
+				$this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 			}
 
-			$allUsers = UserService::getAllUsers();
-
-			self::displayCalledPage('users-page', $allUsers);
+            $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["usersArrayObject" => UserService::getAllUsers()]);
 		} catch (Exception $exception){
 			echo $exception->getMessage();
 			return false;
@@ -145,51 +108,54 @@ class AdminUserController extends AdminCoreController
 
 	/**
 	 * @return bool
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public function displayLandingDashboardIfUserIsAlreadyLoggedInSession(): bool
 	{
 		try {
-			self::displayCalledPage('landing-dashboard', $_SESSION['userObject']);
+            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig');
 			return true;
 		} catch (UserExceptions $userExceptions) {
-			AdminUserController::displayLoginPage('sign-in', informations: ['error' => $userExceptions->getMessage()]);
+            $this->twigEnvironment->display('/loginMain/sign-in', ['error' => $userExceptions->getMessage()]);
 			return false;
 		}
 	}
 
 	/**
 	 * @return bool
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public function displayAddFormUser(): bool
 	{
 		try {
-			self::displayCalledPage('form-add-or-update-user');
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 			return true;
 
 		} catch (UserExceptions $userExceptions)
 		{
-			AdminUserController::displayLoginPage('sign-in', informations: ['error' => $userExceptions->getMessage()]);
+            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
+                $userExceptions->getMessage()]);
 			return false;
 		}
 	}
 
 	/**
 	 * @return bool
+     * @throws Exception
 	 */
 	public function displayUpdateFormUser(): bool
 	{
 		try {
 
-			if(!UserService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkIfUserIsAlreadyLoginInSession())
+			if(!AuthService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkIfUserIsAlreadyLoginInSession())
 			{
 				self::displayUsersPage();
 			}
 			$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-			$updatedUser = UserService::getOneUser($email);
+			$updatedUser = UserService::getOneUserByEmail($email);
 
-			self::displayCalledPage('form-add-or-update-user', $updatedUser);
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
+                ["updatedUser" => $updatedUser]);
 
 			return true;
 		} catch (Exception $exception){

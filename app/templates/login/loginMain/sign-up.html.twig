@@ -1,7 +1,9 @@
-﻿{% block body %}
+﻿{% extends "loginMain/login-base.html.twig" %}
+
+{% block body %}
 
 <div class="page-header">
-    <div class="page-header-image" style="background-image:url(<?= $_SERVER['BASE_URI'] ?>src/assets/images/login.jpg)"></div>
+    <div class="page-header-image" style="background-image:url({{ _SERVER['BASE_URI'] }}assets/images/login.jpg)"></div>
     <div class="container">
         <div class="col-md-12 content-center">
 			<?php if(!empty($informations['error'])): ?>
@@ -20,10 +22,10 @@
                 </div>
 			<?php endif; ?>
             <div class="card-plain">
-                <form class="form" method="POST" action="<?= $_SERVER['BASE_URI'] ?>index.php?action=user-sign-in">
+                <form class="form" method="POST" action="{{ _SERVER['BASE_URI'] }}index.php?action=user-sign-in">
                     <div class="header">
                         <div class="logo-container">
-                            <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/logo.svg" alt="">
+                            <img src="{{ _SERVER['BASE_URI'] }}assets/images/logo.svg" alt="">
                         </div>
                         <h5>Créer un compte</h5>
                     </div>
@@ -49,7 +51,7 @@
                     </div>
                     <div class="footer text-center">
                         <a href="index.html" class="btn l-cyan btn-round btn-lg btn-block waves-effect waves-light">ENVOYER</a>
-                        <h6 class="m-t-20"><a class="link" href="<?= $_SERVER['BASE_URI'] ?>index.php?action=login-page">Déjà membre ?</a></h6>
+                        <h6 class="m-t-20"><a class="link" href="{{ _SERVER['BASE_URI'] }}index.php?action=login-page">Déjà membre ?</a></h6>
                     </div>
                 </form>
             </div>

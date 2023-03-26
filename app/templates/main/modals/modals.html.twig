@@ -1,116 +1,129 @@
-
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
 	<a class="btn btn-primary" href="#page-top">
 		<i class="fa fa-chevron-up"></i>
 	</a>
 </div>
-
-{% if latestPosts is not empty %}
-{% for key, postObject in latestPosts  %}
 <!-- Portfolio Modals -->
-	<div class="portfolio-modal modal fade" id="portfolioModal{{ key+1 }}" tabindex="-1" role="dialog"
-		 aria-hidden="true">
-		<div class="modal-content">
-			<div class="close-modal" data-dismiss="modal">
-				<div class="lr">
-					<div class="rl">
-					</div>
-				</div>
-			</div>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 col-lg-offset-2">
-						<div class="modal-body">
-							<h2>{{ postObject.getTitle() }}</h2>
-							<hr class="star-primary">
-							<img src="{{ _SERVER["BASE_URI"] }}assets/img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
-							<p>{{ postObject.getHeading() }}</p>
-							<p>{{ postObject.getContent() }}</p>
-							<ul class="list-inline item-details">
-								<li>Auteur:
-									<strong>{{ postObject.postAuthor.getFirstname()~" "~postObject.postAuthor.getLastname() }}
-									</strong>
-								</li>
-								<li>Date:
-									<strong>{{ postObject.getCreatedAt()|date("d/m/Y") }}
-									</strong>
-								</li>
-								<li>Service:
-									<strong><a href="http://startbootstrap.com">Web Development</a>
-									</strong>
-								</li>
-							</ul>
-							{% for comment in postObject.postComments %}
-								<div class="modal-body">
-									<h3>{{ comment.getTitle() }}</h3>
-									<p>{{ comment.getContent() }}</p>
-									<ul class="list-inline item-details">
-										<li>Auteur:
-											<strong>{{ comment.commentAuthor.getFirstname()~" "~comment.commentAuthor
-													.getLastname
-													() }}
-											</strong>
-										</li>
-										<li>Date:
-											<strong>{{ comment.getCreatedAt()|date("d/m/Y")
-											}}</strong>
-										</li>
-									</ul>
-								</div>
-								{% endfor %}
+<div class="portfolio-modal modal fade" id="portfolioModal{{ postObject.getId() }}" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+                <div class="rl">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="modal-body">
+                        <h2>{{ postObject.getTitle() }}</h2>
+                        <hr class="star-primary">
+                        <img src="{{ _SERVER["BASE_URI"] }}assets/img/portfolio/cabin.png"
+                             class="img-responsive img-centered" alt="">
+                        <p>{{ postObject.getHeading() }}</p>
+                        <p>{{ postObject.getContent() }}</p>
+                        <ul class="list-inline item-details">
+                            <li>Auteur:
+                                <strong>{{ postObject.postAuthor.getFirstname()~" "~postObject.postAuthor.getLastname() }}
+                                </strong>
+                            </li>
+                            <li>Date:
+                                <strong>{{ postObject.getCreatedAt()|date("d/m/Y") }}
+                                </strong>
+                            </li>
+                            <li>Service:
+                                <strong><a href="http://startbootstrap.com">Web Development</a>
+                                </strong>
+                            </li>
+                        </ul>
+                        {% for comment in postObject.postComments %}
+                            <div class="modal-body">
+                                <h3>{{ comment.getTitle() }}</h3>
+                                <p>{{ comment.getContent() }}</p>
+                                <ul class="list-inline item-details">
+                                    <li>Auteur:
+                                        <strong>{{ comment.commentAuthor.getFirstname()~" "~comment.commentAuthor.getLastname() }}
+                                        </strong>
+                                    </li>
+                                    <li>Date:
+                                        <strong>{{ comment.getCreatedAt()|date("d/m/Y") }}</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
 
-							<br><br>
-							<div class="row">
-								<div class="col-lg-8 col-lg-offset-2">
-									<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-									<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-									<form name="sentMessage" id="contactForm" novalidate="" data-dashlane-rid="a7a48980b577b880" data-form-type="contact">
-										<div class="row control-group">
-											<div class="form-group col-xs-12 floating-label-form-group controls">
-												<label>Nom</label>
-												<input type="text" class="form-control" placeholder="Nom" id="name"
-													   required="" data-validation-required-message="Please enter your name." data-dashlane-rid="0840ea6118458db9" data-kwimpalastatus="alive" data-kwimpalaid="1678747375732-0" aria-invalid="false" data-form-type="name">
-												<p class="help-block text-danger"></p>
-												<span id="1678747375732-0" data-dashlanecreated="true" style="color: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-palette: initial; font-synthesis: initial; font-variation-settings: initial; forced-color-adjust: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/injected/logo-autofill-known.svg&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block: initial; border: none; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: pointer; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; left: 746px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: 1; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scrollbar-gutter: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; top: 30.6562px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-highlight: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 1;"></span></div>
-										</div>
-										<div class="row control-group">
-											<div class="form-group col-xs-12 floating-label-form-group controls">
-												<label>Courriel</label>
-												<input type="email" class="form-control" placeholder="Courriel" id="email"
-													   required="" data-validation-required-message="Please enter your email address." data-dashlane-rid="c48303e48d54c760" data-kwimpalastatus="alive" data-kwimpalaid="1678747375732-1" data-form-type="email">
-												<p class="help-block text-danger"></p>
-												<span id="1678747375732-1" data-dashlanecreated="true" style="color: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-palette: initial; font-synthesis: initial; font-variation-settings: initial; forced-color-adjust: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: url(&quot;chrome-extension://fdjamakpfbbddfjaooikfcpapjohcfmg/content/injected/logo-autofill-known.svg&quot;) center center / contain no-repeat; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block: initial; border: none; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: pointer; cx: initial; cy: initial; d: initial; display: inline; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: 16px; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; left: 746px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: 16px; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: 1; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scrollbar-gutter: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; top: 29.9896px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: visible; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-highlight: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: 16px; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 1;"></span></div>
-										</div>
-										<div class="row control-group">
-											<div class="form-group col-xs-12 floating-label-form-group controls">
-												<label>Commentaire</label>
-												<textarea rows="5" class="form-control" placeholder="Message" id="message" required="" data-validation-required-message="Please enter a message." data-dashlane-rid="1745ba34006beafb" data-form-type="other"></textarea>
-												<p class="help-block text-danger"></p>
-											</div>
-										</div>
-										<br>
-										<div id="success"></div>
-										<div class="row">
-											<div class="form-group col-xs-12">
-												<button type="submit" class="btn btn-success btn-lg"
-														data-dashlane-rid="55f933ab7c0de50e" data-dashlane-label="true"
-														data-form-type="action">Envoyer
-												</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							<br><br>
-							<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa
-						fa-times"></i> Fermer la fenêtre</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-{% endfor %}
-{% endif %}
+                        <br><br>
+                        <div class="row">
+                            {% if loggedInUser is defined %}
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                                <form name="sentComment" id="contactForm" novalidate=""
+                                      data-dashlane-rid="a7a48980b577b880" data-form-type="contact" method="POST"
+                                      action="{{ _SERVER['BASE_URI'] }}index.php?action=user-register">
+                                    <div class="row control-group">
+                                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                                            <label>Titre</label>
+                                            <input type="text" class="form-control" placeholder="Title" id="Title"
+                                                   required="" data-validation-required-message="Veuillez entrer un
+                                                   titre"
+                                                   data-dashlane-rid="0840ea6118458db9"
+                                                   data-kwimpalastatus="alive" data-kwimpalaid="1678747375732-0"
+                                                   aria-invalid="false" data-form-type="title">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Commentaire</label>
+                                        <textarea rows="5" class="form-control" placeholder="Commentaire"
+                                                  id="Commentaire"
+                                                  required
+                                                  data-validation-required-message="Veuillez rédiger votre
+                                                      commentaire."
+                                                  data-dashlane-rid="1745ba34006beafb"
+                                                  data-form-type="other"></textarea>
+                                        <p class="help-block text-danger"></p>
+                                        <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ CSRFToken
+                                        }}" >
+                                    </div>
+                                    </div>
+
+                                    <br>
+                                    <div id="success"></div>
+                                    <div class="row">
+                                        <div class="form-group col-xs-12">
+                                            <button type="submit" class="btn btn-success btn-lg"
+                                                    data-dashlane-rid="55f933ab7c0de50e" data-dashlane-label="true"
+                                                    data-form-type="action">Envoyer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
+                        <br>
+                                <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=sign-in">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-success btn-lg"
+                                            data-dashlane-rid="55f933ab7c0de50e" data-dashlane-label="true"
+                                            data-form-type="action">Se connecter
+                                    </button>
+                                </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <br><br>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa
+						fa-times"></i> Fermer la fenêtre
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

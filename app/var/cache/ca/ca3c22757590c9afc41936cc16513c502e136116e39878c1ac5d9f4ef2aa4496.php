@@ -12,8 +12,8 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* login-admin-base.html.twig */
-class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf81783977614 extends Template
+/* /base.html.twig */
+class __TwigTemplate_fa9c2cde0785c28ba33bab13c843ead59603235e1e675bb26ba45bc242845aa4 extends Template
 {
     private $source;
     private $macros = [];
@@ -86,7 +86,7 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
 
 ";
         // line 38
-        $this->loadTemplate("main/login-admin-navbar.html.twig", "login-admin-base.html.twig", 38)->display($context);
+        $this->loadTemplate("navbar.html.twig", "/base.html.twig", 38)->display($context);
         // line 39
         echo "
 ";
@@ -96,18 +96,13 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
         echo "
 ";
         // line 42
-        $this->loadTemplate("main/footer.html.twig", "login-admin-base.html.twig", 42)->display($context);
+        $this->loadTemplate("footer.html.twig", "/base.html.twig", 42)->display($context);
         // line 43
         echo "
 ";
         // line 44
-        $this->loadTemplate("main/modals.html.twig", "login-admin-base.html.twig", 44)->display($context);
+        $this->loadTemplate("scripts.html.twig", "/base.html.twig", 44)->display($context);
         // line 45
-        echo "
-";
-        // line 46
-        $this->loadTemplate("main/scripts.html.twig", "login-admin-base.html.twig", 46)->display($context);
-        // line 47
         echo "
 </body>
 </html>
@@ -126,7 +121,7 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
 
     public function getTemplateName()
     {
-        return "login-admin-base.html.twig";
+        return "/base.html.twig";
     }
 
     public function isTraitable()
@@ -136,7 +131,7 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
 
     public function getDebugInfo()
     {
-        return array (  122 => 40,  111 => 47,  109 => 46,  106 => 45,  104 => 44,  101 => 43,  99 => 42,  96 => 41,  94 => 40,  91 => 39,  89 => 38,  70 => 22,  63 => 18,  56 => 14,  49 => 10,  38 => 1,);
+        return array (  117 => 40,  106 => 45,  104 => 44,  101 => 43,  99 => 42,  96 => 41,  94 => 40,  91 => 39,  89 => 38,  70 => 22,  63 => 18,  56 => 14,  49 => 10,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -178,15 +173,13 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
 
 <body id=\"page-top\" class=\"index\">
 
-{% include \"main/login-admin-navbar.html.twig\" %}
+{% include \"navbar.html.twig\" %}
 
 {% block body %}{% endblock %}
 
-{% include \"main/footer.html.twig\" %}
+{% include \"footer.html.twig\" %}
 
-{% include \"main/modals.html.twig\" %}
-
-{% include \"main/scripts.html.twig\" %}
+{% include \"scripts.html.twig\" %}
 
 </body>
 </html>
@@ -194,6 +187,6 @@ class __TwigTemplate_a392be19d9eb62e108abb6f12b5e934bc6a6fb25526d0187a0abf817839
 
 
 
-", "login-admin-base.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\login-admin-base.html.twig");
+", "/base.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\base.html.twig");
     }
 }

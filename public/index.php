@@ -2,6 +2,7 @@
 
 use App\Controllers\Admin\AdminUserController;
 use App\Controllers\Admin\AdminPostController;
+use App\Controllers\AuthController;
 use App\Controllers\HomePageController;
 use App\Controllers\PostController;
 use App\Controllers\UserController;
@@ -18,20 +19,20 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 	switch ($_GET['action'])
 	{
 		case 'sign-in':
-			$userSignIn = new AdminUserController();
-			$userSignIn->userLogin();
+            $authController = new AuthController();
+            $authController->userLogin();
 			break;
 		case 'user-register':
 			$newUser = new AdminUserController();
 			$newUser->newUserRegister();
 			break;
 		case 'logout':
-			$userLogout = new AdminUserController();
+			$userLogout = new AuthController();
 			$userLogout->userLogout();
 			break;
 		case 'landing-dashboard':
-			$landingDashboard = new AdminUserController();
-			$landingDashboard->displayLandingDashboardIfUserIsAlreadyLoggedInSession();
+			$landingDashboard = new AuthController();
+			$landingDashboard->displayLandingDashboard();
 			break;
 		case 'display-add-form-user':
 			$AddFormUser = new AdminUserController();
@@ -69,16 +70,12 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$userController = new UserController();
 			$userController->getSignUpPage();
 			break;
-		case 'user-sign-in':
-			$userController = new UserController();
-			$userController->userLogin();
-			break;
 		case 'single-blog':
 			$postPage = new PostController();
 			$postPage->displayPostPage();
 			break;
 		default:
-			header('Location:'.$_SERVER['BASE_URI']."src/templates/admin/404.html.twig");
+			header('Location:'.$_SERVER['BASE_URI']."app/templates/admin/404.html.twig");
 
 	}
 

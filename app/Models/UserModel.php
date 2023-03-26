@@ -9,6 +9,8 @@ use App\Services\UserExceptions;
 
 class UserModel extends CoreModel
 {
+    const ROLE_USER = 2;
+    const ROLE_ADMIN = 1;
     /**
      * @var string
      */
@@ -109,7 +111,7 @@ class UserModel extends CoreModel
 			':role_id' => $this->role_id
 		]);
 
-		if (!$status)
+		if (empty($status))
 		{
 			throw new Exception("Une erreur est intervenue durant la mise à jour de l'utilisateur");
 		}
@@ -287,7 +289,7 @@ class UserModel extends CoreModel
      * @param int $role_id
 	 * @return object
      */
-    public function setRoleId(int $role_id): object
+    public function setRoleId(int $role_id = self::ROLE_USER): object
     {
         $this->role_id = $role_id;
 

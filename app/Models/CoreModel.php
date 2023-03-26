@@ -86,11 +86,11 @@ abstract class CoreModel
     }
 
 	/**
-	 * @param string $updated_at
+	 *
 	 */
-	public function setUpdatedAt(string $updated_at): void
+	public function setUpdatedAt(): void
 	{
-		$this->updated_at = $updated_at;
+		$this->updated_at = self::getCurrentDateTime();
 	}
 
 }

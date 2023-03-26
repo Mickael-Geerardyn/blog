@@ -11,39 +11,38 @@ class UserController extends CoreController
 	public function getLoginPage()
 	{
 		try {
-			$adminUserController = new AdminUserController();
-			$adminUserController::displayLoginPage('sign-in', informations: ['referer' => $_GET["action"]]);
+			$this->twigEnvironment->display("/loginMain/sign-in.html.twig");
 		} catch(Exception $exception){
-			$adminUserController = new AdminUserController();
-			$adminUserController::displayLoginPage('sign-in', informations: ['error' => $exception->getMessage()]);
+			$this->twigEnvironment->display('/loginMain/sign-in.html.twig', ["error" => $exception->getMessage
+            ()]);
 		}
 	}
 
 	public function getSignUpPage()
 	{
 		try {
-			$adminUserController = new AdminUserController();
-			$adminUserController::displayLoginPage('sign-up', informations: ['referer' => $_GET["action"]]);
+            $this->twigEnvironment->display('/loginMain/sign-up.html.twig', ['referer' => $_GET["action"]]);
 		}catch (Exception $exception){
-			$adminUserController = new AdminUserController();
-			$adminUserController::displayLoginPage('sign-in', informations: ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
+                $exception->getMessage()]);
 		}
 	}
 
 	/**
 	 * @return bool
+     * @throws Exception
 	 */
 	public function userLogin(): bool
 	{
 		try {
 
-			UserService::userLogin();
+			UserService::logUser();
 
 			return true;
 		} catch(Exception $exception){
 
-			$adminUserController = new AdminUserController();
-			$adminUserController::displayLoginPage('sign-in', informations: ['error' => $exception->getMessage(), 'email' => $userEmail] );
+            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
+                $exception->getMessage(), 'userEmail' => filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)]);
 
 			return false;
 		}

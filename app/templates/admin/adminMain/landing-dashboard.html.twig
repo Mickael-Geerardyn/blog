@@ -1,3 +1,5 @@
+{% extends 'adminMain/admin-base.html.twig' %}
+
 {% block body %}
 	<section class="content blog-page">
 		<div class="block-header">
@@ -9,7 +11,8 @@
 				</div>
 				<div class="col-lg-5 col-md-6 col-sm-12">
 					<ul class="breadcrumb float-md-right">
-						<li class="breadcrumb-item"><a href="<?= $_SERVER['BASE_URI'] ?>"><i class="zmdi zmdi-home"></i> Compass</a></li>
+						<li class="breadcrumb-item"><a href="{{ _SERVER["BASE_URI"] }}?action=landing-dashboard"><i class="zmdi
+						zmdi-home"></i> Compass</a></li>
 						<li class="breadcrumb-item"><a href="blog-dashboard.html">Blog</a></li>
 						<li class="breadcrumb-item active">Dashboard</li>
 					</ul>
@@ -73,11 +76,12 @@
 						</div>
 						<div class="body">
 							<div class="p-15 xl-slategray">
-								<span class="m-r-20"><i class="zmdi zmdi-label col-green m-r-5"></i>Web Design</span></a>
-								<span class="m-r-20"><i class="zmdi zmdi-label col-red m-r-5"></i>Photography</span></a>
-								<span class="m-r-20"><i class="zmdi zmdi-label col-amber m-r-5"></i>Technology</span></a>
-								<span class="m-r-20"><i class="zmdi zmdi-label col-purple m-r-5"></i>Lifestyle</span></a>
-								<span><i class="zmdi zmdi-label col-lime m-r-5"></i>Sports</span></a>
+								<a><span class="m-r-20"><i class="zmdi zmdi-label col-green m-r-5"></i>Web
+									Design</span></a>
+								<span class="m-r-20"><i class="zmdi zmdi-label col-red m-r-5"></i>Photography</span>
+								<span class="m-r-20"><i class="zmdi zmdi-label col-amber m-r-5"></i>Technology</span>
+								<span class="m-r-20"><i class="zmdi zmdi-label col-purple m-r-5"></i>Lifestyle</span>
+								<span><i class="zmdi zmdi-label col-lime m-r-5"></i>Sports</span>
 							</div>
 							<div id="line_chart" class="graph"></div>
 						</div>
@@ -350,7 +354,7 @@
 							<ul class="inbox-widget list-unstyled clearfix">
 								<li class="inbox-inner"><a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"> <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar1.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"> <img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar1.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">John Doe</p>
 												<p class="inbox-message">Lorem Ipsum is simply dummy text of the been the industry's</p>
@@ -366,7 +370,7 @@
 								</li>
 								<li class="inbox-inner"> <a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"> <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar2.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"> <img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar2.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">Maryam Amiri</p>
 												<p class="inbox-message">Lorem Ipsum is simply dummyLorem Ipsum has been the industry's</p>
@@ -382,7 +386,7 @@
 								</li>
 								<li class="inbox-inner"> <a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"> <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar3.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"> <img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar3.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">Fidel Tonn</p>
 												<p class="inbox-message">text of the printing and  has been the industry's</p>
@@ -397,7 +401,7 @@
 									</a> </li>
 								<li class="inbox-inner"> <a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"> <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar4.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"> <img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar4.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">Gary Camara</p>
 												<p class="inbox-message">simply dummy text of the printing and typesetting industry's</p>
@@ -412,7 +416,7 @@
 									</a> </li>
 								<li class="inbox-inner"> <a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"><img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar5.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"><img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar5.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">Tim Hank</p>
 												<p class="inbox-message">text of the industry. Lorem Ipsum has been the industry's</p>
@@ -428,7 +432,7 @@
 								</li>
 								<li class="inbox-inner"> <a href="#">
 										<div class="inbox-item">
-											<div class="inbox-img"> <img src="<?= $_SERVER['BASE_URI'] ?>src/assets/images/sm/avatar6.jpg" class="rounded" alt=""> </div>
+											<div class="inbox-img"> <img src="{{ _SERVER["BASE_URI"] }}assets/images/sm/avatar6.jpg" class="rounded" alt=""> </div>
 											<div class="inbox-item-info">
 												<p class="author">Hossein Shams </p>
 												<p class="inbox-message">text of the printing and  has been the industry's</p>

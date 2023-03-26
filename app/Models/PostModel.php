@@ -30,9 +30,9 @@ class PostModel extends CoreModel
     private int $user_id;
 
 	/**
-	 * @var DateTime|null
+	 * @var string|null
 	 */
-    private DateTime|null $is_published;
+    private string|null $is_published;
 
 	/**
 	 * $statement->execute return false if it has a problem with post creation in database
@@ -186,18 +186,18 @@ class PostModel extends CoreModel
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getIsPublished(): DateTime
+    public function getIsPublished(): string
     {
         return $this->is_published;
     }
 
     /**
-     * @param DateTime $is_published
+     * @param string $is_published
 	 * @return object
      */
-    public function setIsPublished(DateTime $is_published): object
+    public function setIsPublished(string $is_published): object
     {
         $this->is_published = $is_published;
 

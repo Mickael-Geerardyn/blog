@@ -1,4 +1,6 @@
-﻿{% block body %}
+﻿{% extends 'adminMain/admin-base.html.twig' %}
+
+{% block body %}
 
 <section class="content contact">
     <div class="block-header">
@@ -95,7 +97,7 @@
                                 </tr>
                             </thead>
                                 <tbody>
-                                <?php foreach($objectData as $object): ?>
+                                {% for user in usersArrayObject %}
                                 <tr>
                                     <td>
                                         <div class="checkbox">
@@ -105,35 +107,39 @@
                                     </td>
 
                                     <td>
-                                        <img src="<?= $_SERVER['BASE_URI'] ?>src/static/img/photo.jpg" class="rounded-circle avatar" alt="">
-                                        <p class="c_name"><?= $object->getFirstname() . ' ' .$object->getLastname() ?><span class="badge badge-default m-l-10 hidden-sm-down">Family</span></p>
+                                        <img src="{{ _SERVER["BASE_URI"] }}assets/static/img/photo.jpg"
+                                             class="rounded-circle avatar" alt="">
+                                        <p class="c_name">{{ user.getFirstname()~" "~user.getLastname()}}<span class="badge badge-default m-l-10 hidden-sm-down">Family</span></p>
                                     </td>
                                     <td>
-                                        <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i><?= $object->getPhoneNumber() ?></span>
+                                        <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>{{ user
+                                            .getPhoneNumber() }}</span>
                                     </td>
                                     <td>
-                                        <span class="email"><a href="javascript:void(0);" title=""><i class="zmdi zmdi-email m-r-5"></i><?= $object->getEmail() ?></a></span>
+                                        <span class="email"><a href="javascript:void(0);" title=""><i class="zmdi
+                                        zmdi-email m-r-5"></i>{{ user.getEmail() }}</a></span>
                                     </td>
                                     <td>
-                                        <span><i class="zmdi zmdi-pin"></i><?= $object->getSocialLinkedin() ?></span>
+                                        <span><i class="zmdi zmdi-pin"></i>{{ user.getSocialLinkedin() }}</span>
                                     </td>
                                     <td>
-                                        <span><i class="zmdi zmdi-pin"></i><?= $object->getSocialTwitter() ?></span>
+                                        <span><i class="zmdi zmdi-pin"></i>{{ user.getSocialTwitter() }}</span>
                                     </td>
                                     <td>
-                                        <form action="<?= $_SERVER['BASE_URI'] ?>index.php?action=user-modifications-page" method="POST">
+                                        <form action="{{ _SERVER["BASE_URI"] }}index.php?action=user-modifications-page" method="POST">
                                         <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i class="zmdi zmdi-edit"></i></button>
-                                            <input type="hidden" name="email" id="email" value="<?= $object->getEmail() ?>">
-                                            <input type="hidden" name="CSRFToken" id="CSRFToken" value="<?= $_SESSION['CSRFToken'] ?>">
+                                            <input type="hidden" name="email" id="email" value="{{ user.getEmail() }}">
+                                            <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
                                         </form>
-                                        <form action="<?= $_SERVER['BASE_URI'] ?>index.php?action=user-delete" method="POST">
+                                        <form action="{{ _SERVER["BASE_URI"] }}index.php?action=user-delete" method="POST">
                                         <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i class="zmdi zmdi-delete"></i></button>
-                                            <input type="hidden" name="email" id="email" value="<?= $object->getEmail() ?>">
-                                            <input type="hidden" name="CSRFToken" id="CSRToken" value="<?= $_SESSION['CSRFToken'] ?>">
+                                            <input type="hidden" name="email" id="email" value="{{ user.getEmail() }}">
+                                            <input type="hidden" name="CSRFToken" id="CSRToken" value="{{
+                                            _SERVER["CSRFToken"] }}">
                                         </form>
                                     </td>
                                 </tr>
-                                <?php endforeach; ?>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -141,6 +147,7 @@
             </div>
         </div>
     </div>
+    <pre>{{ dump(_SESSION) }}</pre>
 </section>
 
 {% endblock %}
