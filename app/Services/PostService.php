@@ -41,10 +41,11 @@ class PostService
 		return $status;
 	}
 
-	/**
-	 * @return array
-	 * @throws Exception
-	 */
+    /**
+     * @param int $commentStatusPublished
+     * @return array
+     * @throws Exception
+     */
 	public static function getPostWithItsComments(int $commentStatusPublished = self::COMMENT_STATUS_PUBLISHED): array
 	{
 		$statement = PostModel::getDataBase()
@@ -68,18 +69,21 @@ class PostService
 
 	/**
 	 * Method who return all posts without condition
-	 * @return object
+	 * @return array
 	 */
-	public static function getAllValidatedPosts(): object
+	public static function getAllValidatedPosts(): array
 	{
 		$statement = PostModel::getDataBase()
-			->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
-			->query('SELECT id, title, heading, content, user_id, created_at, updated_at
+        ->prepare('SELECT id, title, heading, content, user_id, created_at, updated_at
 					 FROM post
-					 WHERE is_published IS NOT NULL')
-			->execute();
+					 WHERE is_published IS NOT NULL');
 
-		return $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
+        $statement->execute();
+
+        $result =  $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
+
+        var_dump($result); die;
+		return $result;
 	}
 
 	/**
@@ -158,17 +162,18 @@ class PostService
 
 	/**
 	 * Method who return all posts who need to be validated before displaying
-	 * @return object
+	 * @return array
 	 */
-	public static function getAllNotValidatedPosts(): object
+	public static function getAllNotValidatedPosts(): array
 	{
-		$statement = UserModel::getDataBase()
-			->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
-			->query('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
+		$statement = PostModel::getDataBase()
+			->prepare('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
 					   FROM post
-					   WHERE is_published IS NOT NULL')
-			->execute();
+					   WHERE is_published IS NULL');
+        $statement->execute();
 
-		return $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
+        $result = $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
+
+		return $result;
 	}
 }

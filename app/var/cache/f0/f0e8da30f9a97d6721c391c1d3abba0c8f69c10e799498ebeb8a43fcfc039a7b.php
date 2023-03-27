@@ -68,7 +68,30 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
-\t\t<div class=\"container-fluid\">
+\t\t";
+        // line 22
+        if ( !twig_test_empty(($context["error"] ?? null))) {
+            // line 23
+            echo "\t\t\t<div class=\"alert alert-danger\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-block\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Oh snap!</strong> ";
+            // line 28
+            echo twig_escape_filter($this->env, ($context["error"] ?? null), "html", null, true);
+            echo "
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">
+                                        <i class=\"zmdi zmdi-close\"></i>
+                                    </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t";
+        }
+        // line 37
+        echo "\t\t<div class=\"container-fluid\">
 \t\t\t<div class=\"row clearfix\">
 \t\t\t\t<div class=\"col-lg-12\">
 \t\t\t\t\t<div class=\"card\">
@@ -404,7 +427,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"><a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"> <img src=\"";
-        // line 357
+        // line 372
         echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar1.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -423,7 +446,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"> <a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"> <img src=\"";
-        // line 373
+        // line 388
         echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar2.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -442,7 +465,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"> <a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"> <img src=\"";
-        // line 389
+        // line 404
         echo twig_escape_filter($this->env, (($__internal_compile_3 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_3) || $__internal_compile_3 instanceof ArrayAccess ? ($__internal_compile_3["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar3.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -460,7 +483,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"> <a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"> <img src=\"";
-        // line 404
+        // line 419
         echo twig_escape_filter($this->env, (($__internal_compile_4 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar4.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -478,7 +501,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"> <a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"><img src=\"";
-        // line 419
+        // line 434
         echo twig_escape_filter($this->env, (($__internal_compile_5 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_5) || $__internal_compile_5 instanceof ArrayAccess ? ($__internal_compile_5["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar5.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -497,7 +520,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t\t\t\t\t<li class=\"inbox-inner\"> <a href=\"#\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-img\"> <img src=\"";
-        // line 435
+        // line 450
         echo twig_escape_filter($this->env, (($__internal_compile_6 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_6) || $__internal_compile_6 instanceof ArrayAccess ? ($__internal_compile_6["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/sm/avatar6.jpg\" class=\"rounded\" alt=\"\"> </div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"inbox-item-info\">
@@ -640,7 +663,7 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 
     public function getDebugInfo()
     {
-        return array (  501 => 435,  482 => 419,  464 => 404,  446 => 389,  427 => 373,  408 => 357,  62 => 14,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  524 => 450,  505 => 434,  487 => 419,  469 => 404,  450 => 388,  431 => 372,  94 => 37,  82 => 28,  75 => 23,  73 => 22,  62 => 14,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -666,6 +689,21 @@ class __TwigTemplate_3511f9f7395dae24a507764f97d511010b22dae800967eb4988b006fb9d
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>
+\t\t{% if error is not empty  %}
+\t\t\t<div class=\"alert alert-danger\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-block\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Oh snap!</strong> {{ error }}
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">
+                                        <i class=\"zmdi zmdi-close\"></i>
+                                    </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t{% endif %}
 \t\t<div class=\"container-fluid\">
 \t\t\t<div class=\"row clearfix\">
 \t\t\t\t<div class=\"col-lg-12\">

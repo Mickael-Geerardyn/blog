@@ -1,4 +1,4 @@
-﻿{% extends '/admin-base.html.twig' %}
+﻿{% extends 'adminMain/admin-base.html.twig' %}
 
 {% block body %}
 <section class="content blog-page">
@@ -20,13 +20,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-md-12 left-box">
-                <?php if(!empty($objectData)): ?>
-                <?php foreach($objectData as $object): ?>
+                {% if postsArray is not empty %}
+                {% for post in postsArray %}
                 <div class="card single_post">
                     <div class="body">
-                        <h3 class="m-t-0 m-b-5"><?= $object['title'] ?></h3>
+                        <h3 class="m-t-0 m-b-5">{{ post.getTitle() }}</h3>
                         <ul class="meta">
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: <?= $object['firstname']." ".$object['lastname'] ?></a></li>
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{ post.getFirstname()
+                                    ~" "~ post.getLastname() }}</a></li>
                             <li><a href="#"><i class="zmdi zmdi-label col-amber"></i>Technology</a></li>
                             <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: 3</a></li>
                         </ul>
@@ -38,16 +39,16 @@
                                 <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
                             </div>
                         </div>
-                        <p><?= $object['heading'] ?></p>
+                        <p>{{ post.getHeading }}</p>
                         <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post">
                         <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Read More</button>
-                            <input type="hidden" name="post-title" value="<?= $object['title'] ?>">
+                            <input type="hidden" name="post-title" value="{{ post.getTitle() }}">
                         </form>
                     </div>
 
                 </div>
-    <?php endforeach; ?>
-<?php endif; ?>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -137,15 +137,15 @@ class UserService
 	 */
 	public static function checkIfUserEmailAlreadyExist(string $email): bool
 	{
-		$statement = UserModel::getDataBase()->prepare("SELECT id, firstname, lastname, email, phone_number, social_linkedin, social_twitter, role_id, created_at, updated_at
+		$statement = UserModel::getDataBase()->prepare("SELECT email
 					 FROM user
 					 WHERE EXISTS (SELECT email FROM user WHERE user.email = :email)");
 
 		$statement->execute([':email' => $email]);
 
-		$userModel = $statement->fetch();
+		$userModel = $statement->fetchObject(UserModel::class);
 
-		if (!empty($userModel->getEmail())){
+		if (!empty($userModel)){
 			unset($userModel);
 			throw new Exception("L'adresse courriel: ${email} est déjà utilisée");
 		}

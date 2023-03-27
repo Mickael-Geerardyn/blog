@@ -198,7 +198,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                 <form class=\"form\" method=\"POST\" action=\"";
             // line 108
             echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
-            echo "index.php?action=sign-in\">
+            echo "index.php?action=login-page\">
                                 <div class=\"form-group col-xs-12\">
                                     <button type=\"submit\" class=\"btn btn-success btn-lg\"
                                             data-dashlane-rid=\"55f933ab7c0de50e\" data-dashlane-label=\"true\"
@@ -349,7 +349,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                             {% else %}
                                 <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
                         <br>
-                                <form class=\"form\" method=\"POST\" action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=sign-in\">
+                                <form class=\"form\" method=\"POST\" action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=login-page\">
                                 <div class=\"form-group col-xs-12\">
                                     <button type=\"submit\" class=\"btn btn-success btn-lg\"
                                             data-dashlane-rid=\"55f933ab7c0de50e\" data-dashlane-label=\"true\"

@@ -19,10 +19,10 @@ class AdminUserController extends AdminCoreController
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function newUserRegister(): bool
+	public function registeredNewUser(): bool
 	{
 		try {
-			UserService::checkCSRFTokenSubmittedCorrespondWithSession();
+			AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
 
 			$email = filter_input(INPUT_POST, 'email' ,FILTER_VALIDATE_EMAIL);
 
@@ -46,10 +46,10 @@ class AdminUserController extends AdminCoreController
 
 			$lastRegisteredUserId = $userModel->createUser();
 
-			UserService::unsetDataInGlobalPost();
+			AuthService::unsetDataInGlobalPost();
 
             $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["userObject" => UserService::getOneUserById($lastRegisteredUserId)]);
+                ["userObject" => UserService::getOneUserById($lastRegisteredUserId), "success" => "L'utilisateur a bien été enregistré"]);
 
 			return true;
 
@@ -62,6 +62,55 @@ class AdminUserController extends AdminCoreController
 		}
 	}
 
+    /**
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function updatedUser (): bool
+    {
+        try {
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+
+            $lastEmail = filter_input(INPUT_POST, "lastEmail", FILTER_VALIDATE_EMAIL);
+            $email = filter_input(INPUT_POST, 'email' ,FILTER_VALIDATE_EMAIL);
+
+            if ($email != $lastEmail) {
+                UserService::checkIfUserEmailAlreadyExist($email);
+            }
+
+            $firstname = htmlspecialchars($_POST['firstname']);
+            $lastname = htmlspecialchars($_POST['lastname']);
+            $phone_number = htmlspecialchars($_POST['phone_number']);
+            $linkedin = htmlspecialchars($_POST['linkedin']);
+            $twitter = htmlspecialchars($_POST['twitter']);
+            $role_title = htmlspecialchars($_POST['role_title']);
+
+            $newAdminRole = new AdminRoleController();
+
+            $selectedRole = $newAdminRole->getOneRoleByTitle($role_title);
+
+            $userModel = new UserModel();
+
+            $userModel->setFirstname($firstname)->setLastname($lastname)->setEmail($email)->setPhoneNumber($phone_number)->setSocialLinkedin($linkedin)->setSocialTwitter($twitter)->setRoleId($selectedRole->getId());
+
+            AuthService::unsetDataInGlobalPost();
+
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
+                ["userObject" => UserService::getOneUserByEmail($userModel->getEmail()), "success" => "L'utilisateur ${email} à été mis à jour"]);
+
+        return true;
+
+        } catch (Exception $exception) {
+
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
+                ["error" => $exception->getMessage()]);
+
+            return false;
+        }
+    }
+
 	/**
 	 * @return bool
 	 */
@@ -70,7 +119,7 @@ class AdminUserController extends AdminCoreController
 		try {
 			$userEmail = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-			if(!UserService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkUserAuthenticationByEmail($userEmail)){
+			if(!AuthService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkUserAuthenticationByEmail($userEmail)){
 				self::displayUsersPage();
 			}
 
@@ -97,8 +146,7 @@ class AdminUserController extends AdminCoreController
 			{
 				$this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 			}
-
-            $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["usersArrayObject" => UserService::getAllUsers()]);
+            $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["usersArrayObject" => UserService::getAllUsers(), "CSRFToken" => $_SESSION["CSRFToken"]]);
 		} catch (Exception $exception){
 			echo $exception->getMessage();
 			return false;
@@ -128,7 +176,7 @@ class AdminUserController extends AdminCoreController
 	public function displayAddFormUser(): bool
 	{
 		try {
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ["CSRFToken" => $_SESSION["CSRFToken"]]);
 			return true;
 
 		} catch (UserExceptions $userExceptions)
@@ -151,15 +199,19 @@ class AdminUserController extends AdminCoreController
 			{
 				self::displayUsersPage();
 			}
+
 			$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 			$updatedUser = UserService::getOneUserByEmail($email);
 
             $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["updatedUser" => $updatedUser]);
+                ["userObject" => $updatedUser, "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN, "ROLE_USER" => UserModel::ROLE_USER]);
 
 			return true;
 		} catch (Exception $exception){
-			echo $exception->getMessage();
+
+            $this->twigEnvironment->display('/adminMain/users-page.html.twig',
+                ["error" => $exception->getMessage()]);
+
 			return false;
 		}
 	}

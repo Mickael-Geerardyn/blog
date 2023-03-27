@@ -19,6 +19,21 @@
             </div>
         </div>
     </div>
+    {% if error is not empty  %}
+        <div class="alert alert-danger" role="alert">
+            <div class="container">
+                <div class="alert-icon">
+                    <i class="zmdi zmdi-block"></i>
+                </div>
+                <strong>Oh snap!</strong> {{ error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        <i class="zmdi zmdi-close"></i>
+                                    </span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12">
@@ -129,13 +144,12 @@
                                         <form action="{{ _SERVER["BASE_URI"] }}index.php?action=user-modifications-page" method="POST">
                                         <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i class="zmdi zmdi-edit"></i></button>
                                             <input type="hidden" name="email" id="email" value="{{ user.getEmail() }}">
-                                            <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
+                                            <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ CSRFToken }}">
                                         </form>
                                         <form action="{{ _SERVER["BASE_URI"] }}index.php?action=user-delete" method="POST">
                                         <button class="btn btn-default btn-icon btn-simple btn-icon-mini btn-round"><i class="zmdi zmdi-delete"></i></button>
                                             <input type="hidden" name="email" id="email" value="{{ user.getEmail() }}">
-                                            <input type="hidden" name="CSRFToken" id="CSRToken" value="{{
-                                            _SERVER["CSRFToken"] }}">
+                                            <input type="hidden" name="CSRFToken" id="CSRToken" value="{{ CSRFToken }}">
                                         </form>
                                     </td>
                                 </tr>
@@ -147,7 +161,6 @@
             </div>
         </div>
     </div>
-    <pre>{{ dump(_SESSION) }}</pre>
 </section>
 
 {% endblock %}

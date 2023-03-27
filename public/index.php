@@ -24,8 +24,12 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			break;
 		case 'user-register':
 			$newUser = new AdminUserController();
-			$newUser->newUserRegister();
+			$newUser->registeredNewUser();
 			break;
+        case 'update-user':
+            $newUser = new AdminUserController();
+            $newUser->updatedUser();
+            break;
 		case 'logout':
 			$userLogout = new AuthController();
 			$userLogout->userLogout();

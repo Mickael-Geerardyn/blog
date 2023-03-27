@@ -65,7 +65,30 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
             </div>
         </div>
     </div>
-    <div class=\"container-fluid\">
+    ";
+        // line 22
+        if ( !twig_test_empty(($context["error"] ?? null))) {
+            // line 23
+            echo "        <div class=\"alert alert-danger\" role=\"alert\">
+            <div class=\"container\">
+                <div class=\"alert-icon\">
+                    <i class=\"zmdi zmdi-block\"></i>
+                </div>
+                <strong>Oh snap!</strong> ";
+            // line 28
+            echo twig_escape_filter($this->env, ($context["error"] ?? null), "html", null, true);
+            echo "
+                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">
+                                        <i class=\"zmdi zmdi-close\"></i>
+                                    </span>
+                </button>
+            </div>
+        </div>
+    ";
+        }
+        // line 37
+        echo "    <div class=\"container-fluid\">
         <div class=\"row clearfix\">
             <div class=\"col-lg-12\">
                 <div class=\"card action_bar\">
@@ -144,11 +167,11 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
                             </thead>
                                 <tbody>
                                 ";
-        // line 100
+        // line 115
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["usersArrayObject"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
-            // line 101
+            // line 116
             echo "                                <tr>
                                     <td>
                                         <div class=\"checkbox\">
@@ -159,69 +182,68 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
 
                                     <td>
                                         <img src=\"";
-            // line 110
+            // line 125
             echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
             echo "assets/static/img/photo.jpg\"
                                              class=\"rounded-circle avatar\" alt=\"\">
                                         <p class=\"c_name\">";
-            // line 112
-            echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, $context["user"], "getFirstname", [], "method", false, false, false, 112) . " ") . twig_get_attribute($this->env, $this->source, $context["user"], "getLastname", [], "method", false, false, false, 112)), "html", null, true);
+            // line 127
+            echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, $context["user"], "getFirstname", [], "method", false, false, false, 127) . " ") . twig_get_attribute($this->env, $this->source, $context["user"], "getLastname", [], "method", false, false, false, 127)), "html", null, true);
             echo "<span class=\"badge badge-default m-l-10 hidden-sm-down\">Family</span></p>
                                     </td>
                                     <td>
                                         <span class=\"phone\"><i class=\"zmdi zmdi-phone m-r-10\"></i>";
-            // line 115
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getPhoneNumber", [], "method", false, false, false, 115), "html", null, true);
-            // line 116
+            // line 130
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getPhoneNumber", [], "method", false, false, false, 130), "html", null, true);
+            // line 131
             echo "</span>
                                     </td>
                                     <td>
                                         <span class=\"email\"><a href=\"javascript:void(0);\" title=\"\"><i class=\"zmdi
                                         zmdi-email m-r-5\"></i>";
-            // line 120
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 120), "html", null, true);
+            // line 135
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 135), "html", null, true);
             echo "</a></span>
                                     </td>
                                     <td>
                                         <span><i class=\"zmdi zmdi-pin\"></i>";
-            // line 123
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getSocialLinkedin", [], "method", false, false, false, 123), "html", null, true);
+            // line 138
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getSocialLinkedin", [], "method", false, false, false, 138), "html", null, true);
             echo "</span>
                                     </td>
                                     <td>
                                         <span><i class=\"zmdi zmdi-pin\"></i>";
-            // line 126
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getSocialTwitter", [], "method", false, false, false, 126), "html", null, true);
+            // line 141
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getSocialTwitter", [], "method", false, false, false, 141), "html", null, true);
             echo "</span>
                                     </td>
                                     <td>
                                         <form action=\"";
-            // line 129
+            // line 144
             echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=user-modifications-page\" method=\"POST\">
                                         <button class=\"btn btn-default btn-icon btn-simple btn-icon-mini btn-round\"><i class=\"zmdi zmdi-edit\"></i></button>
                                             <input type=\"hidden\" name=\"email\" id=\"email\" value=\"";
-            // line 131
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 131), "html", null, true);
+            // line 146
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 146), "html", null, true);
             echo "\">
                                             <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"";
-            // line 132
-            echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SESSION"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["CSRFToken"] ?? null) : null), "html", null, true);
+            // line 147
+            echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
             echo "\">
                                         </form>
                                         <form action=\"";
-            // line 134
-            echo twig_escape_filter($this->env, (($__internal_compile_3 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_3) || $__internal_compile_3 instanceof ArrayAccess ? ($__internal_compile_3["BASE_URI"] ?? null) : null), "html", null, true);
+            // line 149
+            echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=user-delete\" method=\"POST\">
                                         <button class=\"btn btn-default btn-icon btn-simple btn-icon-mini btn-round\"><i class=\"zmdi zmdi-delete\"></i></button>
                                             <input type=\"hidden\" name=\"email\" id=\"email\" value=\"";
-            // line 136
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 136), "html", null, true);
+            // line 151
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["user"], "getEmail", [], "method", false, false, false, 151), "html", null, true);
             echo "\">
                                             <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRToken\" value=\"";
-            // line 137
-            echo twig_escape_filter($this->env, (($__internal_compile_4 =             // line 138
-($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["CSRFToken"] ?? null) : null), "html", null, true);
+            // line 152
+            echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
             echo "\">
                                         </form>
                                     </td>
@@ -231,7 +253,7 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 143
+        // line 157
         echo "                            </tbody>
                         </table>
                     </div>
@@ -239,10 +261,6 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
             </div>
         </div>
     </div>
-    <pre>";
-        // line 150
-        echo twig_var_dump($this->env, $context, ...[0 => ($context["_SESSION"] ?? null)]);
-        echo "</pre>
 </section>
 
 ";
@@ -260,7 +278,7 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
 
     public function getDebugInfo()
     {
-        return array (  244 => 150,  235 => 143,  224 => 138,  223 => 137,  219 => 136,  214 => 134,  209 => 132,  205 => 131,  200 => 129,  194 => 126,  188 => 123,  182 => 120,  176 => 116,  174 => 115,  168 => 112,  163 => 110,  152 => 101,  148 => 100,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  257 => 157,  246 => 152,  242 => 151,  237 => 149,  232 => 147,  228 => 146,  223 => 144,  217 => 141,  211 => 138,  205 => 135,  199 => 131,  197 => 130,  191 => 127,  186 => 125,  175 => 116,  171 => 115,  91 => 37,  79 => 28,  72 => 23,  70 => 22,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -286,6 +304,21 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
             </div>
         </div>
     </div>
+    {% if error is not empty  %}
+        <div class=\"alert alert-danger\" role=\"alert\">
+            <div class=\"container\">
+                <div class=\"alert-icon\">
+                    <i class=\"zmdi zmdi-block\"></i>
+                </div>
+                <strong>Oh snap!</strong> {{ error }}
+                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                    <span aria-hidden=\"true\">
+                                        <i class=\"zmdi zmdi-close\"></i>
+                                    </span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
     <div class=\"container-fluid\">
         <div class=\"row clearfix\">
             <div class=\"col-lg-12\">
@@ -396,13 +429,12 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
                                         <form action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=user-modifications-page\" method=\"POST\">
                                         <button class=\"btn btn-default btn-icon btn-simple btn-icon-mini btn-round\"><i class=\"zmdi zmdi-edit\"></i></button>
                                             <input type=\"hidden\" name=\"email\" id=\"email\" value=\"{{ user.getEmail() }}\">
-                                            <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"{{ _SESSION[\"CSRFToken\"] }}\">
+                                            <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"{{ CSRFToken }}\">
                                         </form>
                                         <form action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=user-delete\" method=\"POST\">
                                         <button class=\"btn btn-default btn-icon btn-simple btn-icon-mini btn-round\"><i class=\"zmdi zmdi-delete\"></i></button>
                                             <input type=\"hidden\" name=\"email\" id=\"email\" value=\"{{ user.getEmail() }}\">
-                                            <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRToken\" value=\"{{
-                                            _SERVER[\"CSRFToken\"] }}\">
+                                            <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRToken\" value=\"{{ CSRFToken }}\">
                                         </form>
                                     </td>
                                 </tr>
@@ -414,7 +446,6 @@ class __TwigTemplate_a689dbe73a8039701251c042d1700e97a8fa33c645ed27da2198abf6e70
             </div>
         </div>
     </div>
-    <pre>{{ dump(_SESSION) }}</pre>
 </section>
 
 {% endblock %}", "/adminMain/users-page.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\admin\\adminMain\\users-page.html.twig");

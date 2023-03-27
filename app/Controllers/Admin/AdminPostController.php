@@ -24,9 +24,11 @@ class AdminPostController extends AdminCoreController
 	public function displayPostsPage(): void
 	{
 		try{
-			self::displayCalledPage('blog-list', PostService::getAllPosts());
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['postsArray' => PostService::getAllNotValidatedPosts()]);
+
 		}catch (Exception $exception){
-			self::displayCalledPage('landing-dashboard', informations: ['error' => $exception->getMessage()]);
+
+            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['error' => $exception->getMessage()]);
 		}
 
 	}
@@ -71,10 +73,11 @@ class AdminPostController extends AdminCoreController
 	{
 		try{
 			$postTitle = htmlspecialchars($_POST['post-title']);
-			self::displayCalledPage('blog-details', PostService::getOnePostByTitle($postTitle));
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getOnePostByTitle($postTitle)]);
 			return true;
 		}catch (Exception $exception){
-			self::displayCalledPage('blog-details', informations: ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['error' => $exception->getMessage()]);
+
 			return false;
 		}
 
