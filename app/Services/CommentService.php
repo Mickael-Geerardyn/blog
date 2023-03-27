@@ -19,7 +19,7 @@ class CommentService
     {
             $statement = CommentModel::getDataBase()->prepare("SELECT * FROM comment WHERE (comment.status = :pendingStatus) ORDER BY comment.created_at DESC");
             $statement->execute([":pendingStatus" => CommentModel::STATUS_PENDING]);
-            $status = $statement->fetchAll();
+            $status = $statement->fetchAll(PDO::FETCH_CLASS, CommentModel::class);
 
             if(empty($status)){
                 throw new Exception("Erreur lors de la recherche de l'ensemble des commentaires");

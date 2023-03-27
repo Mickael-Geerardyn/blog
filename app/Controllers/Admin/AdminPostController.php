@@ -20,6 +20,7 @@ class AdminPostController extends AdminCoreController
 
 	/**
 	 * @return void
+     * @throws Exception
 	 */
 	public function displayPostsPage(): void
 	{
@@ -34,40 +35,9 @@ class AdminPostController extends AdminCoreController
 	}
 
 	/**
+     *
 	 * @return bool
-	 */
-	public function displayAllValidatedPosts(): bool
-	{
-		try {
-			$this->displayCalledPage('blog-grid', PostService::getAllPosts());
-			return true;
-		} catch (Exception $exception){
-			echo $exception->getMessage();
-			return false;
-		}
-
-	}
-
-	/**
-	 * @return void
-	 */
-	public function displayAllNotValidatedPosts(): void
-	{
-		$this->displayCalledPage('blog-grid', PostService::getAllNotValidatedPosts());
-	}
-
-	/**
-	 * @param int $userId
-	 * @return void
-	 */
-	public function displayAllUserPostsPage(int $userId): void
-	{
-		$this->displayCalledPage('blog-grid', PostService::getAllPostsOfTheCurrentUser($userId));
-	}
-
-	/**
-	 *
-	 * @return bool
+     * @throws Exception
 	 */
 	public function displayOnePostByTitle(): bool
 	{

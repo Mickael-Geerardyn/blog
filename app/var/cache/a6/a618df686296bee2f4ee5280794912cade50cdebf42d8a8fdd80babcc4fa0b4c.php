@@ -122,8 +122,31 @@ class __TwigTemplate_c2960a48322d5461e49531d9c0b75fb58dc46a4b7ce3872db262e28b893
         // line 58
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getContent", [], "method", false, false, false, 58), "html", null, true);
         echo "</p>
-
                     </div>
+                    <form id=\"form_validation\" method=\"POST\" action=\"";
+        // line 60
+        echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
+        echo "index
+                    .php?action=validated-post\" novalidate=\"novalidate\">
+                        <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round
+                        btn-success\">Valider</button>
+                        <input type=\"hidden\" name=\"post-title\" value=\"";
+        // line 64
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 64), "html", null, true);
+        echo "\">
+                    </form>
+                    <form id=\"form_validation\" method=\"POST\" action=\"";
+        // line 66
+        echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+        echo "index
+                    .php?action=rejected-post\" novalidate=\"novalidate\">
+                        <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round
+                        btn-danger\">Rejeter</button>
+                        <input type=\"hidden\" name=\"post-title\" value=\"";
+        // line 70
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 70), "html", null, true);
+        echo "\">
+                    </form>
                 </div>
             </div>
         </div>
@@ -144,7 +167,7 @@ class __TwigTemplate_c2960a48322d5461e49531d9c0b75fb58dc46a4b7ce3872db262e28b893
 
     public function getDebugInfo()
     {
-        return array (  123 => 58,  119 => 57,  102 => 43,  97 => 41,  90 => 36,  78 => 27,  71 => 22,  69 => 21,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  147 => 70,  140 => 66,  135 => 64,  128 => 60,  123 => 58,  119 => 57,  102 => 43,  97 => 41,  90 => 36,  78 => 27,  71 => 22,  69 => 21,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -207,8 +230,19 @@ class __TwigTemplate_c2960a48322d5461e49531d9c0b75fb58dc46a4b7ce3872db262e28b893
                         </div>
                         <p>{{ postObject.getHeading() }}</p>
                         <p>{{ postObject.getContent() }}</p>
-
                     </div>
+                    <form id=\"form_validation\" method=\"POST\" action=\"{{ _SERVER[\"BASE_URI\"] }}index
+                    .php?action=validated-post\" novalidate=\"novalidate\">
+                        <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round
+                        btn-success\">Valider</button>
+                        <input type=\"hidden\" name=\"post-title\" value=\"{{ postObject.getTitle() }}\">
+                    </form>
+                    <form id=\"form_validation\" method=\"POST\" action=\"{{ _SERVER[\"BASE_URI\"] }}index
+                    .php?action=rejected-post\" novalidate=\"novalidate\">
+                        <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round
+                        btn-danger\">Rejeter</button>
+                        <input type=\"hidden\" name=\"post-title\" value=\"{{ postObject.getTitle() }}\">
+                    </form>
                 </div>
             </div>
         </div>

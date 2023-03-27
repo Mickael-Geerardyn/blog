@@ -49,6 +49,35 @@
                 </div>
                 {% endfor %}
                 {% endif %}
+                {% if pendingComments is not empty and pendingComments is iterable %}
+                {% for comment in pendingComments %}
+                <div class="card single_post">
+                    <div class="body">
+                        <h3 class="m-t-0 m-b-5">{{ comment.getTitle() }}</h3>
+                        {% if comment.author is defined %}
+                        <ul class="meta">
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{
+                                    comment.author.getFirstname()
+                                    ~" "~ comment.author.getLastname() }}</a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="body">
+                        <div class="img-post m-b-15">
+                            <img src="../../assets/images/blog/blog-page-2.jpg" alt="Awesome Image">
+                            <div class="social_share">
+                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
+                            </div>
+                        </div>
+                        <p>{{ comment.getContent() }}</p>
+                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post">
+                            <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Read More</button>
+                            <input type="hidden" name="post-title" value="{{ comment.getTitle() }}">
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -47,8 +47,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
     {
         $macros = $this->macros;
         // line 4
-        echo "
-    <!-- Portfolio Grid Section -->
+        echo "    <!-- Portfolio Grid Section -->
     <section id=\"portfolio\">
         <div class=\"container\">
             <div class=\"row\">
@@ -58,20 +57,20 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                 </div>
             </div>
             ";
-        // line 14
+        // line 13
         if ( !twig_test_empty(($context["latestPosts"] ?? null))) {
-            // line 15
+            // line 14
             echo "            <div class=\"row\">
                 ";
-            // line 16
+            // line 15
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
             foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
-                // line 17
+                // line 16
                 echo "                <div class=\"col-sm-4 portfolio-item\">
                     <a href=\"#portfolioModal";
-                // line 18
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getId", [], "method", false, false, false, 18), "html", null, true);
+                // line 17
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getId", [], "method", false, false, false, 17), "html", null, true);
                 echo "\"
                        class=\"portfolio-link\"
                        data-toggle=\"modal\">
@@ -81,7 +80,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             </div>
                         </div>
                         <img src=\"";
-                // line 26
+                // line 25
                 echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
                 echo "assets/img/portfolio/cabin.png\"
                              class=\"img-responsive\" alt=\"\">
@@ -92,16 +91,16 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 31
+            // line 30
             echo "            </div>
             ";
         }
-        // line 33
+        // line 32
         echo "        </div>
     </section>
 
     ";
-        // line 36
+        // line 35
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
         $context['loop'] = [
@@ -118,10 +117,10 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
-            // line 37
+            // line 36
             echo "        ";
-            $this->loadTemplate("modals/modals.html.twig", "/landing-blog.html.twig", 37)->display($context);
-            // line 38
+            $this->loadTemplate("modals/modals.html.twig", "/landing-blog.html.twig", 36)->display($context);
+            // line 37
             echo "    ";
             ++$context['loop']['index0'];
             ++$context['loop']['index'];
@@ -135,7 +134,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 39
+        // line 38
         echo "    <!-- About Section -->
     <section class=\"success\" id=\"about\">
         <div class=\"container\">
@@ -244,7 +243,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getDebugInfo()
     {
-        return array (  139 => 39,  125 => 38,  122 => 37,  105 => 36,  100 => 33,  96 => 31,  85 => 26,  74 => 18,  71 => 17,  67 => 16,  64 => 15,  62 => 14,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  138 => 38,  124 => 37,  121 => 36,  104 => 35,  99 => 32,  95 => 30,  84 => 25,  73 => 17,  70 => 16,  66 => 15,  63 => 14,  61 => 13,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -252,7 +251,6 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         return new Source("{% extends '/base.html.twig' %}
 
 {% block body %}
-
     <!-- Portfolio Grid Section -->
     <section id=\"portfolio\">
         <div class=\"container\">

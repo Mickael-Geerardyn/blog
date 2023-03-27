@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Services\CommentService;
+use App\Services\UserService;
 use Exception;
 
 class AdminCommentController extends AdminCoreController
@@ -14,11 +15,17 @@ class AdminCommentController extends AdminCoreController
     public function displayPendingCommentsPage(): bool
     {
         try {
-            $this->twigEnvironment->display('/adminMain/admin-comment.html.twig', ['pendingComments' =>
-                CommentService::getPendingComments()]);
+            $pendingComments = CommentService::getPendingComments();
+
+            foreach($pendingComments as $comment) {
+                $comment->author = UserService::getCommentAuthorById($comment->getUserId());
+            }
+
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
+                $pendingComments]);
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/admin-comment.html.twig', ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
             return false;
         }
     }

@@ -109,7 +109,30 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
         // line 44
         echo "\t\t\t</ul>
 \t\t</div>
-\t\t<!-- /.navbar-collapse -->
+\t\t";
+        // line 46
+        if ( !twig_test_empty(($context["success"] ?? null))) {
+            // line 47
+            echo "\t\t\t<div class=\"alert alert-success\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-thumb-up\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Well done!</strong> ";
+            // line 52
+            echo twig_escape_filter($this->env, ($context["success"] ?? null), "html", null, true);
+            echo "
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+            <span aria-hidden=\"true\">
+            <i class=\"zmdi zmdi-close\"></i>
+        </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t";
+        }
+        // line 61
+        echo "\t\t<!-- /.navbar-collapse -->
 \t</div>
 \t<!-- /.container-fluid -->
 </nav>
@@ -120,22 +143,22 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t<div class=\"row\">
 \t\t\t<div class=\"col-lg-12\">
 \t\t\t\t<img class=\"img-responsive\" src=\"";
-        // line 56
+        // line 71
         echo twig_escape_filter($this->env, (($__internal_compile_4 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/img/profile.png\" alt=\"\">
 \t\t\t\t<div class=\"intro-text\">
 \t\t\t\t\t<span class=\"name\">";
-        // line 58
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 58), "html", null, true);
+        // line 73
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 73), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source,         // line 59
-($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 59), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source,         // line 74
+($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 74), "html", null, true);
         echo "</span>
 \t\t\t\t\t<hr class=\"star-light\">
 \t\t\t\t\t<span class=\"skills\">Développeur web back-end PHP/SYMFONY</span>
 \t\t\t\t\t";
-        // line 62
-        echo ($context["error"] ?? null);
+        // line 77
+        echo ((array_key_exists("error", $context)) ? (($context["error"] ?? null)) : (""));
         echo "
 \t\t\t\t</div>
 \t\t\t</div>
@@ -159,7 +182,7 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 
     public function getDebugInfo()
     {
-        return array (  138 => 62,  132 => 59,  129 => 58,  124 => 56,  110 => 44,  104 => 41,  101 => 40,  99 => 39,  94 => 37,  88 => 34,  85 => 33,  83 => 32,  81 => 31,  75 => 28,  72 => 27,  70 => 26,  56 => 15,  47 => 9,  37 => 1,);
+        return array (  161 => 77,  155 => 74,  152 => 73,  147 => 71,  135 => 61,  123 => 52,  116 => 47,  114 => 46,  110 => 44,  104 => 41,  101 => 40,  99 => 39,  94 => 37,  88 => 34,  85 => 33,  83 => 32,  81 => 31,  75 => 28,  72 => 27,  70 => 26,  56 => 15,  47 => 9,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -209,6 +232,21 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t\t\t{% endif %}
 \t\t\t</ul>
 \t\t</div>
+\t\t{% if success is not empty %}
+\t\t\t<div class=\"alert alert-success\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-thumb-up\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Well done!</strong> {{ success }}
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+            <span aria-hidden=\"true\">
+            <i class=\"zmdi zmdi-close\"></i>
+        </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t{% endif %}
 \t\t<!-- /.navbar-collapse -->
 \t</div>
 \t<!-- /.container-fluid -->
@@ -225,7 +263,7 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t\t\t\t\townerUser.getLastname() }}</span>
 \t\t\t\t\t<hr class=\"star-light\">
 \t\t\t\t\t<span class=\"skills\">Développeur web back-end PHP/SYMFONY</span>
-\t\t\t\t\t{{ error|raw }}
+\t\t\t\t\t{{ (error is defined) ? error|raw : \"\"}}
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t</div>

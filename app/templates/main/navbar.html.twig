@@ -43,6 +43,21 @@
 				{% endif %}
 			</ul>
 		</div>
+		{% if success is not empty %}
+			<div class="alert alert-success" role="alert">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="zmdi zmdi-thumb-up"></i>
+					</div>
+					<strong>Well done!</strong> {{ success }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+            <i class="zmdi zmdi-close"></i>
+        </span>
+					</button>
+				</div>
+			</div>
+		{% endif %}
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid -->
@@ -59,7 +74,7 @@
 						ownerUser.getLastname() }}</span>
 					<hr class="star-light">
 					<span class="skills">Développeur web back-end PHP/SYMFONY</span>
-					{{ error|raw }}
+					{{ (error is defined) ? error|raw : ""}}
 				</div>
 			</div>
 		</div>

@@ -125,7 +125,6 @@ class PostService
 			$status = $statement->fetchObject(PostModel::class);
 
 			if(empty($status)){
-				$statement->rollBack();
 				throw new Exception("Une erreur est intervenue lors de la recherche de l'article");
 			}
 

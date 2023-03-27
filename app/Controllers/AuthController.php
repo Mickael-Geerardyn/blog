@@ -77,7 +77,7 @@ class AuthController extends CoreController
     {
         try {
             $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['userObject' =>
-                $_SESSION["userObject"]]);
+                $this->ownerUser]);
 
             return true;
         } catch(Exception $exception){

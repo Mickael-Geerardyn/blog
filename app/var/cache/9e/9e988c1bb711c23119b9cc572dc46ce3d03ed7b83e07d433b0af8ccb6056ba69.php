@@ -56,9 +56,10 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t<a class=\"navbar-brand\" href=\"";
         // line 17
         echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
-        echo "?action=landing-dashboard\"><img src=\"";
-        echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
-        // line 18
+        echo "index.php?action=landing-dashboard\"><img src=\"";
+        echo twig_escape_filter($this->env, (($__internal_compile_2 =         // line 18
+($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 19
         echo "assets/images/logo.svg\" width=\"30\" alt=\"Compass\"><span class=\"m-l-10\">Compass</span></a>
 \t\t\t</div>
 \t\t\t<ul class=\"nav navbar-nav navbar-left\">
@@ -206,7 +207,7 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t<a href=\"javascript:void(0);\" class=\"fullscreen hidden-sm-down\" data-provide=\"fullscreen\" data-close=\"true\"><i class=\"zmdi zmdi-fullscreen\"></i></a>
 \t\t\t\t</li>
 \t\t\t\t<li><a href=\"";
-        // line 164
+        // line 165
         echo twig_escape_filter($this->env, (($__internal_compile_3 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_3) || $__internal_compile_3 instanceof ArrayAccess ? ($__internal_compile_3["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=logout\" class=\"mega-menu\" data-close=\"true\"><i class=\"zmdi zmdi-power\"></i></a></li>
 \t\t\t\t<li class=\"\"><a href=\"javascript:void(0);\" class=\"js-right-sidebar\" data-close=\"true\"><i class=\"zmdi zmdi-settings zmdi-hc-spin\"></i></a></li>
@@ -222,21 +223,21 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t<li>
 \t\t\t\t\t<div class=\"user-info\">
 \t\t\t\t\t\t<div class=\"image\"><a href=\"profile.html\"><img src=\"";
-        // line 177
-        echo twig_escape_filter($this->env, (($__internal_compile_4 =         // line 178
+        // line 178
+        echo twig_escape_filter($this->env, (($__internal_compile_4 =         // line 179
 ($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/static/img/photo.jpg\" alt=\"User\"></a></div>
 \t\t\t\t\t\t<div class=\"detail\">
 \t\t\t\t\t\t\t<h4>";
-        // line 180
-        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["userObject"] ?? null), "getFirstname", [], "method", false, false, false, 180) . " ") . twig_get_attribute($this->env, $this->source, ($context["userObject"] ?? null), "getLastname", [], "method", false, false, false, 180)), "html", null, true);
+        // line 181
+        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["userObject"] ?? null), "getFirstname", [], "method", false, false, false, 181) . " ") . twig_get_attribute($this->env, $this->source, ($context["userObject"] ?? null), "getLastname", [], "method", false, false, false, 181)), "html", null, true);
         echo "</h4>
 \t\t\t\t\t\t\t<small>Développeur PHP / SYMFONY</small>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t\t<a href=\"events.html\" title=\"Events\"><i class=\"zmdi zmdi-calendar\"></i></a>
 \t\t\t\t\t\t<a href=\"mail-inbox.html\" title=\"Inbox\"><i class=\"zmdi zmdi-email\"></i></a>
 \t\t\t\t\t\t<a href=\"";
-        // line 185
+        // line 186
         echo twig_escape_filter($this->env, (($__internal_compile_5 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_5) || $__internal_compile_5 instanceof ArrayAccess ? ($__internal_compile_5["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=users-page\" title=\"Contact List\"><i class=\"zmdi zmdi-account-box-phone\"></i></a>
 \t\t\t\t\t\t<a href=\"chat.html\" title=\"Chat App\"><i class=\"zmdi zmdi-comments\"></i></a>
@@ -245,23 +246,32 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t</li>
 \t\t\t\t<li class=\"header\">Menu</li>
 \t\t\t\t<li class=\"active open\"><a href=\"";
-        // line 191
+        // line 192
         echo twig_escape_filter($this->env, (($__internal_compile_6 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_6) || $__internal_compile_6 instanceof ArrayAccess ? ($__internal_compile_6["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=landing-dashboard\"><i class=\"zmdi zmdi-blogger\"></i><span>Blog Dashboard</span> </a> </li>
 \t\t\t\t<li> <a href=\"";
-        // line 192
+        // line 193
         echo twig_escape_filter($this->env, (($__internal_compile_7 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_7) || $__internal_compile_7 instanceof ArrayAccess ? ($__internal_compile_7["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=new-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
 \t\t\t\t<li><a href=\"";
-        // line 193
+        // line 194
         echo twig_escape_filter($this->env, (($__internal_compile_8 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_8) || $__internal_compile_8 instanceof ArrayAccess ? ($__internal_compile_8["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=blog-list\"><i class=\"zmdi zmdi-sort-amount-desc\"></i><span>Liste des articles</span> </a> </li>
-\t\t\t\t<li><a href=\"blog-grid.html\"><i class=\"zmdi zmdi-grid\"></i><span>Blog Grid</span> </a> </li>
-                <li><a href=\"";
+\t\t\t\t<li><a href=\"";
         // line 195
         echo twig_escape_filter($this->env, (($__internal_compile_9 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_9) || $__internal_compile_9 instanceof ArrayAccess ? ($__internal_compile_9["BASE_URI"] ?? null) : null), "html", null, true);
+        echo "index.php?action=comments-list\"><i class=\"zmdi
+\t\t\t\tzmdi-grid\"></i><span>Liste des commentaires non
+\t\t\t\t\t\t\tvalidés</span> </a> </li>
+                <li><a href=\"";
+        // line 198
+        echo twig_escape_filter($this->env, (($__internal_compile_10 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_10) || $__internal_compile_10 instanceof ArrayAccess ? ($__internal_compile_10["BASE_URI"] ?? null) : null), "html", null, true);
         echo "index.php?action=display-add-form-user\"><i class=\"zmdi zmdi-home\"></i><span>Ajouter un utilisateur</span></a></li>
-
+\t\t\t\t<li><a href=\"";
+        // line 199
+        echo twig_escape_filter($this->env, (($__internal_compile_11 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_11) || $__internal_compile_11 instanceof ArrayAccess ? ($__internal_compile_11["BASE_URI"] ?? null) : null), "html", null, true);
+        echo "index.php\"><i class=\"zmdi
+\t\t\t\tzmdi-home\"></i><span>Site web</span></a></li>
 \t\t\t\t<li class=\"header\">CATEGORIES</li>
 \t\t\t\t<li><a href=\"javascript:void(0);\" class=\"waves-effect waves-block\"><i class=\"zmdi zmdi-label col-green\"></i><span>Web Design</span></a></li>
 \t\t\t\t<li><a href=\"javascript:void(0);\" class=\"menu-toggle\"><i class=\"zmdi zmdi-label col-red\"></i><span>Photography</span> </a>
@@ -396,8 +406,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 330
-        echo twig_escape_filter($this->env, (($__internal_compile_10 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_10) || $__internal_compile_10 instanceof ArrayAccess ? ($__internal_compile_10["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 334
+        echo twig_escape_filter($this->env, (($__internal_compile_12 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_12) || $__internal_compile_12 instanceof ArrayAccess ? ($__internal_compile_12["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar4.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"name\">Sophia</span>
@@ -411,8 +421,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 342
-        echo twig_escape_filter($this->env, (($__internal_compile_11 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_11) || $__internal_compile_11 instanceof ArrayAccess ? ($__internal_compile_11["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 346
+        echo twig_escape_filter($this->env, (($__internal_compile_13 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_13) || $__internal_compile_13 instanceof ArrayAccess ? ($__internal_compile_13["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar5.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"name\">Grayson</span>
@@ -426,8 +436,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 354
-        echo twig_escape_filter($this->env, (($__internal_compile_12 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_12) || $__internal_compile_12 instanceof ArrayAccess ? ($__internal_compile_12["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 358
+        echo twig_escape_filter($this->env, (($__internal_compile_14 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_14) || $__internal_compile_14 instanceof ArrayAccess ? ($__internal_compile_14["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"name\">Isabella</span>
@@ -441,8 +451,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 366
-        echo twig_escape_filter($this->env, (($__internal_compile_13 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_13) || $__internal_compile_13 instanceof ArrayAccess ? ($__internal_compile_13["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 370
+        echo twig_escape_filter($this->env, (($__internal_compile_15 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_15) || $__internal_compile_15 instanceof ArrayAccess ? ($__internal_compile_15["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar1.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"name\">John</span>
@@ -456,8 +466,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 378
-        echo twig_escape_filter($this->env, (($__internal_compile_14 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_14) || $__internal_compile_14 instanceof ArrayAccess ? ($__internal_compile_14["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 382
+        echo twig_escape_filter($this->env, (($__internal_compile_16 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_16) || $__internal_compile_16 instanceof ArrayAccess ? ($__internal_compile_16["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar3.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"name\">Alexander</span>
@@ -476,8 +486,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 395
-        echo twig_escape_filter($this->env, (($__internal_compile_15 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_15) || $__internal_compile_15 instanceof ArrayAccess ? ($__internal_compile_15["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 399
+        echo twig_escape_filter($this->env, (($__internal_compile_17 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_17) || $__internal_compile_17 instanceof ArrayAccess ? ($__internal_compile_17["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar10.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -489,8 +499,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 405
-        echo twig_escape_filter($this->env, (($__internal_compile_16 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_16) || $__internal_compile_16 instanceof ArrayAccess ? ($__internal_compile_16["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 409
+        echo twig_escape_filter($this->env, (($__internal_compile_18 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_18) || $__internal_compile_18 instanceof ArrayAccess ? ($__internal_compile_18["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar6.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -502,8 +512,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 415
-        echo twig_escape_filter($this->env, (($__internal_compile_17 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_17) || $__internal_compile_17 instanceof ArrayAccess ? ($__internal_compile_17["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 419
+        echo twig_escape_filter($this->env, (($__internal_compile_19 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_19) || $__internal_compile_19 instanceof ArrayAccess ? ($__internal_compile_19["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar7.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -515,8 +525,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 425
-        echo twig_escape_filter($this->env, (($__internal_compile_18 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_18) || $__internal_compile_18 instanceof ArrayAccess ? ($__internal_compile_18["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 429
+        echo twig_escape_filter($this->env, (($__internal_compile_20 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_20) || $__internal_compile_20 instanceof ArrayAccess ? ($__internal_compile_20["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar8.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -528,8 +538,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 435
-        echo twig_escape_filter($this->env, (($__internal_compile_19 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_19) || $__internal_compile_19 instanceof ArrayAccess ? ($__internal_compile_19["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 439
+        echo twig_escape_filter($this->env, (($__internal_compile_21 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_21) || $__internal_compile_21 instanceof ArrayAccess ? ($__internal_compile_21["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar9.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -541,8 +551,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 445
-        echo twig_escape_filter($this->env, (($__internal_compile_20 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_20) || $__internal_compile_20 instanceof ArrayAccess ? ($__internal_compile_20["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 449
+        echo twig_escape_filter($this->env, (($__internal_compile_22 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_22) || $__internal_compile_22 instanceof ArrayAccess ? ($__internal_compile_22["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar5.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -554,8 +564,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 455
-        echo twig_escape_filter($this->env, (($__internal_compile_21 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_21) || $__internal_compile_21 instanceof ArrayAccess ? ($__internal_compile_21["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 459
+        echo twig_escape_filter($this->env, (($__internal_compile_23 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_23) || $__internal_compile_23 instanceof ArrayAccess ? ($__internal_compile_23["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar4.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -567,8 +577,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 465
-        echo twig_escape_filter($this->env, (($__internal_compile_22 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_22) || $__internal_compile_22 instanceof ArrayAccess ? ($__internal_compile_22["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 469
+        echo twig_escape_filter($this->env, (($__internal_compile_24 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_24) || $__internal_compile_24 instanceof ArrayAccess ? ($__internal_compile_24["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar3.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -580,8 +590,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 475
-        echo twig_escape_filter($this->env, (($__internal_compile_23 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_23) || $__internal_compile_23 instanceof ArrayAccess ? ($__internal_compile_23["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 479
+        echo twig_escape_filter($this->env, (($__internal_compile_25 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_25) || $__internal_compile_25 instanceof ArrayAccess ? ($__internal_compile_25["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -593,8 +603,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<a href=\"javascript:void(0);\">
 \t\t\t\t\t\t\t\t\t<div class=\"media\">
 \t\t\t\t\t\t\t\t\t\t<img class=\"media-object \" src=\"";
-        // line 485
-        echo twig_escape_filter($this->env, (($__internal_compile_24 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_24) || $__internal_compile_24 instanceof ArrayAccess ? ($__internal_compile_24["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 489
+        echo twig_escape_filter($this->env, (($__internal_compile_26 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_26) || $__internal_compile_26 instanceof ArrayAccess ? ($__internal_compile_26["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar1.jpg\" alt=\"\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"media-body\">
 \t\t\t\t\t\t\t\t\t\t\t<span class=\"badge badge-outline status\"></span>
@@ -662,20 +672,20 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<li class=\"m-r-15\"><small>Team</small></li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 551
-        echo twig_escape_filter($this->env, (($__internal_compile_25 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_25) || $__internal_compile_25 instanceof ArrayAccess ? ($__internal_compile_25["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 555
+        echo twig_escape_filter($this->env, (($__internal_compile_27 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_27) || $__internal_compile_27 instanceof ArrayAccess ? ($__internal_compile_27["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 554
-        echo twig_escape_filter($this->env, (($__internal_compile_26 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_26) || $__internal_compile_26 instanceof ArrayAccess ? ($__internal_compile_26["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 558
+        echo twig_escape_filter($this->env, (($__internal_compile_28 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_28) || $__internal_compile_28 instanceof ArrayAccess ? ($__internal_compile_28["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar3.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 557
-        echo twig_escape_filter($this->env, (($__internal_compile_27 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_27) || $__internal_compile_27 instanceof ArrayAccess ? ($__internal_compile_27["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 561
+        echo twig_escape_filter($this->env, (($__internal_compile_29 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_29) || $__internal_compile_29 instanceof ArrayAccess ? ($__internal_compile_29["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar4.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t</ul>
@@ -691,32 +701,32 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<li class=\"m-r-15\"><small>Team</small></li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 571
-        echo twig_escape_filter($this->env, (($__internal_compile_28 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_28) || $__internal_compile_28 instanceof ArrayAccess ? ($__internal_compile_28["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 575
+        echo twig_escape_filter($this->env, (($__internal_compile_30 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_30) || $__internal_compile_30 instanceof ArrayAccess ? ($__internal_compile_30["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar10.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 574
-        echo twig_escape_filter($this->env, (($__internal_compile_29 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_29) || $__internal_compile_29 instanceof ArrayAccess ? ($__internal_compile_29["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 578
+        echo twig_escape_filter($this->env, (($__internal_compile_31 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_31) || $__internal_compile_31 instanceof ArrayAccess ? ($__internal_compile_31["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar9.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 577
-        echo twig_escape_filter($this->env, (($__internal_compile_30 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_30) || $__internal_compile_30 instanceof ArrayAccess ? ($__internal_compile_30["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 581
+        echo twig_escape_filter($this->env, (($__internal_compile_32 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_32) || $__internal_compile_32 instanceof ArrayAccess ? ($__internal_compile_32["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar8.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 580
-        echo twig_escape_filter($this->env, (($__internal_compile_31 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_31) || $__internal_compile_31 instanceof ArrayAccess ? ($__internal_compile_31["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 584
+        echo twig_escape_filter($this->env, (($__internal_compile_33 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_33) || $__internal_compile_33 instanceof ArrayAccess ? ($__internal_compile_33["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar7.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 583
-        echo twig_escape_filter($this->env, (($__internal_compile_32 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_32) || $__internal_compile_32 instanceof ArrayAccess ? ($__internal_compile_32["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 587
+        echo twig_escape_filter($this->env, (($__internal_compile_34 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_34) || $__internal_compile_34 instanceof ArrayAccess ? ($__internal_compile_34["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar6.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t</ul>
@@ -732,20 +742,20 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t\t<li class=\"m-r-15\"><small>Team</small></li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 597
-        echo twig_escape_filter($this->env, (($__internal_compile_33 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_33) || $__internal_compile_33 instanceof ArrayAccess ? ($__internal_compile_33["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 601
+        echo twig_escape_filter($this->env, (($__internal_compile_35 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_35) || $__internal_compile_35 instanceof ArrayAccess ? ($__internal_compile_35["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar5.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 600
-        echo twig_escape_filter($this->env, (($__internal_compile_34 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_34) || $__internal_compile_34 instanceof ArrayAccess ? ($__internal_compile_34["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 604
+        echo twig_escape_filter($this->env, (($__internal_compile_36 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_36) || $__internal_compile_36 instanceof ArrayAccess ? ($__internal_compile_36["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t\t<img src=\"";
-        // line 603
-        echo twig_escape_filter($this->env, (($__internal_compile_35 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_35) || $__internal_compile_35 instanceof ArrayAccess ? ($__internal_compile_35["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 607
+        echo twig_escape_filter($this->env, (($__internal_compile_37 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_37) || $__internal_compile_37 instanceof ArrayAccess ? ($__internal_compile_37["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar7.jpg\" alt=\"Avatar\">
 \t\t\t\t\t\t\t\t</li>
 \t\t\t\t\t\t\t</ul>
@@ -765,26 +775,26 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t<li class=\"m-r-15\"><h2>Design Team</h2></li>
 \t\t\t\t\t<li>
 \t\t\t\t\t\t<img src=\"";
-        // line 621
-        echo twig_escape_filter($this->env, (($__internal_compile_36 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_36) || $__internal_compile_36 instanceof ArrayAccess ? ($__internal_compile_36["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 625
+        echo twig_escape_filter($this->env, (($__internal_compile_38 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_38) || $__internal_compile_38 instanceof ArrayAccess ? ($__internal_compile_38["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" alt=\"Avatar\">
 \t\t\t\t\t</li>
 \t\t\t\t\t<li>
 \t\t\t\t\t\t<img src=\"";
-        // line 624
-        echo twig_escape_filter($this->env, (($__internal_compile_37 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_37) || $__internal_compile_37 instanceof ArrayAccess ? ($__internal_compile_37["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 628
+        echo twig_escape_filter($this->env, (($__internal_compile_39 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_39) || $__internal_compile_39 instanceof ArrayAccess ? ($__internal_compile_39["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar3.jpg\" alt=\"Avatar\">
 \t\t\t\t\t</li>
 \t\t\t\t\t<li>
 \t\t\t\t\t\t<img src=\"";
-        // line 627
-        echo twig_escape_filter($this->env, (($__internal_compile_38 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_38) || $__internal_compile_38 instanceof ArrayAccess ? ($__internal_compile_38["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 631
+        echo twig_escape_filter($this->env, (($__internal_compile_40 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_40) || $__internal_compile_40 instanceof ArrayAccess ? ($__internal_compile_40["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar4.jpg\" alt=\"Avatar\">
 \t\t\t\t\t</li>
 \t\t\t\t\t<li>
 \t\t\t\t\t\t<img src=\"";
-        // line 630
-        echo twig_escape_filter($this->env, (($__internal_compile_39 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_39) || $__internal_compile_39 instanceof ArrayAccess ? ($__internal_compile_39["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 634
+        echo twig_escape_filter($this->env, (($__internal_compile_41 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_41) || $__internal_compile_41 instanceof ArrayAccess ? ($__internal_compile_41["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar6.jpg\" alt=\"Avatar\">
 \t\t\t\t\t</li>
 \t\t\t\t\t<li>
@@ -797,8 +807,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t<ul class=\"chat-scroll-list clearfix\">
 \t\t\t\t\t\t<li class=\"left float-left\">
 \t\t\t\t\t\t\t<img src=\"";
-        // line 641
-        echo twig_escape_filter($this->env, (($__internal_compile_40 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_40) || $__internal_compile_40 instanceof ArrayAccess ? ($__internal_compile_40["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 645
+        echo twig_escape_filter($this->env, (($__internal_compile_42 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_42) || $__internal_compile_42 instanceof ArrayAccess ? ($__internal_compile_42["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar3.jpg\" class=\"rounded-circle\" alt=\"\">
 \t\t\t\t\t\t\t<div class=\"chat-info\">
 \t\t\t\t\t\t\t\t<a class=\"name\" href=\"#\">Alexander</a>
@@ -813,14 +823,14 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t\t\t\t<div class=\"chat-info\"><span class=\"datetime\">6:16</span> <span class=\"message\">There are many variations of passages of Lorem Ipsum available</span> </div>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<li class=\"left float-left\"> <img src=\"";
-        // line 654
-        echo twig_escape_filter($this->env, (($__internal_compile_41 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_41) || $__internal_compile_41 instanceof ArrayAccess ? ($__internal_compile_41["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 658
+        echo twig_escape_filter($this->env, (($__internal_compile_43 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_43) || $__internal_compile_43 instanceof ArrayAccess ? ($__internal_compile_43["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar2.jpg\" class=\"rounded-circle\" alt=\"\">
 \t\t\t\t\t\t\t<div class=\"chat-info\"> <a class=\"name\" href=\"#\">Elizabeth</a> <span class=\"datetime\">6:25</span> <span class=\"message\">Hi, Alexander,<br> John <br> What are you doing?</span> </div>
 \t\t\t\t\t\t</li>
 \t\t\t\t\t\t<li class=\"left float-left\"> <img src=\"";
-        // line 657
-        echo twig_escape_filter($this->env, (($__internal_compile_42 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_42) || $__internal_compile_42 instanceof ArrayAccess ? ($__internal_compile_42["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 661
+        echo twig_escape_filter($this->env, (($__internal_compile_44 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_44) || $__internal_compile_44 instanceof ArrayAccess ? ($__internal_compile_44["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/images/xs/avatar1.jpg\" class=\"rounded-circle\" alt=\"\">
 \t\t\t\t\t\t\t<div class=\"chat-info\"> <a class=\"name\" href=\"#\">Michael</a> <span class=\"datetime\">6:28</span> <span class=\"message\">I would love to join the team.</span> </div>
 \t\t\t\t\t\t</li>
@@ -852,7 +862,7 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 
     public function getDebugInfo()
     {
-        return array (  823 => 657,  817 => 654,  801 => 641,  787 => 630,  781 => 627,  775 => 624,  769 => 621,  748 => 603,  742 => 600,  736 => 597,  719 => 583,  713 => 580,  707 => 577,  701 => 574,  695 => 571,  678 => 557,  672 => 554,  666 => 551,  597 => 485,  584 => 475,  571 => 465,  558 => 455,  545 => 445,  532 => 435,  519 => 425,  506 => 415,  493 => 405,  480 => 395,  460 => 378,  445 => 366,  430 => 354,  415 => 342,  400 => 330,  262 => 195,  257 => 193,  253 => 192,  249 => 191,  240 => 185,  232 => 180,  227 => 178,  226 => 177,  210 => 164,  62 => 18,  58 => 17,  42 => 4,  37 => 1,);
+        return array (  833 => 661,  827 => 658,  811 => 645,  797 => 634,  791 => 631,  785 => 628,  779 => 625,  758 => 607,  752 => 604,  746 => 601,  729 => 587,  723 => 584,  717 => 581,  711 => 578,  705 => 575,  688 => 561,  682 => 558,  676 => 555,  607 => 489,  594 => 479,  581 => 469,  568 => 459,  555 => 449,  542 => 439,  529 => 429,  516 => 419,  503 => 409,  490 => 399,  470 => 382,  455 => 370,  440 => 358,  425 => 346,  410 => 334,  272 => 199,  268 => 198,  262 => 195,  258 => 194,  254 => 193,  250 => 192,  241 => 186,  233 => 181,  228 => 179,  227 => 178,  211 => 165,  63 => 19,  61 => 18,  58 => 17,  42 => 4,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -873,7 +883,8 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t<div class=\"col-12\">
 \t\t\t<div class=\"navbar-header\">
 \t\t\t\t<a href=\"javascript:void(0);\" class=\"bars\"></a>
-\t\t\t\t<a class=\"navbar-brand\" href=\"{{ _SERVER[\"BASE_URI\"] }}?action=landing-dashboard\"><img src=\"{{ _SERVER[\"BASE_URI\"]
+\t\t\t\t<a class=\"navbar-brand\" href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=landing-dashboard\"><img src=\"{{
+\t\t\t\t\t_SERVER[\"BASE_URI\"]
 \t\t\t\t\t}}assets/images/logo.svg\" width=\"30\" alt=\"Compass\"><span class=\"m-l-10\">Compass</span></a>
 \t\t\t</div>
 \t\t\t<ul class=\"nav navbar-nav navbar-left\">
@@ -1050,9 +1061,12 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t<li class=\"active open\"><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=landing-dashboard\"><i class=\"zmdi zmdi-blogger\"></i><span>Blog Dashboard</span> </a> </li>
 \t\t\t\t<li> <a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=new-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
 \t\t\t\t<li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=blog-list\"><i class=\"zmdi zmdi-sort-amount-desc\"></i><span>Liste des articles</span> </a> </li>
-\t\t\t\t<li><a href=\"blog-grid.html\"><i class=\"zmdi zmdi-grid\"></i><span>Blog Grid</span> </a> </li>
+\t\t\t\t<li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=comments-list\"><i class=\"zmdi
+\t\t\t\tzmdi-grid\"></i><span>Liste des commentaires non
+\t\t\t\t\t\t\tvalidés</span> </a> </li>
                 <li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=display-add-form-user\"><i class=\"zmdi zmdi-home\"></i><span>Ajouter un utilisateur</span></a></li>
-
+\t\t\t\t<li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php\"><i class=\"zmdi
+\t\t\t\tzmdi-home\"></i><span>Site web</span></a></li>
 \t\t\t\t<li class=\"header\">CATEGORIES</li>
 \t\t\t\t<li><a href=\"javascript:void(0);\" class=\"waves-effect waves-block\"><i class=\"zmdi zmdi-label col-green\"></i><span>Web Design</span></a></li>
 \t\t\t\t<li><a href=\"javascript:void(0);\" class=\"menu-toggle\"><i class=\"zmdi zmdi-label col-red\"></i><span>Photography</span> </a>

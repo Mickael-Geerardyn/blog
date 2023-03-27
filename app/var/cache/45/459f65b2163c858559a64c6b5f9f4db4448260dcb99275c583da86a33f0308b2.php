@@ -124,6 +124,68 @@ $context["post"], "getLastname", [], "method", false, false, false, 30)), "html"
             echo "                ";
         }
         // line 52
+        echo "                ";
+        if (( !twig_test_empty(($context["pendingComments"] ?? null)) && twig_test_iterable(($context["pendingComments"] ?? null)))) {
+            // line 53
+            echo "                ";
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(($context["pendingComments"] ?? null));
+            foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
+                // line 54
+                echo "                <div class=\"card single_post\">
+                    <div class=\"body\">
+                        <h3 class=\"m-t-0 m-b-5\">";
+                // line 56
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getTitle", [], "method", false, false, false, 56), "html", null, true);
+                echo "</h3>
+                        ";
+                // line 57
+                if (twig_get_attribute($this->env, $this->source, $context["comment"], "author", [], "any", true, true, false, 57)) {
+                    // line 58
+                    echo "                        <ul class=\"meta\">
+                            <li><a href=\"#\"><i class=\"zmdi zmdi-account col-blue\"></i>Auteur: ";
+                    // line 59
+                    echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,                     // line 60
+$context["comment"], "author", [], "any", false, false, false, 60), "getFirstname", [], "method", false, false, false, 60) . " ") . twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,                     // line 61
+$context["comment"], "author", [], "any", false, false, false, 61), "getLastname", [], "method", false, false, false, 61)), "html", null, true);
+                    echo "</a></li>
+                        </ul>
+                        ";
+                }
+                // line 64
+                echo "                    </div>
+                    <div class=\"body\">
+                        <div class=\"img-post m-b-15\">
+                            <img src=\"../../assets/images/blog/blog-page-2.jpg\" alt=\"Awesome Image\">
+                            <div class=\"social_share\">
+                                <button class=\"btn btn-primary btn-icon btn-icon-mini btn-round\"><i class=\"zmdi zmdi-twitter\"></i></button>
+                            </div>
+                        </div>
+                        <p>";
+                // line 72
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getContent", [], "method", false, false, false, 72), "html", null, true);
+                echo "</p>
+                        <form id=\"form_validation\" method=\"POST\" action=\"";
+                // line 73
+                echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+                echo "index.php?action=single-post\">
+                            <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round btn-info\">Read More</button>
+                            <input type=\"hidden\" name=\"post-title\" value=\"";
+                // line 75
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getTitle", [], "method", false, false, false, 75), "html", null, true);
+                echo "\">
+                        </form>
+                    </div>
+                </div>
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['comment'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 80
+            echo "                ";
+        }
+        // line 81
         echo "            </div>
         </div>
     </div>
@@ -144,7 +206,7 @@ $context["post"], "getLastname", [], "method", false, false, false, 30)), "html"
 
     public function getDebugInfo()
     {
-        return array (  127 => 52,  124 => 51,  112 => 45,  107 => 43,  103 => 42,  88 => 30,  87 => 29,  82 => 27,  78 => 25,  73 => 24,  71 => 23,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  189 => 81,  186 => 80,  175 => 75,  170 => 73,  166 => 72,  156 => 64,  150 => 61,  149 => 60,  148 => 59,  145 => 58,  143 => 57,  139 => 56,  135 => 54,  130 => 53,  127 => 52,  124 => 51,  112 => 45,  107 => 43,  103 => 42,  88 => 30,  87 => 29,  82 => 27,  78 => 25,  73 => 24,  71 => 23,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -197,6 +259,35 @@ $context["post"], "getLastname", [], "method", false, false, false, 30)), "html"
                         </form>
                     </div>
 
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% if pendingComments is not empty and pendingComments is iterable %}
+                {% for comment in pendingComments %}
+                <div class=\"card single_post\">
+                    <div class=\"body\">
+                        <h3 class=\"m-t-0 m-b-5\">{{ comment.getTitle() }}</h3>
+                        {% if comment.author is defined %}
+                        <ul class=\"meta\">
+                            <li><a href=\"#\"><i class=\"zmdi zmdi-account col-blue\"></i>Auteur: {{
+                                    comment.author.getFirstname()
+                                    ~\" \"~ comment.author.getLastname() }}</a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class=\"body\">
+                        <div class=\"img-post m-b-15\">
+                            <img src=\"../../assets/images/blog/blog-page-2.jpg\" alt=\"Awesome Image\">
+                            <div class=\"social_share\">
+                                <button class=\"btn btn-primary btn-icon btn-icon-mini btn-round\"><i class=\"zmdi zmdi-twitter\"></i></button>
+                            </div>
+                        </div>
+                        <p>{{ comment.getContent() }}</p>
+                        <form id=\"form_validation\" method=\"POST\" action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=single-post\">
+                            <button href=\"blog-details.html\" title=\"read more\" class=\"btn btn-round btn-info\">Read More</button>
+                            <input type=\"hidden\" name=\"post-title\" value=\"{{ comment.getTitle() }}\">
+                        </form>
+                    </div>
                 </div>
                 {% endfor %}
                 {% endif %}

@@ -19,20 +19,30 @@ class CommentModel extends CoreModel
     private int $user_id;
     private string $deletedAt;
 
-    public function createComment()
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function createComment(): bool
     {
-        $pdo = parent::getDataBase();
+        $statement = parent::getDataBase();
 
-        $statement = $pdo->prepare('INSERT INTO comment (title, content, status, post_id, user_id)
-					   VALUES (:title, :content, :statut, :post_id, :user_id)');
+        $statement = $statement->prepare('INSERT INTO comment (title, content, status, post_id, user_id)
+					   VALUES (:title, :content, :status_pending, :post_id, :user_id)');
 
         $status = $statement->execute([
             ':title' => $this->title,
             ':content' => $this->content,
-            ':statut' => $this->status,
+            ':status_pending' => $this->status,
             ':post_id' => $this->post_id,
             ':user_id' => $this->user_id,
         ]);
+
+        if(!$status) {
+            throw new Exception("Une erreur est intervenue lors de l'enregistrement du commentaire");
+        }
+
+        return $status;
     }
 
     /**

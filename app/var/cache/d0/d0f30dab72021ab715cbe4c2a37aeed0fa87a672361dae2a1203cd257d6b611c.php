@@ -142,18 +142,17 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
             echo "                            <div class=\"col-lg-8 col-lg-offset-2\">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                                <form name=\"sentComment\" id=\"contactForm\" novalidate=\"\"
-                                      data-dashlane-rid=\"a7a48980b577b880\" data-form-type=\"contact\" method=\"POST\"
+                                <form name=\"sentComment\" method=\"POST\"
                                       action=\"";
-            // line 65
+            // line 64
             echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
-            echo "index.php?action=user-register\">
+            echo "index.php?action=send-new-comment\">
                                     <div class=\"row control-group\">
                                         <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                             <label>Titre</label>
                                             <input type=\"text\" class=\"form-control\" placeholder=\"Title\" id=\"Title\"
                                                    required=\"\" data-validation-required-message=\"Veuillez entrer un
-                                                   titre\"
+                                                   titre\" name=\"title\"
                                                    data-dashlane-rid=\"0840ea6118458db9\"
                                                    data-kwimpalastatus=\"alive\" data-kwimpalaid=\"1678747375732-0\"
                                                    aria-invalid=\"false\" data-form-type=\"title\">
@@ -164,7 +163,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                     <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                         <label>Commentaire</label>
                                         <textarea rows=\"5\" class=\"form-control\" placeholder=\"Commentaire\"
-                                                  id=\"Commentaire\"
+                                                  id=\"Commentaire\" name=\"content\"
                                                   required
                                                   data-validation-required-message=\"Veuillez rédiger votre
                                                       commentaire.\"
@@ -172,9 +171,18 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                                   data-form-type=\"other\"></textarea>
                                         <p class=\"help-block text-danger\"></p>
                                         <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"";
-            // line 89
+            // line 88
             echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
+            // line 89
+            echo "\" >
+                                        <input type=\"hidden\" name=\"userEmail\" id=\"userEmail\" value=\"";
             // line 90
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getEmail", [], "method", false, false, false, 90), "html", null, true);
+            // line 92
+            echo "\" >
+                                        <input type=\"hidden\" name=\"postTitle\" id=\"postTitle\" value=\"";
+            // line 93
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 93), "html", null, true);
             echo "\" >
                                     </div>
                                     </div>
@@ -183,20 +191,18 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                     <div id=\"success\"></div>
                                     <div class=\"row\">
                                         <div class=\"form-group col-xs-12\">
-                                            <button type=\"submit\" class=\"btn btn-success btn-lg\"
-                                                    data-dashlane-rid=\"55f933ab7c0de50e\" data-dashlane-label=\"true\"
-                                                    data-form-type=\"action\">Envoyer
+                                            <button type=\"submit\" class=\"btn btn-success btn-lg\">Envoyer
                                             </button>
                                         </div>
                                     </div>
                                 </form>
                             ";
         } else {
-            // line 106
+            // line 107
             echo "                                <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
                         <br>
                                 <form class=\"form\" method=\"POST\" action=\"";
-            // line 108
+            // line 109
             echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=login-page\">
                                 <div class=\"form-group col-xs-12\">
@@ -209,7 +215,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                             </div>
                             ";
         }
-        // line 118
+        // line 119
         echo "                        </div>
                         <br><br>
                         <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\"><i class=\"fa
@@ -237,7 +243,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
 
     public function getDebugInfo()
     {
-        return array (  213 => 118,  200 => 108,  196 => 106,  178 => 90,  176 => 89,  149 => 65,  142 => 60,  140 => 59,  135 => 56,  124 => 51,  117 => 47,  111 => 44,  107 => 43,  104 => 42,  100 => 41,  89 => 33,  82 => 29,  76 => 26,  72 => 25,  67 => 23,  62 => 21,  46 => 8,  37 => 1,);
+        return array (  219 => 119,  206 => 109,  202 => 107,  185 => 93,  182 => 92,  180 => 90,  177 => 89,  175 => 88,  148 => 64,  142 => 60,  140 => 59,  135 => 56,  124 => 51,  117 => 47,  111 => 44,  107 => 43,  104 => 42,  100 => 41,  89 => 33,  82 => 29,  76 => 26,  72 => 25,  67 => 23,  62 => 21,  46 => 8,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -304,15 +310,14 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                             <div class=\"col-lg-8 col-lg-offset-2\">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                                <form name=\"sentComment\" id=\"contactForm\" novalidate=\"\"
-                                      data-dashlane-rid=\"a7a48980b577b880\" data-form-type=\"contact\" method=\"POST\"
-                                      action=\"{{ _SERVER['BASE_URI'] }}index.php?action=user-register\">
+                                <form name=\"sentComment\" method=\"POST\"
+                                      action=\"{{ _SERVER['BASE_URI'] }}index.php?action=send-new-comment\">
                                     <div class=\"row control-group\">
                                         <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                             <label>Titre</label>
                                             <input type=\"text\" class=\"form-control\" placeholder=\"Title\" id=\"Title\"
                                                    required=\"\" data-validation-required-message=\"Veuillez entrer un
-                                                   titre\"
+                                                   titre\" name=\"title\"
                                                    data-dashlane-rid=\"0840ea6118458db9\"
                                                    data-kwimpalastatus=\"alive\" data-kwimpalaid=\"1678747375732-0\"
                                                    aria-invalid=\"false\" data-form-type=\"title\">
@@ -323,7 +328,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                     <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                         <label>Commentaire</label>
                                         <textarea rows=\"5\" class=\"form-control\" placeholder=\"Commentaire\"
-                                                  id=\"Commentaire\"
+                                                  id=\"Commentaire\" name=\"content\"
                                                   required
                                                   data-validation-required-message=\"Veuillez rédiger votre
                                                       commentaire.\"
@@ -332,6 +337,10 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                         <p class=\"help-block text-danger\"></p>
                                         <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"{{ CSRFToken
                                         }}\" >
+                                        <input type=\"hidden\" name=\"userEmail\" id=\"userEmail\" value=\"{{ loggedInUser
+                                            .getEmail()
+                                        }}\" >
+                                        <input type=\"hidden\" name=\"postTitle\" id=\"postTitle\" value=\"{{ postObject.getTitle() }}\" >
                                     </div>
                                     </div>
 
@@ -339,9 +348,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                     <div id=\"success\"></div>
                                     <div class=\"row\">
                                         <div class=\"form-group col-xs-12\">
-                                            <button type=\"submit\" class=\"btn btn-success btn-lg\"
-                                                    data-dashlane-rid=\"55f933ab7c0de50e\" data-dashlane-label=\"true\"
-                                                    data-form-type=\"action\">Envoyer
+                                            <button type=\"submit\" class=\"btn btn-success btn-lg\">Envoyer
                                             </button>
                                         </div>
                                     </div>

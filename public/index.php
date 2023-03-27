@@ -1,8 +1,10 @@
 <?php
 
+use App\Controllers\Admin\AdminCommentController;
 use App\Controllers\Admin\AdminUserController;
 use App\Controllers\Admin\AdminPostController;
 use App\Controllers\AuthController;
+use App\Controllers\CommentController;
 use App\Controllers\HomePageController;
 use App\Controllers\PostController;
 use App\Controllers\UserController;
@@ -78,6 +80,14 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$postPage = new PostController();
 			$postPage->displayPostPage();
 			break;
+        case "send-new-comment":
+            $commentController = new CommentController();
+            $commentController->sendNewComment();
+            break;
+        case "comments-list":
+            $adminCommentController = new AdminCommentController();
+            $adminCommentController->displayPendingCommentsPage();
+            break;
 		default:
 			header('Location:'.$_SERVER['BASE_URI']."app/templates/admin/404.html.twig");
 

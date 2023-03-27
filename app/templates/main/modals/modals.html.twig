@@ -60,15 +60,14 @@
                             <div class="col-lg-8 col-lg-offset-2">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                                <form name="sentComment" id="contactForm" novalidate=""
-                                      data-dashlane-rid="a7a48980b577b880" data-form-type="contact" method="POST"
-                                      action="{{ _SERVER['BASE_URI'] }}index.php?action=user-register">
+                                <form name="sentComment" method="POST"
+                                      action="{{ _SERVER['BASE_URI'] }}index.php?action=send-new-comment">
                                     <div class="row control-group">
                                         <div class="form-group col-xs-12 floating-label-form-group controls">
                                             <label>Titre</label>
                                             <input type="text" class="form-control" placeholder="Title" id="Title"
                                                    required="" data-validation-required-message="Veuillez entrer un
-                                                   titre"
+                                                   titre" name="title"
                                                    data-dashlane-rid="0840ea6118458db9"
                                                    data-kwimpalastatus="alive" data-kwimpalaid="1678747375732-0"
                                                    aria-invalid="false" data-form-type="title">
@@ -79,7 +78,7 @@
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Commentaire</label>
                                         <textarea rows="5" class="form-control" placeholder="Commentaire"
-                                                  id="Commentaire"
+                                                  id="Commentaire" name="content"
                                                   required
                                                   data-validation-required-message="Veuillez rédiger votre
                                                       commentaire."
@@ -88,6 +87,10 @@
                                         <p class="help-block text-danger"></p>
                                         <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ CSRFToken
                                         }}" >
+                                        <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser
+                                            .getEmail()
+                                        }}" >
+                                        <input type="hidden" name="postTitle" id="postTitle" value="{{ postObject.getTitle() }}" >
                                     </div>
                                     </div>
 
@@ -95,9 +98,7 @@
                                     <div id="success"></div>
                                     <div class="row">
                                         <div class="form-group col-xs-12">
-                                            <button type="submit" class="btn btn-success btn-lg"
-                                                    data-dashlane-rid="55f933ab7c0de50e" data-dashlane-label="true"
-                                                    data-form-type="action">Envoyer
+                                            <button type="submit" class="btn btn-success btn-lg">Envoyer
                                             </button>
                                         </div>
                                     </div>

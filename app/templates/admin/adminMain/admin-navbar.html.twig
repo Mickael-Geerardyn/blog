@@ -14,7 +14,8 @@
 		<div class="col-12">
 			<div class="navbar-header">
 				<a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand" href="{{ _SERVER["BASE_URI"] }}?action=landing-dashboard"><img src="{{ _SERVER["BASE_URI"]
+				<a class="navbar-brand" href="{{ _SERVER["BASE_URI"] }}index.php?action=landing-dashboard"><img src="{{
+					_SERVER["BASE_URI"]
 					}}assets/images/logo.svg" width="30" alt="Compass"><span class="m-l-10">Compass</span></a>
 			</div>
 			<ul class="nav navbar-nav navbar-left">
@@ -191,9 +192,12 @@
 				<li class="active open"><a href="{{ _SERVER["BASE_URI"] }}index.php?action=landing-dashboard"><i class="zmdi zmdi-blogger"></i><span>Blog Dashboard</span> </a> </li>
 				<li> <a href="{{ _SERVER["BASE_URI"] }}index.php?action=new-post-page"><i class="zmdi zmdi-plus-circle"></i><span>Nouvel article</span> </a> </li>
 				<li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=blog-list"><i class="zmdi zmdi-sort-amount-desc"></i><span>Liste des articles</span> </a> </li>
-				<li><a href="blog-grid.html"><i class="zmdi zmdi-grid"></i><span>Blog Grid</span> </a> </li>
+				<li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=comments-list"><i class="zmdi
+				zmdi-grid"></i><span>Liste des commentaires non
+							validés</span> </a> </li>
                 <li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=display-add-form-user"><i class="zmdi zmdi-home"></i><span>Ajouter un utilisateur</span></a></li>
-
+				<li><a href="{{ _SERVER["BASE_URI"] }}index.php"><i class="zmdi
+				zmdi-home"></i><span>Site web</span></a></li>
 				<li class="header">CATEGORIES</li>
 				<li><a href="javascript:void(0);" class="waves-effect waves-block"><i class="zmdi zmdi-label col-green"></i><span>Web Design</span></a></li>
 				<li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-label col-red"></i><span>Photography</span> </a>
