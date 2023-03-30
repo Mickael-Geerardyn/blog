@@ -99,43 +99,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         echo "        </div>
     </section>
 
-    ";
-        // line 35
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
-        $context['loop'] = [
-          'parent' => $context['_parent'],
-          'index0' => 0,
-          'index'  => 1,
-          'first'  => true,
-        ];
-        if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof \Countable)) {
-            $length = count($context['_seq']);
-            $context['loop']['revindex0'] = $length - 1;
-            $context['loop']['revindex'] = $length;
-            $context['loop']['length'] = $length;
-            $context['loop']['last'] = 1 === $length;
-        }
-        foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
-            // line 36
-            echo "        ";
-            $this->loadTemplate("modals/modals.html.twig", "/landing-blog.html.twig", 36)->display($context);
-            // line 37
-            echo "    ";
-            ++$context['loop']['index0'];
-            ++$context['loop']['index'];
-            $context['loop']['first'] = false;
-            if (isset($context['loop']['length'])) {
-                --$context['loop']['revindex0'];
-                --$context['loop']['revindex'];
-                $context['loop']['last'] = 0 === $context['loop']['revindex0'];
-            }
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 38
-        echo "    <!-- About Section -->
+    <!-- About Section -->
     <section class=\"success\" id=\"about\">
         <div class=\"container\">
             <div class=\"row\">
@@ -243,7 +207,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getDebugInfo()
     {
-        return array (  138 => 38,  124 => 37,  121 => 36,  104 => 35,  99 => 32,  95 => 30,  84 => 25,  73 => 17,  70 => 16,  66 => 15,  63 => 14,  61 => 13,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  99 => 32,  95 => 30,  84 => 25,  73 => 17,  70 => 16,  66 => 15,  63 => 14,  61 => 13,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -282,9 +246,6 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         </div>
     </section>
 
-    {% for key, postObject in latestPosts %}
-        {% include \"modals/modals.html.twig\" %}
-    {% endfor %}
     <!-- About Section -->
     <section class=\"success\" id=\"about\">
         <div class=\"container\">

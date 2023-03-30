@@ -40,11 +40,17 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
 \t\t<i class=\"fa fa-chevron-up\"></i>
 \t</a>
 </div>
-<!-- Portfolio Modals -->
+";
+        // line 7
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
+        foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
+            // line 8
+            echo "<!-- Portfolio Modals -->
 <div class=\"portfolio-modal modal fade\" id=\"portfolioModal";
-        // line 8
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getId", [], "method", false, false, false, 8), "html", null, true);
-        echo "\" tabindex=\"-1\" role=\"dialog\"
+            // line 9
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getId", [], "method", false, false, false, 9), "html", null, true);
+            echo "\" tabindex=\"-1\" role=\"dialog\"
      aria-hidden=\"true\">
     <div class=\"modal-content\">
         <div class=\"close-modal\" data-dismiss=\"modal\">
@@ -58,36 +64,36 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                 <div class=\"col-lg-8 col-lg-offset-2\">
                     <div class=\"modal-body\">
                         <h2>";
-        // line 21
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 21), "html", null, true);
-        echo "</h2>
+            // line 22
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getTitle", [], "method", false, false, false, 22), "html", null, true);
+            echo "</h2>
                         <hr class=\"star-primary\">
                         <img src=\"";
-        // line 23
-        echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
-        echo "assets/img/portfolio/cabin.png\"
+            // line 24
+            echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
+            echo "assets/img/portfolio/cabin.png\"
                              class=\"img-responsive img-centered\" alt=\"\">
                         <p>";
-        // line 25
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getHeading", [], "method", false, false, false, 25), "html", null, true);
-        echo "</p>
+            // line 26
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getHeading", [], "method", false, false, false, 26), "html", null, true);
+            echo "</p>
                         <p>";
-        // line 26
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getContent", [], "method", false, false, false, 26), "html", null, true);
-        echo "</p>
+            // line 27
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getContent", [], "method", false, false, false, 27), "html", null, true);
+            echo "</p>
                         <ul class=\"list-inline item-details\">
                             <li>Auteur:
                                 <strong>";
-        // line 29
-        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "postAuthor", [], "any", false, false, false, 29), "getFirstname", [], "method", false, false, false, 29) . " ") . twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "postAuthor", [], "any", false, false, false, 29), "getLastname", [], "method", false, false, false, 29)), "html", null, true);
-        echo "
+            // line 30
+            echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["postObject"], "postAuthor", [], "any", false, false, false, 30), "getFirstname", [], "method", false, false, false, 30) . " ") . twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["postObject"], "postAuthor", [], "any", false, false, false, 30), "getLastname", [], "method", false, false, false, 30)), "html", null, true);
+            echo "
                                 </strong>
                             </li>
                             <li>Date:
                                 <strong>";
-        // line 33
-        echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getCreatedAt", [], "method", false, false, false, 33), "d/m/Y"), "html", null, true);
-        echo "
+            // line 34
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getCreatedAt", [], "method", false, false, false, 34), "d/m/Y"), "html", null, true);
+            echo "
                                 </strong>
                             </li>
                             <li>Service:
@@ -96,57 +102,57 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                             </li>
                         </ul>
                         ";
-        // line 41
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "postComments", [], "any", false, false, false, 41));
-        foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
             // line 42
-            echo "                            <div class=\"modal-body\">
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["postObject"], "postComments", [], "any", false, false, false, 42));
+            foreach ($context['_seq'] as $context["_key"] => $context["comment"]) {
+                // line 43
+                echo "                            <div class=\"modal-body\">
                                 <h3>";
-            // line 43
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getTitle", [], "method", false, false, false, 43), "html", null, true);
-            echo "</h3>
+                // line 44
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getTitle", [], "method", false, false, false, 44), "html", null, true);
+                echo "</h3>
                                 <p>";
-            // line 44
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getContent", [], "method", false, false, false, 44), "html", null, true);
-            echo "</p>
+                // line 45
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getContent", [], "method", false, false, false, 45), "html", null, true);
+                echo "</p>
                                 <ul class=\"list-inline item-details\">
                                     <li>Auteur:
                                         <strong>";
-            // line 47
-            echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["comment"], "commentAuthor", [], "any", false, false, false, 47), "getFirstname", [], "method", false, false, false, 47) . " ") . twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["comment"], "commentAuthor", [], "any", false, false, false, 47), "getLastname", [], "method", false, false, false, 47)), "html", null, true);
-            echo "
+                // line 48
+                echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["comment"], "commentAuthor", [], "any", false, false, false, 48), "getFirstname", [], "method", false, false, false, 48) . " ") . twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["comment"], "commentAuthor", [], "any", false, false, false, 48), "getLastname", [], "method", false, false, false, 48)), "html", null, true);
+                echo "
                                         </strong>
                                     </li>
                                     <li>Date:
                                         <strong>";
-            // line 51
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getCreatedAt", [], "method", false, false, false, 51), "d/m/Y"), "html", null, true);
-            echo "</strong>
+                // line 52
+                echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["comment"], "getCreatedAt", [], "method", false, false, false, 52), "d/m/Y"), "html", null, true);
+                echo "</strong>
                                     </li>
                                 </ul>
                             </div>
                         ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['comment'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 56
-        echo "
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['comment'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 57
+            echo "
                         <br><br>
                         <div class=\"row\">
                             ";
-        // line 59
-        if (array_key_exists("loggedInUser", $context)) {
             // line 60
-            echo "                            <div class=\"col-lg-8 col-lg-offset-2\">
+            if (array_key_exists("loggedInUser", $context)) {
+                // line 61
+                echo "                            <div class=\"col-lg-8 col-lg-offset-2\">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                                 <form name=\"sentComment\" method=\"POST\"
                                       action=\"";
-            // line 64
-            echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
-            echo "index.php?action=send-new-comment\">
+                // line 65
+                echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+                echo "index.php?action=send-new-comment\">
                                     <div class=\"row control-group\">
                                         <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                             <label>Titre</label>
@@ -171,19 +177,19 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                                   data-form-type=\"other\"></textarea>
                                         <p class=\"help-block text-danger\"></p>
                                         <input type=\"hidden\" name=\"CSRFToken\" id=\"CSRFToken\" value=\"";
-            // line 88
-            echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
-            // line 89
-            echo "\" >
+                // line 89
+                echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
+                // line 90
+                echo "\" >
                                         <input type=\"hidden\" name=\"userEmail\" id=\"userEmail\" value=\"";
-            // line 90
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getEmail", [], "method", false, false, false, 90), "html", null, true);
-            // line 92
-            echo "\" >
+                // line 91
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getEmail", [], "method", false, false, false, 91), "html", null, true);
+                // line 93
+                echo "\" >
                                         <input type=\"hidden\" name=\"postTitle\" id=\"postTitle\" value=\"";
-            // line 93
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 93), "html", null, true);
-            echo "\" >
+                // line 94
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getTitle", [], "method", false, false, false, 94), "html", null, true);
+                echo "\" >
                                     </div>
                                     </div>
 
@@ -197,14 +203,14 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                     </div>
                                 </form>
                             ";
-        } else {
-            // line 107
-            echo "                                <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
+            } else {
+                // line 108
+                echo "                                <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
                         <br>
                                 <form class=\"form\" method=\"POST\" action=\"";
-            // line 109
-            echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
-            echo "index.php?action=login-page\">
+                // line 110
+                echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
+                echo "index.php?action=login-page\">
                                 <div class=\"form-group col-xs-12\">
                                     <button type=\"submit\" class=\"btn btn-success btn-lg\"
                                             data-dashlane-rid=\"55f933ab7c0de50e\" data-dashlane-label=\"true\"
@@ -214,9 +220,9 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
                                 </form>
                             </div>
                             ";
-        }
-        // line 119
-        echo "                        </div>
+            }
+            // line 120
+            echo "                        </div>
                         <br><br>
                         <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\"><i class=\"fa
 \t\t\t\t\t\tfa-times\"></i> Fermer la fenêtre
@@ -227,8 +233,11 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
         </div>
     </div>
 </div>
-
 ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
     }
 
     public function getTemplateName()
@@ -243,7 +252,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
 
     public function getDebugInfo()
     {
-        return array (  219 => 119,  206 => 109,  202 => 107,  185 => 93,  182 => 92,  180 => 90,  177 => 89,  175 => 88,  148 => 64,  142 => 60,  140 => 59,  135 => 56,  124 => 51,  117 => 47,  111 => 44,  107 => 43,  104 => 42,  100 => 41,  89 => 33,  82 => 29,  76 => 26,  72 => 25,  67 => 23,  62 => 21,  46 => 8,  37 => 1,);
+        return array (  225 => 120,  212 => 110,  208 => 108,  191 => 94,  188 => 93,  186 => 91,  183 => 90,  181 => 89,  154 => 65,  148 => 61,  146 => 60,  141 => 57,  130 => 52,  123 => 48,  117 => 45,  113 => 44,  110 => 43,  106 => 42,  95 => 34,  88 => 30,  82 => 27,  78 => 26,  73 => 24,  68 => 22,  52 => 9,  49 => 8,  45 => 7,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -254,6 +263,7 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
 \t\t<i class=\"fa fa-chevron-up\"></i>
 \t</a>
 </div>
+{% for key, postObject in latestPosts %}
 <!-- Portfolio Modals -->
 <div class=\"portfolio-modal modal fade\" id=\"portfolioModal{{ postObject.getId() }}\" tabindex=\"-1\" role=\"dialog\"
      aria-hidden=\"true\">
@@ -377,7 +387,6 @@ class __TwigTemplate_463c5412dc60fa4de69975b5e5771fd038087b8b10571bffb0e98082089
         </div>
     </div>
 </div>
-
-", "modals/modals.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\modals\\modals.html.twig");
+{% endfor %}", "modals/modals.html.twig", "C:\\wamp64\\www\\openclassrooms\\projet5\\blog\\app\\templates\\main\\modals\\modals.html.twig");
     }
 }

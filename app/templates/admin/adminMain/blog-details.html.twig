@@ -18,21 +18,6 @@
             </div>
         </div>
     </div>
-    {% if error is not empty  %}
-        <div class="alert alert-danger" role="alert">
-            <div class="container">
-                <div class="alert-icon">
-                    <i class="zmdi zmdi-block"></i>
-                </div>
-                <strong>Oh snap!</strong> {{ error }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">
-                        <i class="zmdi zmdi-close"></i>
-                    </span>
-                </button>
-            </div>
-        </div>
-    {% endif %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-md-12">
@@ -40,34 +25,32 @@
                     <div class="body">
                         <h3 class="m-t-0 m-b-5"><a href="blog-details.html">{{ postObject.getTitle() }}</a></h3>
                         <ul class="meta">
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{ postObject.getFirstname()~" "~postObject.getLastname()}}</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: </a></li>
                             <li><a href="#"><i class="zmdi zmdi-label col-red"></i>Photography</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: 3</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: </a></li>
+                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Validé le:
+                                    </a></li>
                         </ul>
                     </div>                    
                     <div class="body">
                         <div class="img-post m-b-15">
-                            <img src="../../assets/images/blog/blog-page-1.jpg" alt="Awesome Image">
-                            <div class="social_share">                            
-                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-facebook"></i></button>
-                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
-                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-instagram"></i></button>
-                            </div>
+                            <img src="{{ _SERVER["BASE_URI"] }}assets/images/blog/blog-page-1.jpg" alt="Awesome Image">
                         </div>
+                        <h1>{{ postObject.getTitle() }}</h1>
                         <p>{{ postObject.getHeading() }}</p>
                         <p>{{ postObject.getContent() }}</p>
                     </div>
-                    <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index
-                    .php?action=validated-post" novalidate="novalidate">
-                        <button href="blog-details.html" title="read more" class="btn btn-round
+                    <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=validated-post" novalidate="novalidate">
+                        <button class="btn btn-round
                         btn-success">Valider</button>
-                        <input type="hidden" name="post-title" value="{{ postObject.getTitle() }}">
+                        <input type="hidden" name="post-id" value="{{ postObject.getId() }}">
+                        <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
                     </form>
-                    <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index
-                    .php?action=rejected-post" novalidate="novalidate">
-                        <button href="blog-details.html" title="read more" class="btn btn-round
+                    <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=rejected-post" novalidate="novalidate">
+                        <button class="btn btn-round
                         btn-danger">Rejeter</button>
-                        <input type="hidden" name="post-title" value="{{ postObject.getTitle() }}">
+                        <input type="hidden" name="post-id" value="{{ postObject.getId() }}">
+                        <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
                     </form>
                 </div>
             </div>

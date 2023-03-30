@@ -21,9 +21,6 @@ class CommentService
             $statement->execute([":pendingStatus" => CommentModel::STATUS_PENDING]);
             $status = $statement->fetchAll(PDO::FETCH_CLASS, CommentModel::class);
 
-            if(empty($status)){
-                throw new Exception("Erreur lors de la recherche de l'ensemble des commentaires");
-            }
             return $status;
     }
 
@@ -60,25 +57,44 @@ class CommentService
             ->prepare("UPDATE comment SET comment.status = :status, comment.updated_at = :updated_at WHERE (comment.title = :title)");
 
         $status =  $statement->execute([":status" => CommentModel::STATUS_PUBLISHED,
-            ":updated_at" => new DateTime("now", new DateTimeZone('America/Toronto')),
+            ":updated_at" => CommentModel::getCurrentDateTime(),
             ":title" => $commentTitle]);
 
         if (empty($status)){
-            throw new Exception("Erreur lors de la mise à jour du commentaire, veuillez réessayer");
+            throw new Exception("Erreur lors de la mise à jour du commentaire ${commentTitle}, veuillez réessayer");
         }
         return true;
     }
 
     /**
-     * @param int $id
+     * @param string $commentTitle
+     * @return bool
+     * @throws Exception
+     */
+    public static function rejectedComment(string $commentTitle): bool
+    {
+        $statement = CommentModel::getDataBase()
+            ->prepare("DELETE FROM comment
+					   WHERE comment.title = :commentTitle");
+
+        $status = $statement->execute([":commentTitle" => $commentTitle]);
+
+        if (empty($status)) {
+            throw new Exception("La suppression du commentaire ${commentTitle} a échoué");
+        }
+        return true;
+    }
+
+    /**
+     * @param string $commentTitle
      * @return object
      * @throws Exception
      */
-    public static function getComment(int $id): object
+    public static function getPublishedComment(string $commentTitle): object
     {
-        $statement = CommentModel::getDataBase()->prepare("SELECT * FROM comment WHERE comment.id = :id");
+        $statement = CommentModel::getDataBase()->prepare("SELECT * FROM comment WHERE comment.title = :commentTitle");
         $statement->execute([
-            ':id' => $id,
+            ':commentTitle' => $commentTitle,
         ]);
 
         $status = $statement->fetchObject(CommentModel::class);
@@ -103,10 +119,24 @@ class CommentService
 
         $status = $statement->fetchObject(UserModel::class);
 
-        //if(empty($status)){
-          //  throw new Exception("Erreur lors de la recherche de l'auteur du commentaire");
-       // }
-
         return $status;
+    }
+
+    /**
+     * @param int $postId
+     * @return bool|array
+     */
+    public static function getNumberOfComments(int $postId): bool|array
+    {
+        $statement = CommentModel::getDataBase()
+        ->prepare("SELECT COUNT(comment.id) AS total FROM comment INNER JOIN post ON (post.id = comment.post_id) WHERE (comment.post_id = :postId)");
+
+        $statement->execute([
+            "postId" => $postId
+        ]);
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 }

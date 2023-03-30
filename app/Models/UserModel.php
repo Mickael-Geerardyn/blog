@@ -68,15 +68,14 @@ class UserModel extends CoreModel
 			':lastname' => $this->lastname,
 			':email' => $this->email,
 			':hash_password' => $this->hash_password,
-			':phone_number' => $this->phone_number,
-			':social_linkedin' => $this->social_linkedin,
-			':social_twitter' => $this->social_twitter,
+			':phone_number' => (!empty($this->phone_number)),
+			':social_linkedin' => (!empty($this->social_linkedin)),
+			':social_twitter' => (!empty($this->social_twitter)),
 			':role_id' => $this->role_id,
 		]);
 
 		if (!$status)
 		{
-			$statement->rollback();
 			throw new UserExceptions("Une erreur est intervenue durant l'enregistrement de l'utilisateur");
 		}
 

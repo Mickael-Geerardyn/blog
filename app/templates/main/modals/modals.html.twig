@@ -4,6 +4,7 @@
 		<i class="fa fa-chevron-up"></i>
 	</a>
 </div>
+{% for key, postObject in latestPosts %}
 <!-- Portfolio Modals -->
 <div class="portfolio-modal modal fade" id="portfolioModal{{ postObject.getId() }}" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -127,4 +128,4 @@
         </div>
     </div>
 </div>
-
+{% endfor %}

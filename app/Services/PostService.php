@@ -22,7 +22,7 @@ class PostService
 	public static function getHomePageRecentPosts(int $limit = self::POSTS_PER_PAGE): array
 	{
 		$statement = PostModel::getDataBase()
-			->prepare('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
+			->prepare('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
 					   FROM `post`
 					   ORDER BY created_at ASC 
 					   LIMIT :limit');
@@ -41,32 +41,6 @@ class PostService
 		return $status;
 	}
 
-    /**
-     * @param int $commentStatusPublished
-     * @return array
-     * @throws Exception
-     */
-	public static function getPostWithItsComments(int $commentStatusPublished = self::COMMENT_STATUS_PUBLISHED): array
-	{
-		$statement = PostModel::getDataBase()
-			->query("SELECT post.id, post.title, heading, post.content, post.user_id, is_published, post.created_at, post.updated_at, comment.post_id ,comment.title, comment.content, status, comment.created_at, comment.updated_at
-                     FROM post
-                     INNER JOIN comment
-                     ON post.id = comment.post_id
-                     WHERE comment.status = $commentStatusPublished
-                     ORDER BY post.created_at DESC");
-
-		$statement->execute();
-
-		$status = $statement->fetchAll();
-
-		if(empty($status)){
-			$statement->rollBack();
-			throw new Exception("Erreur lors de la recherche de l'ensemble des articles");
-		}
-		return $status;
-	}
-
 	/**
 	 * Method who return all posts without condition
 	 * @return array
@@ -76,7 +50,7 @@ class PostService
 		$statement = PostModel::getDataBase()
         ->prepare('SELECT id, title, heading, content, user_id, created_at, updated_at
 					 FROM post
-					 WHERE is_published IS NOT NULL');
+					 WHERE published_at IS NOT NULL');
 
         $statement->execute();
 
@@ -94,10 +68,9 @@ class PostService
 	public static function getAllPostsOfTheCurrentUser(int $userId): object
 	{
 		$statement = PostModel::getDataBase()
-			->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
-			->query('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
+			->query('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
 					   FROM post
-					   WHERE (user_id = :userId AND is_published IS NOT NULL)')
+					   WHERE (user_id = :userId AND published_at IS NOT NULL)')
 			->execute([
 				':userId' => $userId,
 			]);
@@ -132,17 +105,15 @@ class PostService
 	}
 
 	/**
-	 * @param int $postId
+	 * @param int|string $postId
 	 * @return object
 	 * @throws Exception
 	 */
-	public static function getPostById(int $postId): object
+	public static function getPostById(int|string $postId): object
 	{
 		$statement = PostModel::getDataBase()
-			->prepare('SELECT post.id AS id_post, user.id AS id_user, title, heading, content, user_id, is_published, post.created_at, post.updated_at, user.firstname, user.lastname, user.social_linkedin, user.social_twitter, user.phone_number, user.email
+			->prepare('SELECT *
 					   FROM post
-					   INNER JOIN user
-					   ON user_id = user.id
 					   WHERE post.id = :postId');
 
 		$statement->execute([
@@ -152,7 +123,6 @@ class PostService
 		$status = $statement->fetchObject(PostModel::class);
 
 		if(empty($status)){
-			$statement->rollBack();
 			throw new Exception("L'article n'a pas été trouvé ou n'existe pas");
 		}
 
@@ -166,13 +136,53 @@ class PostService
 	public static function getAllNotValidatedPosts(): array
 	{
 		$statement = PostModel::getDataBase()
-			->prepare('SELECT id, title, heading, content, user_id, is_published, created_at, updated_at
+			->prepare('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
 					   FROM post
-					   WHERE is_published IS NULL');
+					   WHERE published_at IS NULL');
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
 
 		return $result;
 	}
+
+    /**
+     * @param int $postId
+     * @return bool
+     * @throws Exception
+     */
+    public static function approvedPost(int $postId): bool
+    {
+        $statement = PostModel::getDataBase()
+            ->prepare("UPDATE post SET post.published_at = :published_at WHERE (post.id = :postId)");
+
+        $status =  $statement->execute([":postId" => $postId,
+            ":published_at" => CommentModel::getCurrentDateTime(),
+            ]);
+
+        if (empty($status)){
+            throw new Exception("Erreur lors de la validation de l'article, veuillez réessayer");
+        }
+        return true;
+    }
+
+    /**
+     * @param int $postId
+     * @return bool
+     * @throws Exception
+     */
+    public static function rejectedPost(int $postId): bool
+    {
+        $statement = PostModel::getDataBase()
+            ->prepare("UPDATE post SET post.published_at = :published_at WHERE (post.id = :postId)");
+
+        $status =  $statement->execute([":postId" => $postId,
+            ":published_at" => null,
+        ]);
+
+        if (empty($status)){
+            throw new Exception("Erreur lors de la validation de l'article, veuillez réessayer");
+        }
+        return true;
+    }
 }

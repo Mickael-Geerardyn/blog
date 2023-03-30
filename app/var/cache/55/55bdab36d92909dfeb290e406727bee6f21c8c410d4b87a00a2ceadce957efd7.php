@@ -55,13 +55,13 @@ class __TwigTemplate_ff20a21145eb8caf2c31b3b2d3627becea81cd2195f46f4d95f43f09ad1
                 <li class=\"nav-item\">
                     <a class=\"nav-link btn btn-primary btn-round\" href=\"";
         // line 17
-        echo twig_escape_filter($this->env, ((($context["referer"] ?? null)) ? (((($__internal_compile_1 =         // line 18
+        echo twig_escape_filter($this->env, ((twig_test_empty(($context["referer"] ?? null))) ? (((($__internal_compile_1 =         // line 18
 ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null) . "index
-\t\t\t\t\t.php?action=register-page")) : (((($__internal_compile_2 =         // line 19
+\t\t\t\t\t.php?action=sign-up-page")) : (((($__internal_compile_2 =         // line 19
 ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null) . "index.php?action=login-page"))), "html", null, true);
         echo "\">";
-        echo ((        // line 20
-($context["referer"] ?? null)) ? ("S'ENREGISTRER") : ("SE CONNECTER"));
+        echo ((twig_test_empty(        // line 20
+($context["referer"] ?? null))) ? ("S'ENREGISTRER") : ("SE CONNECTER"));
         echo "</a>
                 </li>
 \t\t\t</ul>
@@ -104,10 +104,10 @@ class __TwigTemplate_ff20a21145eb8caf2c31b3b2d3627becea81cd2195f46f4d95f43f09ad1
 \t\t\t\t\t<a class=\"nav-link\" href=\"{{ _SERVER['BASE_URI'] }}\">Accueil</a>
 \t\t\t\t</li>
                 <li class=\"nav-item\">
-                    <a class=\"nav-link btn btn-primary btn-round\" href=\"{{ (referer)?
+                    <a class=\"nav-link btn btn-primary btn-round\" href=\"{{ (referer is empty)?
 \t\t\t\t\t_SERVER[\"BASE_URI\"]~\"index
-\t\t\t\t\t.php?action=register-page\" : _SERVER['BASE_URI']~\"index.php?action=login-page\" }}\">{{
-\t\t\t\t\t(referer)? \"S'ENREGISTRER\" : \"SE CONNECTER\" }}</a>
+\t\t\t\t\t.php?action=sign-up-page\" : _SERVER['BASE_URI']~\"index.php?action=login-page\" }}\">{{
+\t\t\t\t\t(referer is empty)? \"S'ENREGISTRER\" : \"SE CONNECTER\" }}</a>
                 </li>
 \t\t\t</ul>
 \t\t</div>

@@ -2,13 +2,15 @@
 
 namespace App\Controllers\Admin;
 
+use App\Services\AuthService;
 use App\Services\CommentService;
 use App\Services\UserService;
 use Exception;
 
 class AdminCommentController extends AdminCoreController
 {
-     /**
+
+    /**
      * @return bool
       * @throws Exception
      */
@@ -22,7 +24,7 @@ class AdminCommentController extends AdminCoreController
             }
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
-                $pendingComments]);
+                $pendingComments, "CSRFToken" => $_SESSION["CSRFToken"]]);
             return true;
         } catch (Exception $exception) {
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
@@ -33,22 +35,32 @@ class AdminCommentController extends AdminCoreController
     public function approvedComment()
     {
         try {
-            $commentTitle = htmlspecialchars($_GET["commentTitle"]);
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+            $commentTitle = htmlspecialchars($_POST["commentTitle"]);
             CommentService::approvedComment($commentTitle);
-            $this->twigEnvironment->display('/adminMain/admin-comment.html.twig', ['success' => 'Le commentaire a bien été approuvé']);
+            $pendingComments = CommentService::getPendingComments();
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
+                $pendingComments, 'success' => `Le commentaire ${commentTitle} a bien été approuvé`]);
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/admin-comment.html.twig', ['error' => $exception->getMessage
-            ()]);
+            $pendingComments = CommentService::getPendingComments();
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
+                $pendingComments, 'error' => $exception->getMessage()]);
         }
     }
 
-    public function addnewComment()
-    {
-        try {
-
-        } catch (Exception $exception)
-        {
-
-        }
+public function deletedComment()
+{
+    try {
+        AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+        $commentTitle = htmlspecialchars($_POST["commentTitle"]);
+        CommentService::rejectedComment($commentTitle);
+        $pendingComments = CommentService::getPendingComments();
+        $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
+            $pendingComments, 'success' => `Le commentaire ${commentTitle} a bien été supprimé`]);
+    }catch (Exception $exception){
+        $pendingComments = CommentService::getPendingComments();
+        $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' =>
+            $pendingComments, 'error' => $exception->getMessage()]);
     }
+}
 }

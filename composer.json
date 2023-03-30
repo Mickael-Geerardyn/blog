@@ -14,5 +14,9 @@
     "require": {
         "php": "^8.0",
         "twig/twig": "^3.0"
+    },
+
+    "require-dev": {
+        "mailhog/mailhog": "^1.0"
     }
 }

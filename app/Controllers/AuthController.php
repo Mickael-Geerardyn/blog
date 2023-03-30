@@ -76,6 +76,8 @@ class AuthController extends CoreController
     public function displayLandingDashboard(): bool
     {
         try {
+
+
             $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['userObject' =>
                 $this->ownerUser]);
 

@@ -3,20 +3,17 @@ declare(strict_types=1);
 
 namespace App\Controllers\Admin;
 use App\Models\PostModel;
+use App\Services\AuthService;
+use App\Services\CommentService;
 use App\Services\PostService;
 use App\Services\UserService;
 use Exception;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class AdminPostController extends AdminCoreController
 {
-	/**
-	 * @return void
-	 */
-	public function displayCreatePostPage(): void
-	{
-		$currentUser = $_SESSION['userObject']->getEmail();
-		$this->displayCalledPage('blog-post', UserService::getOneUser($currentUser));
-	}
 
 	/**
 	 * @return void
@@ -25,7 +22,13 @@ class AdminPostController extends AdminCoreController
 	public function displayPostsPage(): void
 	{
 		try{
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['postsArray' => PostService::getAllNotValidatedPosts()]);
+            $postsArray = PostService::getAllNotValidatedPosts();
+            foreach($postsArray as $post){
+                $post->author = UserService::getPostAuthorById($post->getUserId());
+                $post->commentsNumber = CommentService::getNumberOfComments($post->getId());
+            }
+
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['postsArray' => $postsArray]);
 
 		}catch (Exception $exception){
 
@@ -39,11 +42,13 @@ class AdminPostController extends AdminCoreController
 	 * @return bool
      * @throws Exception
 	 */
-	public function displayOnePostByTitle(): bool
+	public function displayOnePostById(): bool
 	{
 		try{
-			$postTitle = htmlspecialchars($_POST['post-title']);
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getOnePostByTitle($postTitle)]);
+			$postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
+            //var_dump(PostService::getPostById($postId)); die;
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' =>
+                PostService::getPostById($postId), "CSRFToken" => $_SESSION["CSRFToken"]]);
 			return true;
 		}catch (Exception $exception){
             $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['error' => $exception->getMessage()]);
@@ -55,35 +60,100 @@ class AdminPostController extends AdminCoreController
 
 	/**
 	 * @return bool
+     * @throws Exception
 	 */
 	public function newPostPage(): bool
 	{
-		self::displayCalledPage('blog-post');
-		return true;
+        try{
+            $this->twigEnvironment->display('/adminMain/blog-post.html.twig', ["loggedInUser" => $_SESSION["userObject"]]);
+            return true;
+        }catch(Exception $exception)
+        {
+            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ["error" => $exception->getMessage()]);
+            return false;
+        }
 	}
+
+    /**
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function validatePostById(): bool
+    {
+        try {
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+            $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
+            PostService::approvedPost($postId);
+
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getPostById($postId), "loggedInUser" => $_SESSION["userObject"]]);
+
+            return true;
+        } catch (Exception $exception) {
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage(), "loggedInUser" => $_SESSION["userObject"]]);
+            return false;
+        }
+    }
+
+    /**
+     * @param int $postId
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+        public function rejectedPostById(): bool
+        {
+        try{
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+            $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
+            PostService::rejectedPost($postId);
+
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' =>
+                PostService::getPostById($postId), "success" => "L'article a bien été refusé"]);
+
+            return true;
+
+        }catch(Exception $exception){
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+            return false;
+        }
+    }
 
 	/**
 	 * Function which allows to try to create a new post and save it in
 	 * database with createPost method
 	 * If there is a problem with the creation, a message exception will catch.
-	 * @return void
+	 * @return bool
 	 */
-	public function createOnePost(): void
+	public function createPost(): bool
 	{
 		try {
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+
+            $content = strip_tags(htmlspecialchars($_POST["content"]), self::ALLOWED_TAGS);
+            $heading = strip_tags(htmlspecialchars($_POST["heading"]), self::ALLOWED_TAGS);
+            $title = strip_tags(htmlspecialchars($_POST["title"]), self::ALLOWED_TAGS);
+
 			$newPost = new PostModel();
 
 			$newPost
-				->setTitle($_POST['name'])
-				->setHeading($_POST['header'])
-				->setContent($_POST['content'])
-				->setUserId($_SESSION['userId']);
+				->setTitle($title)
+				->setHeading($heading)
+				->setContent($content)
+				->setUserId($_SESSION["userObject"]->getId());
 
-			$newPost->createOnePost();
+			$thisNewPostId = $newPost->createOnePost();
+
+            AuthService::unsetDataInGlobalPost();
+
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig',
+                ["postObject" => PostService::getPostById($thisNewPostId), "userObject" => $_SESSION["userObject"] ,"success" => "L'article a bien été enregistré"]);
 
 		} catch (Exception $exception) {
-
-			echo $exception->getMessage();
+            $this->twigEnvironment->display('/adminMain/blog-post.html.twig', ["error" => $exception->getMessage()]);
+            return false;
 		}
 	}
 

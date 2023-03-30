@@ -75,51 +75,57 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
             echo twig_escape_filter($this->env, (($__internal_compile_0 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_0) || $__internal_compile_0 instanceof ArrayAccess ? ($__internal_compile_0["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=login-page\">Se connecter</a>
 \t\t\t\t</li>
+\t\t\t\t\t<li class=\"page-scroll\">
+\t\t\t\t\t<a href=\"";
+            // line 31
+            echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+            echo "index.php?action=sign-up-page\">Créer un compte</a>
+\t\t\t\t</li>
 \t\t\t\t";
         }
-        // line 31
+        // line 34
         echo "\t\t\t\t";
-        if (( !twig_test_empty(($context["loggedInUser"] ?? null)) && (twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getRoleId", [], "method", false, false, false, 31) ===         // line 32
+        if (( !twig_test_empty(($context["loggedInUser"] ?? null)) && (twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getRoleId", [], "method", false, false, false, 34) ===         // line 35
 ($context["ROLE_ADMIN"] ?? null)))) {
-            // line 33
+            // line 36
             echo "\t\t\t\t\t<li class=\"page-scroll\">
 \t\t\t\t\t\t<a href=\"";
-            // line 34
-            echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+            // line 37
+            echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=landing-dashboard\">Administration</a>
 \t\t\t\t\t</li>
 \t\t\t\t<li class=\"page-scroll\">
 \t\t\t\t\t<a href=\"";
-            // line 37
-            echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
-            echo "index.php?action=logout\">Se déconnecter</a>
-\t\t\t\t</li>
-\t\t\t\t";
-        } elseif ((twig_get_attribute($this->env, $this->source,         // line 39
-($context["loggedInUser"] ?? null), "getRoleId", [], "method", false, false, false, 39) != ($context["ROLE_ADMIN"] ?? null))) {
             // line 40
-            echo "\t\t\t\t<li class=\"page-scroll\">
-\t\t\t\t\t<a href=\"";
-            // line 41
             echo twig_escape_filter($this->env, (($__internal_compile_3 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_3) || $__internal_compile_3 instanceof ArrayAccess ? ($__internal_compile_3["BASE_URI"] ?? null) : null), "html", null, true);
             echo "index.php?action=logout\">Se déconnecter</a>
 \t\t\t\t</li>
 \t\t\t\t";
+        } elseif ((twig_get_attribute($this->env, $this->source,         // line 42
+($context["loggedInUser"] ?? null), "getRoleId", [], "method", false, false, false, 42) != ($context["ROLE_ADMIN"] ?? null))) {
+            // line 43
+            echo "\t\t\t\t<li class=\"page-scroll\">
+\t\t\t\t\t<a href=\"";
+            // line 44
+            echo twig_escape_filter($this->env, (($__internal_compile_4 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["BASE_URI"] ?? null) : null), "html", null, true);
+            echo "index.php?action=logout\">Se déconnecter</a>
+\t\t\t\t</li>
+\t\t\t\t";
         }
-        // line 44
+        // line 47
         echo "\t\t\t</ul>
 \t\t</div>
 \t\t";
-        // line 46
+        // line 49
         if ( !twig_test_empty(($context["success"] ?? null))) {
-            // line 47
+            // line 50
             echo "\t\t\t<div class=\"alert alert-success\" role=\"alert\">
 \t\t\t\t<div class=\"container\">
 \t\t\t\t\t<div class=\"alert-icon\">
 \t\t\t\t\t\t<i class=\"zmdi zmdi-thumb-up\"></i>
 \t\t\t\t\t</div>
 \t\t\t\t\t<strong>Well done!</strong> ";
-            // line 52
+            // line 55
             echo twig_escape_filter($this->env, ($context["success"] ?? null), "html", null, true);
             echo "
 \t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
@@ -131,7 +137,29 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t\t</div>
 \t\t";
         }
-        // line 61
+        // line 64
+        echo "\t\t";
+        if ( !twig_test_empty(($context["error"] ?? null))) {
+            // line 65
+            echo "\t\t\t<div class=\"alert alert-danger\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-block\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Oh snap! </strong> ";
+            // line 70
+            echo twig_escape_filter($this->env, ($context["error"] ?? null), "html", null, true);
+            echo "
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                            <span aria-hidden=\"true\">
+                                <i class=\"zmdi zmdi-close\"></i>
+                            </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t";
+        }
+        // line 79
         echo "\t\t<!-- /.navbar-collapse -->
 \t</div>
 \t<!-- /.container-fluid -->
@@ -143,21 +171,21 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t<div class=\"row\">
 \t\t\t<div class=\"col-lg-12\">
 \t\t\t\t<img class=\"img-responsive\" src=\"";
-        // line 71
-        echo twig_escape_filter($this->env, (($__internal_compile_4 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_4) || $__internal_compile_4 instanceof ArrayAccess ? ($__internal_compile_4["BASE_URI"] ?? null) : null), "html", null, true);
+        // line 89
+        echo twig_escape_filter($this->env, (($__internal_compile_5 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_5) || $__internal_compile_5 instanceof ArrayAccess ? ($__internal_compile_5["BASE_URI"] ?? null) : null), "html", null, true);
         echo "assets/img/profile.png\" alt=\"\">
 \t\t\t\t<div class=\"intro-text\">
 \t\t\t\t\t<span class=\"name\">";
-        // line 73
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 73), "html", null, true);
+        // line 91
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 91), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source,         // line 74
-($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 74), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source,         // line 92
+($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 92), "html", null, true);
         echo "</span>
 \t\t\t\t\t<hr class=\"star-light\">
 \t\t\t\t\t<span class=\"skills\">Développeur web back-end PHP/SYMFONY</span>
 \t\t\t\t\t";
-        // line 77
+        // line 95
         echo ((array_key_exists("error", $context)) ? (($context["error"] ?? null)) : (""));
         echo "
 \t\t\t\t</div>
@@ -182,7 +210,7 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 
     public function getDebugInfo()
     {
-        return array (  161 => 77,  155 => 74,  152 => 73,  147 => 71,  135 => 61,  123 => 52,  116 => 47,  114 => 46,  110 => 44,  104 => 41,  101 => 40,  99 => 39,  94 => 37,  88 => 34,  85 => 33,  83 => 32,  81 => 31,  75 => 28,  72 => 27,  70 => 26,  56 => 15,  47 => 9,  37 => 1,);
+        return array (  189 => 95,  183 => 92,  180 => 91,  175 => 89,  163 => 79,  151 => 70,  144 => 65,  141 => 64,  129 => 55,  122 => 50,  120 => 49,  116 => 47,  110 => 44,  107 => 43,  105 => 42,  100 => 40,  94 => 37,  91 => 36,  89 => 35,  87 => 34,  81 => 31,  75 => 28,  72 => 27,  70 => 26,  56 => 15,  47 => 9,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -216,6 +244,9 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
 \t\t\t\t<li class=\"page-scroll\">
 \t\t\t\t\t<a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=login-page\">Se connecter</a>
 \t\t\t\t</li>
+\t\t\t\t\t<li class=\"page-scroll\">
+\t\t\t\t\t<a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=sign-up-page\">Créer un compte</a>
+\t\t\t\t</li>
 \t\t\t\t{% endif %}
 \t\t\t\t{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
 \t\t\t\t\t(ROLE_ADMIN)%}
@@ -243,6 +274,21 @@ class __TwigTemplate_4ee9ac0c29853517b72a695a8a52588156531628731a39c4cb2666a4d11
             <span aria-hidden=\"true\">
             <i class=\"zmdi zmdi-close\"></i>
         </span>
+\t\t\t\t\t</button>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t{% endif %}
+\t\t{% if error is not empty %}
+\t\t\t<div class=\"alert alert-danger\" role=\"alert\">
+\t\t\t\t<div class=\"container\">
+\t\t\t\t\t<div class=\"alert-icon\">
+\t\t\t\t\t\t<i class=\"zmdi zmdi-block\"></i>
+\t\t\t\t\t</div>
+\t\t\t\t\t<strong>Oh snap! </strong> {{ error }}
+\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                            <span aria-hidden=\"true\">
+                                <i class=\"zmdi zmdi-close\"></i>
+                            </span>
 \t\t\t\t\t</button>
 \t\t\t\t</div>
 \t\t\t</div>

@@ -27,6 +27,9 @@
 				<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=login-page">Se connecter</a>
 				</li>
+					<li class="page-scroll">
+					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=sign-up-page">Créer un compte</a>
+				</li>
 				{% endif %}
 				{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
 					(ROLE_ADMIN)%}
@@ -54,6 +57,21 @@
             <span aria-hidden="true">
             <i class="zmdi zmdi-close"></i>
         </span>
+					</button>
+				</div>
+			</div>
+		{% endif %}
+		{% if error is not empty %}
+			<div class="alert alert-danger" role="alert">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="zmdi zmdi-block"></i>
+					</div>
+					<strong>Oh snap! </strong> {{ error }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close"></i>
+                            </span>
 					</button>
 				</div>
 			</div>

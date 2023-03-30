@@ -5,14 +5,14 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h2>Liste des articles
+                <h2>Liste
                 </h2>
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Compass</a></li>
                     <li class="breadcrumb-item"><a href="blog-dashboard.html">Blog</a></li>
-                    <li class="breadcrumb-item active">Liste des articles</li>
+                    <li class="breadcrumb-item active">Liste</li>
                 </ul>
             </div>
         </div>
@@ -20,36 +20,44 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-md-12 left-box">
+                {# PARTIE LISTE DES ARTICLES #}
                 {% if postsArray is not empty %}
                 {% for post in postsArray %}
                 <div class="card single_post">
                     <div class="body">
                         <h3 class="m-t-0 m-b-5">{{ post.getTitle() }}</h3>
                         <ul class="meta">
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{ post.getFirstname()
-                                    ~" "~ post.getLastname() }}</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{ post.author.getFirstname()
+                                    ~" "~ post.author.getLastname() }}</a></li>
                             <li><a href="#"><i class="zmdi zmdi-label col-amber"></i>Technology</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: 3</a></li>
+                            {% if post.getUpdatedAt() is not empty %}
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Mis à jour le: {{
+                                    post.getUpdatedAt() }}</a></li>
+                            {% endif %}
+                            {% if post.commentsNumber is not empty %}
+                                <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Commentaires: {{
+                                        post.commentsNumber.total }}</a></li>
+                            {% endif %}
                         </ul>
                     </div>                    
                     <div class="body">
                         <div class="img-post m-b-15">
-                            <img src="../../assets/images/blog/blog-page-2.jpg" alt="Awesome Image">
-                            <div class="social_share">
-                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
-                            </div>
+                            <img src="{{ _SERVER["BASE_URI"] }}assets/images/blog/blog-page-2.jpg" alt="Awesome Image">
                         </div>
                         <p>{{ post.getHeading }}</p>
-                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post">
-                        <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Read More</button>
-                            <input type="hidden" name="post-title" value="{{ post.getTitle() }}">
+                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post-page">
+                        <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Voir
+                            l'article</button>
+                            <input type="hidden" name="post-id" value="{{ post.getId() }}">
                         </form>
                     </div>
 
                 </div>
                 {% endfor %}
                 {% endif %}
-                {% if pendingComments is not empty and pendingComments is iterable %}
+                
+                {# PARTIE LISTE DES COMMENTAIRES #}
+                {% if (pendingComments is not empty and pendingComments is iterable) %}
                 {% for comment in pendingComments %}
                 <div class="card single_post">
                     <div class="body">
@@ -59,27 +67,47 @@
                             <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{
                                     comment.author.getFirstname()
                                     ~" "~ comment.author.getLastname() }}</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Créé le: {{
+                                    comment.getCreatedAt()}}</a></li>
+                            {% if comment.getUpdatedAt() is not empty %}
+                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Mis à jour le: {{
+                                    comment.getUpdatedAt()}}</a></li>
+                            {% endif %}
                         </ul>
                         {% endif %}
                     </div>
                     <div class="body">
                         <div class="img-post m-b-15">
-                            <img src="../../assets/images/blog/blog-page-2.jpg" alt="Awesome Image">
-                            <div class="social_share">
-                                <button class="btn btn-primary btn-icon btn-icon-mini btn-round"><i class="zmdi zmdi-twitter"></i></button>
-                            </div>
                         </div>
                         <p>{{ comment.getContent() }}</p>
-                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=single-post">
-                            <button href="blog-details.html" title="read more" class="btn btn-round btn-info">Read More</button>
-                            <input type="hidden" name="post-title" value="{{ comment.getTitle() }}">
+                        <div class="container-fluid">
+                            <div class="row">
+                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=comment-validated">
+                            <button title="Valider le commentaire" class="btn btn-round
+                            btn-info">Valider</button>
+                            <input type="hidden" name="commentTitle" value="{{ comment.getTitle() }}">
+                            <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
                         </form>
+                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=rejected-comment">
+                            <button title="Valider le commentaire" class="btn btn-round
+                            btn-danger">Supprimer</button>
+                            <input type="hidden" name="commentTitle" value="{{ comment.getTitle() }}">
+                            <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
+                        </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
-                {% endif %}
+                {% else %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <h3>Aucun commentaire à valider</h3>
+                    </div>
             </div>
+                {% endif %}
         </div>
+    </div>
     </div>
 </section>
 

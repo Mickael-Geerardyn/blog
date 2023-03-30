@@ -165,6 +165,21 @@
 				<li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=logout" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
 				<li class=""><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
 			</ul>
+			{% if (error is not empty or success is not empty) %}
+				<div class="alert alert-{{ (error is not empty)?"danger":"success" }}" role="alert">
+					<div class="container">
+						<div class="alert-icon">
+							<i class="zmdi zmdi-block"></i>
+						</div>
+						<strong>Oh snap! </strong> {{ (error is not empty)? error : success }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close"></i>
+                            </span>
+						</button>
+					</div>
+				</div>
+			{% endif %}
 		</div>
 	</nav>
 
@@ -196,7 +211,7 @@
 				zmdi-grid"></i><span>Liste des commentaires non
 							validés</span> </a> </li>
                 <li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=display-add-form-user"><i class="zmdi zmdi-home"></i><span>Ajouter un utilisateur</span></a></li>
-				<li><a href="{{ _SERVER["BASE_URI"] }}index.php"><i class="zmdi
+				<li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=homepage"><i class="zmdi
 				zmdi-home"></i><span>Site web</span></a></li>
 				<li class="header">CATEGORIES</li>
 				<li><a href="javascript:void(0);" class="waves-effect waves-block"><i class="zmdi zmdi-label col-green"></i><span>Web Design</span></a></li>

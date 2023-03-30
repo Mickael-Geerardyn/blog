@@ -32,19 +32,19 @@ class PostModel extends CoreModel
 	/**
 	 * @var string|null
 	 */
-    private string|null $is_published;
+    private string|null $published_at;
 
 	/**
 	 * $statement->execute return false if it has a problem with post creation in database
 	 * So if the status is not true, throw new exception with message
-	 * @return void
+	 * @return bool|string
 	 * @throws Exception
 	 */
-	public function createOnePost(): void
+	public function createOnePost(): bool|string
 	{
-			$statement = parent::getDataBase()
-				->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
-				->prepare('INSERT INTO post (title, heading, content, user_id)
+			$pdo = parent::getDataBase();
+
+			$statement = $pdo->prepare('INSERT INTO post (title, heading, content, user_id)
 							VALUES (:title, :heading, :content, :user_id)');
 
 			$status = $statement->execute(array(
@@ -57,6 +57,8 @@ class PostModel extends CoreModel
 			if (empty($status)) {
 				throw new Exception('Une erreur dans la création du post est intervenue');
 			}
+
+            return $pdo->lastInsertId();
 	}
 
 	/**
@@ -188,18 +190,18 @@ class PostModel extends CoreModel
     /**
      * @return string
      */
-    public function getIsPublished(): string
+    public function getPublishedAt(): string
     {
-        return $this->is_published;
+        return $this->published_at;
     }
 
     /**
-     * @param string $is_published
+     * @param string $published_at
 	 * @return object
      */
-    public function setIsPublished(string $is_published): object
+    public function setPublishedAt(string $published_at): object
     {
-        $this->is_published = $is_published;
+        $this->published_at = $published_at;
 
 		return $this;
     }

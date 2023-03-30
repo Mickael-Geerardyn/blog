@@ -25,9 +25,13 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $authController->userLogin();
 			break;
 		case 'user-register':
-			$newUser = new AdminUserController();
-			$newUser->registeredNewUser();
+			$adminUserController = new AdminUserController();
+            $adminUserController->registeredNewUser();
 			break;
+        case 'new-user-register':
+            $userController = new UserController();
+            $userController->newUserRegister();
+            break;
         case 'update-user':
             $newUser = new AdminUserController();
             $newUser->updatedUser();
@@ -60,18 +64,34 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$postsPage = new AdminPostController();
 			$postsPage->displayPostsPage();
 			break;
-		case 'single-post':
+		case 'single-post-page':
 			$postPage = new AdminPostController();
-			$postPage->displayOnePostByTitle();
+			$postPage->displayOnePostById();
 			break;
 		case 'new-post-page':
 			$newPostPage = new AdminPostController();
 			$newPostPage->newPostPage();
 			break;
+        case 'send-new-post':
+            $adminPostController = new AdminPostController();
+            $adminPostController->createPost();
+            break;
+        case 'validated-post':
+            $adminPostController = new AdminPostController();
+            $adminPostController->validatePostById();
+            break;
+        case 'rejected-post':
+            $adminPostController = new AdminPostController();
+            $adminPostController->rejectedPostById();
+            break;
 		case 'login-page':
 			$loginPage = new UserController();
 			$loginPage->getLoginPage();
 			break;
+        case "sign-up-page":
+            $userController = new UserController();
+            $userController->getSignUpPage();
+            break;
 		case 'register-page':
 			$userController = new UserController();
 			$userController->getSignUpPage();
@@ -87,6 +107,18 @@ if(isset($_GET['action']) && !empty($_GET['action']))
         case "comments-list":
             $adminCommentController = new AdminCommentController();
             $adminCommentController->displayPendingCommentsPage();
+            break;
+        case "comment-validated":
+            $adminCommentController = new AdminCommentController();
+            $adminCommentController->approvedComment();
+            break;
+        case "rejected-comment":
+            $adminCommentController = new AdminCommentController();
+            $adminCommentController->deletedComment();
+            break;
+        case "homepage":
+            $homePageController = new HomePageController();
+            $homePageController->getHomePage();
             break;
 		default:
 			header('Location:'.$_SERVER['BASE_URI']."app/templates/admin/404.html.twig");

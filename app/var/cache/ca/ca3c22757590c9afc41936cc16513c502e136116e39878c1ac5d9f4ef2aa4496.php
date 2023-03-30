@@ -101,8 +101,13 @@ class __TwigTemplate_fa9c2cde0785c28ba33bab13c843ead59603235e1e675bb26ba45bc2428
         echo "
 ";
         // line 44
-        $this->loadTemplate("scripts.html.twig", "/base.html.twig", 44)->display($context);
+        $this->loadTemplate("modals/modals.html.twig", "/base.html.twig", 44)->display($context);
         // line 45
+        echo "
+";
+        // line 46
+        $this->loadTemplate("scripts.html.twig", "/base.html.twig", 46)->display($context);
+        // line 47
         echo "
 </body>
 </html>
@@ -131,7 +136,7 @@ class __TwigTemplate_fa9c2cde0785c28ba33bab13c843ead59603235e1e675bb26ba45bc2428
 
     public function getDebugInfo()
     {
-        return array (  117 => 40,  106 => 45,  104 => 44,  101 => 43,  99 => 42,  96 => 41,  94 => 40,  91 => 39,  89 => 38,  70 => 22,  63 => 18,  56 => 14,  49 => 10,  38 => 1,);
+        return array (  122 => 40,  111 => 47,  109 => 46,  106 => 45,  104 => 44,  101 => 43,  99 => 42,  96 => 41,  94 => 40,  91 => 39,  89 => 38,  70 => 22,  63 => 18,  56 => 14,  49 => 10,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -178,6 +183,8 @@ class __TwigTemplate_fa9c2cde0785c28ba33bab13c843ead59603235e1e675bb26ba45bc2428
 {% block body %}{% endblock %}
 
 {% include \"footer.html.twig\" %}
+
+{% include \"modals/modals.html.twig\" %}
 
 {% include \"scripts.html.twig\" %}
 

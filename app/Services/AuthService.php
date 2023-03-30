@@ -18,7 +18,7 @@ class AuthService
             $_SESSION["userObject"] = $userObject;
             $_SESSION["CSRFToken"] = bin2hex(random_bytes(32));
 
-            if(empty($_SESSION["userObject"] && empty($_SESSION["CSRFToken"]))) {
+            if(empty($_SESSION["userObject"]) && empty($_SESSION["CSRFToken"])) {
                 throw new Exception("Un problème est survenu lors de la mise en session des informations");
             }
 
@@ -35,7 +35,7 @@ class AuthService
         {
             return true;
         } else {
-            throw new UserExceptions("Une erreur est survenue lors de l'authentification du token à la soumission du formulaire d'ajout d'un utilisateur");
+            throw new UserExceptions("Une erreur est survenue lors de l'authentification du token de l'utilisateur");
         }
     }
 
@@ -45,7 +45,7 @@ class AuthService
      */
     public static function unsetDataInSession(): bool
     {
-        unset($_SESSION['userObject'], $_SESSION['isConnected'], $_SESSION['CSRFToken']);
+        unset($_SESSION['userObject'], $_SESSION['CSRFToken']);
         session_destroy();
 
         if (!empty($_SESSION['userObject']) && !empty($_SESSION['isConnected']) && !empty($_SESSION['CSRFToken']))
