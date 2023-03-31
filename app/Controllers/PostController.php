@@ -143,7 +143,8 @@ class PostController extends CoreController
                 ->setHeading(htmlspecialchars($_POST['heading']))
                 ->setContent(htmlspecialchars($_POST['content']))
                 ->setTitle(htmlspecialchars($_POST['title']))
-                ->setUpdatedAt(PostModel::getCurrentDateTime());
+                ->setUpdatedAt(PostModel::getCurrentDateTime())
+                ->setUderId($_SESSION["userObject"]-getId());
 
             $currentPost->updateSelectedPost();
 
