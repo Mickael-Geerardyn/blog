@@ -4,9 +4,9 @@
 		<i class="fa fa-chevron-up"></i>
 	</a>
 </div>
-{% for key, postObject in latestPosts %}
+{% for post in latestPosts %}
 <!-- Portfolio Modals -->
-<div class="portfolio-modal modal fade" id="portfolioModal{{ postObject.getId() }}" tabindex="-1" role="dialog"
+<div class="portfolio-modal modal fade" id="portfolioModal{{ post.getId() }}" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-content">
         <div class="close-modal" data-dismiss="modal">
@@ -19,19 +19,19 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="modal-body">
-                        <h2>{{ postObject.getTitle() }}</h2>
+                        <h2>{{ post.getTitle() }}</h2>
                         <hr class="star-primary">
                         <img src="{{ _SERVER["BASE_URI"] }}assets/img/portfolio/cabin.png"
                              class="img-responsive img-centered" alt="">
-                        <p>{{ postObject.getHeading() }}</p>
-                        <p>{{ postObject.getContent() }}</p>
+                        <p>{{ post.getHeading() }}</p>
+                        <p>{{ post.getContent() }}</p>
                         <ul class="list-inline item-details">
                             <li>Auteur:
-                                <strong>{{ postObject.postAuthor.getFirstname()~" "~postObject.postAuthor.getLastname() }}
+                                <strong>{{ post.postAuthor.getFirstname()~" "~post.postAuthor.getLastname() }}
                                 </strong>
                             </li>
                             <li>Date:
-                                <strong>{{ postObject.getCreatedAt()|date("d/m/Y") }}
+                                <strong>{{ post.getCreatedAt()|date("d/m/Y") }}
                                 </strong>
                             </li>
                             <li>Service:
@@ -39,7 +39,18 @@
                                 </strong>
                             </li>
                         </ul>
-                        {% for comment in postObject.postComments %}
+                        {% if loggedInUser is not empty %}
+                            <div class="row">
+                            <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=update-post-page">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-success btn-lg">Modifier l'article
+                                    </button>
+                                </div>
+                                <input type="hidden" name="postId" value="{{ post.getId() }}">
+                            </form>
+                            </div>
+                        {% endif %}
+                        {% for comment in post.postComments %}
                             <div class="modal-body">
                                 <h3>{{ comment.getTitle() }}</h3>
                                 <p>{{ comment.getContent() }}</p>
@@ -54,10 +65,9 @@
                                 </ul>
                             </div>
                         {% endfor %}
-
                         <br><br>
                         <div class="row">
-                            {% if loggedInUser is defined %}
+                            {% if loggedInUser is not empty %}
                             <div class="col-lg-8 col-lg-offset-2">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
@@ -80,18 +90,14 @@
                                         <label>Commentaire</label>
                                         <textarea rows="5" class="form-control" placeholder="Commentaire"
                                                   id="Commentaire" name="content"
-                                                  required
-                                                  data-validation-required-message="Veuillez rédiger votre
-                                                      commentaire."
-                                                  data-dashlane-rid="1745ba34006beafb"
-                                                  data-form-type="other"></textarea>
+                                                  required></textarea>
                                         <p class="help-block text-danger"></p>
                                         <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ CSRFToken
                                         }}" >
-                                        <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser
-                                            .getEmail()
+                                        <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser.getEmail()
                                         }}" >
-                                        <input type="hidden" name="postTitle" id="postTitle" value="{{ postObject.getTitle() }}" >
+                                        <input type="hidden" name="postTitle" id="postTitle" value="{{ post.getId()
+                                        }}" >
                                     </div>
                                     </div>
 
@@ -104,18 +110,19 @@
                                         </div>
                                     </div>
                                 </form>
+                                </div>
                             {% else %}
                                 <h4>Connectez-vous ou inscrivez-vous pour soumettre un commentaire</h4>
                         <br>
                                 <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=login-page">
-                                <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg"
+                                    <div class="form-group col-xs-12">
+                                        <button type="submit" class="btn btn-success btn-lg"
                                             data-dashlane-rid="55f933ab7c0de50e" data-dashlane-label="true"
                                             data-form-type="action">Se connecter
-                                    </button>
-                                </div>
+                                        </button>
+                                    </div>
                                 </form>
-                            </div>
+                                </div>
                             {% endif %}
                         </div>
                         <br><br>

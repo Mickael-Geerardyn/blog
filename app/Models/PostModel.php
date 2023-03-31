@@ -61,24 +61,25 @@ class PostModel extends CoreModel
             return $pdo->lastInsertId();
 	}
 
-	/**
-	 *
-	 * $statement->execute return false if it has a problem with post update in database
-	 * So if the status is not true, throw new exception with message
-	 * @return void
-	 * @throws Exception
-	 */
-	public function updateSelectedPost(): void
+    /**
+     *
+     * $statement->execute return false if it has a problem with post update in database
+     * So if the status is not true, throw new exception with message
+     * @return bool
+     * @throws Exception
+     */
+	public function updateSelectedPost(): bool
 	{
 			$statement = parent::getDataBase()
-				->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
 				->prepare('UPDATE post
 						   SET title = :title,
 					           heading = :heading,
 					           content = :content,
-					           updated_at = :updated_at');
+					           updated_at = :updated_at
+					           WHERE post.id = :postId');
 
 			$status = $statement->execute(array(
+                'postId' => $this->id,
 				':title' => $this->title,
 				':heading' => $this->heading,
 				':content' => $this->content,
@@ -88,6 +89,8 @@ class PostModel extends CoreModel
 			if (empty($status)){
 				throw new Exception('Une erreur dans la mise à jour du post est intervenue');
 			}
+
+            return true;
 	}
 
 	/**
@@ -99,7 +102,6 @@ class PostModel extends CoreModel
 	public function deleteSelectedPost (): void
 	{
 		$statement = parent::getDataBase()
-			->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
 			->prepare('DELETE FROM post WHERE post.id = :postId');
 
 		$status = $statement->execute([

@@ -6,7 +6,8 @@
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand" href="#page-top">{{ ownerUser.getFirstname()~" "~ownerUser.getLastname() }}</a>
+			<a class="navbar-brand" href="{{ _SERVER["BASE_URI"] }}index.php">{{ ownerUser.getFirstname()~" "~ownerUser
+					.getLastname()	}}</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -30,16 +31,9 @@
 					<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=sign-up-page">Créer un compte</a>
 				</li>
-				{% endif %}
-				{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
-					(ROLE_ADMIN)%}
+				{% elseif loggedInUser is not empty %}
 					<li class="page-scroll">
-						<a href="{{ _SERVER["BASE_URI"] }}index.php?action=landing-dashboard">Administration</a>
-					</li>
-				<li class="page-scroll">
-					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=logout">Se déconnecter</a>
-				</li>
-				{% elseif loggedInUser.getRoleId() != ROLE_ADMIN %}
+					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=new-post-page">Rédiger un article</a>
 				<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=logout">Se déconnecter</a>
 				</li>
@@ -92,7 +86,6 @@
 						ownerUser.getLastname() }}</span>
 					<hr class="star-light">
 					<span class="skills">Développeur web back-end PHP/SYMFONY</span>
-					{{ (error is defined) ? error|raw : ""}}
 				</div>
 			</div>
 		</div>

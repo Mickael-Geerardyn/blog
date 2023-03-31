@@ -24,6 +24,7 @@ class PostService
 		$statement = PostModel::getDataBase()
 			->prepare('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
 					   FROM `post`
+					   WHERE published_at IS NOT NULL
 					   ORDER BY created_at ASC 
 					   LIMIT :limit');
 

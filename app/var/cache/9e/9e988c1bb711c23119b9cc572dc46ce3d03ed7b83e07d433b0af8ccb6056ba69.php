@@ -277,7 +277,7 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t<li> <a href=\"";
         // line 208
         echo twig_escape_filter($this->env, (($__internal_compile_7 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_7) || $__internal_compile_7 instanceof ArrayAccess ? ($__internal_compile_7["BASE_URI"] ?? null) : null), "html", null, true);
-        echo "index.php?action=new-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
+        echo "index.php?action=new-admin-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
 \t\t\t\t<li><a href=\"";
         // line 209
         echo twig_escape_filter($this->env, (($__internal_compile_8 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_8) || $__internal_compile_8 instanceof ArrayAccess ? ($__internal_compile_8["BASE_URI"] ?? null) : null), "html", null, true);
@@ -1099,7 +1099,7 @@ class __TwigTemplate_800bceef29e12afcefa5e05fb56a705b5802c0508a9f422e910b47666ae
 \t\t\t\t</li>
 \t\t\t\t<li class=\"header\">Menu</li>
 \t\t\t\t<li class=\"active open\"><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=landing-dashboard\"><i class=\"zmdi zmdi-blogger\"></i><span>Blog Dashboard</span> </a> </li>
-\t\t\t\t<li> <a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=new-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
+\t\t\t\t<li> <a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=new-admin-post-page\"><i class=\"zmdi zmdi-plus-circle\"></i><span>Nouvel article</span> </a> </li>
 \t\t\t\t<li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=blog-list\"><i class=\"zmdi zmdi-sort-amount-desc\"></i><span>Liste des articles</span> </a> </li>
 \t\t\t\t<li><a href=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=comments-list\"><i class=\"zmdi
 \t\t\t\tzmdi-grid\"></i><span>Liste des commentaires non

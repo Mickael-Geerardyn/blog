@@ -59,10 +59,10 @@ class HomePageController extends CoreController
     public function getHomePageAfterLoggedIn (): bool
     {
         try {
+
             $this->twigEnvironment->display("/landing-blog.html.twig",
                 ["latestPosts" => $this->latestPosts, "loggedInUser" => $_SESSION["userObject"], "CSRFToken" =>
-                    $_SESSION["CSRFToken"] ,"ROLE_ADMIN" =>
-                    UserModel::ROLE_ADMIN]);
+                    $_SESSION["CSRFToken"] ,"ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
 
             return true;
         } catch (Exception $exception){

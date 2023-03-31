@@ -31,10 +31,12 @@ class AuthService
      */
     public static function checkCSRFTokenSubmittedCorrespondWithSession(): bool
     {
+
         if(!empty($_POST['CSRFToken']) && $_SESSION['CSRFToken'] === $_POST['CSRFToken'])
         {
             return true;
         } else {
+
             throw new UserExceptions("Une erreur est survenue lors de l'authentification du token de l'utilisateur");
         }
     }

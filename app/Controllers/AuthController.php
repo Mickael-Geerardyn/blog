@@ -2,10 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use App\Services\AuthService;
 use App\Services\UserExceptions;
 use App\Services\UserService;
 use Exception;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class AuthController extends CoreController
 {
@@ -13,7 +17,7 @@ class AuthController extends CoreController
      * @return bool
      * @throws Exception
      */
-    public function userLogin(): bool
+    public function userSignIn(): bool
     {
         try {
 
@@ -77,7 +81,6 @@ class AuthController extends CoreController
     {
         try {
 
-
             $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['userObject' =>
                 $this->ownerUser]);
 
@@ -92,20 +95,21 @@ class AuthController extends CoreController
 
     /**
      * @return bool
-     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function displayHomePage(): bool
+    public function checkRoleUser(): bool
     {
-        try {
-            $homePage = new HomePageController();
-            $homePage->getHomePage();
-
+        try{
+            if(!empty($_SESSION["userObject"]) && $_SESSION["userObject"]->getRoleId() == UserModel::ROLE_ADMIN)
+            {
+                self::displayLandingDashboard();
+            }
             return true;
-        }catch (Exception $exception) {
-            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $exception->getMessage()]);
-
-            return false;
+        }catch(Exception $exception){
+            $this->twigEnvironment->display('/landing-portfolio.html.twig', ['error' => $exception->getMessage()]);
         }
     }
+
 }

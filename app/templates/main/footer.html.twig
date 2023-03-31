@@ -21,10 +21,13 @@
 							<a href="{{ ownerUser.getSocialLinkedin() }}" class="btn-social btn-outline"><i class="fa
 							fa-fw fa-linkedin"></i></a>
 						</li>
-						<li>
-							<a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-						</li>
 					</ul>
+					{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
+						(ROLE_ADMIN)%}
+						<div class="mt-5">
+					<a class="h2" href="/projet5/blog/public/index.php?action=landing-dashboard">Administration</a>
+				</div>
+					{% endif %}
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>En tant que Freelancer</h3>

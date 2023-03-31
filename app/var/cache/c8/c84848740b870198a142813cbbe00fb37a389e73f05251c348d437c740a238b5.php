@@ -63,18 +63,26 @@ class __TwigTemplate_fb5ee7c35d82acda65c67193aeb69339f405c0e4cd18afe4c80a2bbeba5
         echo "\" class=\"btn-social btn-outline\"><i class=\"fa
 \t\t\t\t\t\t\tfa-fw fa-linkedin\"></i></a>
 \t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t<a href=\"#\" class=\"btn-social btn-outline\"><i class=\"fa fa-fw fa-dribbble\"></i></a>
-\t\t\t\t\t\t</li>
 \t\t\t\t\t</ul>
+\t\t\t\t\t";
+        // line 25
+        if (( !twig_test_empty(($context["loggedInUser"] ?? null)) && (twig_get_attribute($this->env, $this->source, ($context["loggedInUser"] ?? null), "getRoleId", [], "method", false, false, false, 25) ===         // line 26
+($context["ROLE_ADMIN"] ?? null)))) {
+            // line 27
+            echo "\t\t\t\t\t\t<div class=\"mt-5\">
+\t\t\t\t\t<a class=\"h2\" href=\"/projet5/blog/public/index.php?action=landing-dashboard\">Administration</a>
 \t\t\t\t</div>
+\t\t\t\t\t";
+        }
+        // line 31
+        echo "\t\t\t\t</div>
 \t\t\t\t<div class=\"footer-col col-md-4\">
 \t\t\t\t\t<h3>En tant que Freelancer</h3>
 \t\t\t\t\t<p>Freelance is a free to use, open source Bootstrap
 \t\t\t\t\t\ttheme created by <a href=\"public/index.php\">";
-        // line 32
-        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 32) . " ") . twig_get_attribute($this->env, $this->source,         // line 33
-($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 33)), "html", null, true);
+        // line 35
+        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["ownerUser"] ?? null), "getFirstname", [], "method", false, false, false, 35) . " ") . twig_get_attribute($this->env, $this->source,         // line 36
+($context["ownerUser"] ?? null), "getLastname", [], "method", false, false, false, 36)), "html", null, true);
         echo "</a>.</p>
 \t\t\t\t</div>
 \t\t\t</div>
@@ -106,7 +114,7 @@ class __TwigTemplate_fb5ee7c35d82acda65c67193aeb69339f405c0e4cd18afe4c80a2bbeba5
 
     public function getDebugInfo()
     {
-        return array (  77 => 33,  76 => 32,  62 => 21,  54 => 16,  37 => 1,);
+        return array (  85 => 36,  84 => 35,  78 => 31,  72 => 27,  70 => 26,  69 => 25,  62 => 21,  54 => 16,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -134,10 +142,13 @@ class __TwigTemplate_fb5ee7c35d82acda65c67193aeb69339f405c0e4cd18afe4c80a2bbeba5
 \t\t\t\t\t\t\t<a href=\"{{ ownerUser.getSocialLinkedin() }}\" class=\"btn-social btn-outline\"><i class=\"fa
 \t\t\t\t\t\t\tfa-fw fa-linkedin\"></i></a>
 \t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li>
-\t\t\t\t\t\t\t<a href=\"#\" class=\"btn-social btn-outline\"><i class=\"fa fa-fw fa-dribbble\"></i></a>
-\t\t\t\t\t\t</li>
 \t\t\t\t\t</ul>
+\t\t\t\t\t{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
+\t\t\t\t\t\t(ROLE_ADMIN)%}
+\t\t\t\t\t\t<div class=\"mt-5\">
+\t\t\t\t\t<a class=\"h2\" href=\"/projet5/blog/public/index.php?action=landing-dashboard\">Administration</a>
+\t\t\t\t</div>
+\t\t\t\t\t{% endif %}
 \t\t\t\t</div>
 \t\t\t\t<div class=\"footer-col col-md-4\">
 \t\t\t\t\t<h3>En tant que Freelancer</h3>

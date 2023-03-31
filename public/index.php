@@ -22,7 +22,7 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 	{
 		case 'sign-in':
             $authController = new AuthController();
-            $authController->userLogin();
+            $authController->userSignIn();
 			break;
 		case 'user-register':
 			$adminUserController = new AdminUserController();
@@ -68,13 +68,25 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$postPage = new AdminPostController();
 			$postPage->displayOnePostById();
 			break;
-		case 'new-post-page':
-			$newPostPage = new AdminPostController();
-			$newPostPage->newPostPage();
+		case 'new-admin-post-page':
+			$adminPostController = new AdminPostController();
+            $adminPostController->newPostPage();
 			break;
+        case 'new-post-page':
+            $postController = new PostController();
+            $postController->displayNewPostPage();
+            break;
         case 'send-new-post':
-            $adminPostController = new AdminPostController();
-            $adminPostController->createPost();
+            $postController = new PostController();
+            $postController->createPost();
+            break;
+        case 'update-post-page':
+            $postController = new PostController();
+            $postController->modifiedPostPage();
+            break;
+        case 'send-update-post':
+            $postController = new PostController();
+            $postController->updatePost();
             break;
         case 'validated-post':
             $adminPostController = new AdminPostController();
@@ -92,10 +104,6 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $userController = new UserController();
             $userController->getSignUpPage();
             break;
-		case 'register-page':
-			$userController = new UserController();
-			$userController->getSignUpPage();
-			break;
 		case 'single-blog':
 			$postPage = new PostController();
 			$postPage->displayPostPage();

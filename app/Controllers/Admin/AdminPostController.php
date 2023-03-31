@@ -122,42 +122,6 @@ class AdminPostController extends AdminCoreController
     }
 
 	/**
-	 * Function which allows to try to create a new post and save it in
-	 * database with createPost method
-	 * If there is a problem with the creation, a message exception will catch.
-	 * @return bool
-	 */
-	public function createPost(): bool
-	{
-		try {
-            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
-
-            $content = strip_tags(htmlspecialchars($_POST["content"]), self::ALLOWED_TAGS);
-            $heading = strip_tags(htmlspecialchars($_POST["heading"]), self::ALLOWED_TAGS);
-            $title = strip_tags(htmlspecialchars($_POST["title"]), self::ALLOWED_TAGS);
-
-			$newPost = new PostModel();
-
-			$newPost
-				->setTitle($title)
-				->setHeading($heading)
-				->setContent($content)
-				->setUserId($_SESSION["userObject"]->getId());
-
-			$thisNewPostId = $newPost->createOnePost();
-
-            AuthService::unsetDataInGlobalPost();
-
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig',
-                ["postObject" => PostService::getPostById($thisNewPostId), "userObject" => $_SESSION["userObject"] ,"success" => "L'article a bien été enregistré"]);
-
-		} catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/blog-post.html.twig', ["error" => $exception->getMessage()]);
-            return false;
-		}
-	}
-
-	/**
 	 * Function which allows to update one post and save it in database
 	 * If there is a problem with update, a message exception will catch
 	 * @param int $postId

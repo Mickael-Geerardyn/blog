@@ -52,7 +52,10 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>Portfolio</h2>
+                    <h2>";
+        // line 9
+        echo (( !twig_test_empty(($context["latestPosts"] ?? null))) ? ("Portfolio") : ("Rédiger ou modifier un article"));
+        echo "</h2>
                     <hr class=\"star-primary\">
                 </div>
             </div>
@@ -65,12 +68,12 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
             // line 15
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable(($context["latestPosts"] ?? null));
-            foreach ($context['_seq'] as $context["key"] => $context["postObject"]) {
+            foreach ($context['_seq'] as $context["_key"] => $context["post"]) {
                 // line 16
                 echo "                <div class=\"col-sm-4 portfolio-item\">
                     <a href=\"#portfolioModal";
                 // line 17
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["postObject"], "getId", [], "method", false, false, false, 17), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "getId", [], "method", false, false, false, 17), "html", null, true);
                 echo "\"
                        class=\"portfolio-link\"
                        data-toggle=\"modal\">
@@ -89,13 +92,92 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                 ";
             }
             $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['key'], $context['postObject'], $context['_parent'], $context['loop']);
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
             // line 30
             echo "            </div>
             ";
+        } else {
+            // line 32
+            echo "                <div class=\"row\">
+                    <div class=\"col-lg-8 col-lg-offset-2\">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name=\"sentMessage\" method=\"post\" action=\"";
+            // line 36
+            echo twig_escape_filter($this->env, (($__internal_compile_1 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_1) || $__internal_compile_1 instanceof ArrayAccess ? ($__internal_compile_1["BASE_URI"] ?? null) : null), "html", null, true);
+            echo "index.php?action=";
+            echo ((twig_test_empty(            // line 37
+($context["postObject"] ?? null))) ? ("send-new-post") : ("send-update-post"));
+            echo "\" novalidate>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Titre</label>
+                                <input type=\"text\" class=\"form-control\"
+                                       placeholder=\"Titre\" id=\"title\" name=\"title\" value=\"";
+            // line 43
+            (( !twig_test_empty(            // line 42
+($context["postObject"] ?? null))) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source,             // line 43
+($context["postObject"] ?? null), "getTitle", [], "method", false, false, false, 43), "html", null, true))) : (print ("")));
+            echo "\" required>
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Chapô</label>
+                                <input type=\"text\" class=\"form-control\"
+                                       placeholder=\"Chapô\" id=\"heading\" name=\"heading\"
+                                       required value=\"";
+            // line 52
+            (( !twig_test_empty(($context["postObject"] ?? null))) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getHeading", [], "method", false, false, false, 52), "html", null, true))) : (print ("")));
+            echo "\"
+                                       >
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Contenu</label>
+                                <textarea rows=\"5\" class=\"form-control\"
+                                          placeholder=\"Contenu de l'article\" id=\"content\" name=\"content\"
+                                          required
+                                          >";
+            // line 63
+            (( !twig_test_empty(($context["postObject"] ?? null))) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getContent", [], "method", false, false, false, 63), "html", null, true))) : (print ("")));
+            echo "</textarea>
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <div id=\"success\"></div>
+                        <div class=\"row\">
+                            <div class=\"form-group col-xs-12\">
+                                <button type=\"submit\"
+                                        class=\"btn btn-success btn-lg\">Envoyer
+                                </button>
+                            </div>
+                        </div>
+                        <input type=\"hidden\" id=\"CSRFToken\" name=\"CSRFToken\" value=\"";
+            // line 76
+            echo twig_escape_filter($this->env, ($context["CSRFToken"] ?? null), "html", null, true);
+            echo "\">
+                       ";
+            // line 77
+            if ( !twig_test_empty(($context["postObject"] ?? null))) {
+                // line 78
+                echo "                           <input type=\"hidden\" id=\"postId\" name=\"postId\" value=\"";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["postObject"] ?? null), "getId", [], "method", false, false, false, 78), "html", null, true);
+                echo "\">
+                        ";
+            }
+            // line 80
+            echo "                    </form>
+                </div>
+            </div>
+            ";
         }
-        // line 32
+        // line 84
         echo "        </div>
     </section>
 
@@ -207,7 +289,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getDebugInfo()
     {
-        return array (  99 => 32,  95 => 30,  84 => 25,  73 => 17,  70 => 16,  66 => 15,  63 => 14,  61 => 13,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  181 => 84,  175 => 80,  169 => 78,  167 => 77,  163 => 76,  147 => 63,  133 => 52,  121 => 43,  120 => 42,  119 => 43,  111 => 37,  108 => 36,  102 => 32,  98 => 30,  87 => 25,  76 => 17,  73 => 16,  69 => 15,  66 => 14,  64 => 13,  57 => 9,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -220,15 +302,15 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
         <div class=\"container\">
             <div class=\"row\">
                 <div class=\"col-lg-12 text-center\">
-                    <h2>Portfolio</h2>
+                    <h2>{{ (latestPosts is not empty) ? \"Portfolio\" : \"Rédiger ou modifier un article\" }}</h2>
                     <hr class=\"star-primary\">
                 </div>
             </div>
             {% if latestPosts is not empty %}
             <div class=\"row\">
-                {% for key, postObject in latestPosts %}
+                {% for post in latestPosts %}
                 <div class=\"col-sm-4 portfolio-item\">
-                    <a href=\"#portfolioModal{{ postObject.getId() }}\"
+                    <a href=\"#portfolioModal{{ post.getId() }}\"
                        class=\"portfolio-link\"
                        data-toggle=\"modal\">
                         <div class=\"caption\">
@@ -241,6 +323,58 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                     </a>
                 </div>
                 {% endfor %}
+            </div>
+            {% else %}
+                <div class=\"row\">
+                    <div class=\"col-lg-8 col-lg-offset-2\">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name=\"sentMessage\" method=\"post\" action=\"{{ _SERVER['BASE_URI']}}index.php?action={{
+                    (postObject is empty)?'send-new-post':'send-update-post' }}\" novalidate>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Titre</label>
+                                <input type=\"text\" class=\"form-control\"
+                                       placeholder=\"Titre\" id=\"title\" name=\"title\" value=\"{{ (postObject is not
+                                empty) ? postObject.getTitle() : \"\" }}\" required>
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Chapô</label>
+                                <input type=\"text\" class=\"form-control\"
+                                       placeholder=\"Chapô\" id=\"heading\" name=\"heading\"
+                                       required value=\"{{ (postObject is not empty) ? postObject.getHeading() : \"\" }}\"
+                                       >
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <div class=\"row control-group\">
+                            <div class=\"form-group col-xs-12 floating-label-form-group controls\">
+                                <label>Contenu</label>
+                                <textarea rows=\"5\" class=\"form-control\"
+                                          placeholder=\"Contenu de l'article\" id=\"content\" name=\"content\"
+                                          required
+                                          >{{ (postObject is not empty) ? postObject.getContent() : \"\" }}</textarea>
+                                <p class=\"help-block text-danger\"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <div id=\"success\"></div>
+                        <div class=\"row\">
+                            <div class=\"form-group col-xs-12\">
+                                <button type=\"submit\"
+                                        class=\"btn btn-success btn-lg\">Envoyer
+                                </button>
+                            </div>
+                        </div>
+                        <input type=\"hidden\" id=\"CSRFToken\" name=\"CSRFToken\" value=\"{{ CSRFToken }}\">
+                       {% if postObject is not empty %}
+                           <input type=\"hidden\" id=\"postId\" name=\"postId\" value=\"{{ postObject.getId() }}\">
+                        {% endif %}
+                    </form>
+                </div>
             </div>
             {% endif %}
         </div>
