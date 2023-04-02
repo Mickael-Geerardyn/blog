@@ -10933,7 +10933,6 @@ module.exports = function(Chart) {
 	 * Provided for backward compatibility, use Chart.plugins instead
 	 * @namespace Chart.pluginService
 	 * @deprecated since version 2.1.5
-	 * @todo remove me at version 3
 	 */
 	Chart.pluginService = Chart.plugins;
 };

@@ -703,7 +703,7 @@
 
         });
 
-        // @todo check load state for html5 videos
+        //  check load state for html5 videos
         if (_isVideo && _isVideo.html5 && !_hasPoster) {
             _this.$slide.eq(index).addClass('lg-complete');
         }
@@ -2240,7 +2240,7 @@
                     var $tempImg = $el.find('.lg-object');
                     $el.find('.lg-video').append($tempImg);
 
-                    // @todo loading icon for html5 videos also
+                    //  loading icon for html5 videos also
                     // for showing the loading indicator while loading video
                     if (!$el.find('.lg-video-object').hasClass('lg-html5')) {
                         $el.removeClass('lg-complete');

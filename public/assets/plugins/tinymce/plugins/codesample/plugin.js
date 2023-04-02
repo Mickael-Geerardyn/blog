@@ -1232,7 +1232,7 @@ define("tinymce/codesampleplugin/Plugin", [
 			return;
 		}
 
-		// Todo: use a proper css loader here
+
 		function loadCss() {
 			var linkElm;
 

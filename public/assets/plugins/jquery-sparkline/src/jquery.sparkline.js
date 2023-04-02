@@ -2634,7 +2634,7 @@
          * Calculate the pixel dimensions of the canvas
          */
         _calculatePixelDims: function (width, height, canvas) {
-            // XXX This should probably be a configurable option
+
             var match;
             match = this._pxregex.exec(height);
             if (match) {
