@@ -25,7 +25,6 @@ abstract class AdminCoreController
             $this->directory.'/templates/admin']);
 
         $this->twigEnvironment = new Environment($this->loader, [
-            'cache' => $this->directory .'/var/cache',
             'debug' => true,
             'auto_reload' => true,
         ]);
