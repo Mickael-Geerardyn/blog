@@ -46,7 +46,6 @@ class AdminPostController extends AdminCoreController
 	{
 		try{
 			$postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
-            //var_dump(PostService::getPostById($postId)); die;
             $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' =>
                 PostService::getPostById($postId), "CSRFToken" => $_SESSION["CSRFToken"]]);
 			return true;
