@@ -3,9 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use App\Services\CommentService;
-use App\Services\PostService;
-use App\Services\UserService;
 use Exception;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -23,10 +20,9 @@ class HomePageController extends CoreController
 		try {
 			parent::__construct();
 
-            return true;
 		} catch (Exception $exception){
+
 			$this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
-			return false;
 		}
 	}
 
@@ -39,6 +35,11 @@ class HomePageController extends CoreController
 	public function getHomePage(): bool
 	{
 		try {
+            if(!empty($_SESSION["userObject"]) && !empty($_SESSION["CSRFToken"]))
+            {
+                $this->getHomePageAfterLoggedIn();
+                return false;
+            }
 			$this->twigEnvironment->display("/landing-blog.html.twig",
 				["latestPosts" => $this->latestPosts]);
 
@@ -59,6 +60,11 @@ class HomePageController extends CoreController
     public function getHomePageAfterLoggedIn (): bool
     {
         try {
+            if(empty($_SESSION["userObject"]) && empty($_SESSION["CSRFToken"]))
+            {
+                $this->getHomePage();
+                return false;
+            }
 
             $this->twigEnvironment->display("/landing-blog.html.twig",
                 ["latestPosts" => $this->latestPosts, "loggedInUser" => $_SESSION["userObject"], "CSRFToken" =>
@@ -68,6 +74,23 @@ class HomePageController extends CoreController
         } catch (Exception $exception){
             $this->twigEnvironment->display("/landing-blog.html.twig", ['error'
             => $exception->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function getNotFoundPage(): bool
+    {
+        try{
+            $this->twigEnvironment->display("/errors/404.html.twig");
+            return true;
+        }catch (Exception $exception){
+            $this->twigEnvironment->display("/errors/404.html.twig", ["error" => $exception->getMessage()]);
             return false;
         }
     }

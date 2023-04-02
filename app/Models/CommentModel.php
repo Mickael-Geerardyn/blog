@@ -107,9 +107,9 @@ class CommentModel extends CoreModel
     }
 
     /**
-     * @param string $status
+     * @param string|int $status
      */
-    public function setStatus(string $status = self::STATUS_PENDING): void
+    public function setStatus(string|int $status = self::STATUS_PENDING): void
     {
         $this->status = $status;
     }

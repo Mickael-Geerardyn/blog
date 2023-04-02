@@ -5,7 +5,8 @@ use App\Controllers\Admin\AdminUserController;
 use App\Controllers\Admin\AdminPostController;
 use App\Controllers\AuthController;
 use App\Controllers\CommentController;
-use App\Controllers\HomePageController;
+    use App\Controllers\ContactController;
+    use App\Controllers\HomePageController;
 use App\Controllers\PostController;
 use App\Controllers\UserController;
 
@@ -128,9 +129,13 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $homePageController = new HomePageController();
             $homePageController->getHomePage();
             break;
+        case "send-message":
+            $contactController = new ContactController();
+            $contactController->sendEmail();
+            break;
 		default:
-			header('Location:'.$_SERVER['BASE_URI']."app/templates/admin/404.html.twig");
-
+            $notFoundPage = new HomePageController();
+            $notFoundPage->getNotFoundPage();
 	}
 
 } else {

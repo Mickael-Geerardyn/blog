@@ -8,23 +8,6 @@ use Exception;
 
 class AdminRoleController extends AdminCoreController
 {
-	/**
-	 * @return object|bool
-	 */
-	public function getAllRoles(): object|bool
-	{
-		try
-		{
-			$getAllRoles = new RoleModel();
-
-			return $getAllRoles->getAllRoles();
-
-		} catch (RoleExceptions $roleExceptions) {
-
-			self::displayCalledPage('landing-dashboard', $_SESSION['userObject']);
-			return false;
-		}
-	}
 
 	/**
 	 * @param string $roleTitle
@@ -37,9 +20,9 @@ class AdminRoleController extends AdminCoreController
 
 			return $newRole->getOneRoleByTitle($roleTitle);
 
-		}catch(RoleExceptions|Exception $Exceptions)
+		}catch(Exception $exceptions)
 		{
-			self::displayCalledPage('form-validation', $_SESSION['userObject']);
+			$this->twigEnvironment->display("/adminMain/landing-dashboard.html.twig", ["error" => $exceptions->getMessage()]);
 			return false;
 		}
 	}

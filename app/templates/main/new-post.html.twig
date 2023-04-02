@@ -1,0 +1,68 @@
+{% extends '/base.html.twig' %}
+
+{% block body %}
+	<!-- Portfolio Grid Section -->
+	<section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>{{ (postObject is not empty) ? "Rédiger" : " modifier" }} un article</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+				<div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+						<!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form name="sentMessage" method="post" action="{{ _SERVER['BASE_URI']}}index.php?action={{
+					(postObject is empty)?'send-new-post':'send-update-post' }}" novalidate>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Titre</label>
+                                <input type="text" class="form-control"
+									   placeholder="Titre" id="title" name="title" value="{{ (postObject is not
+								empty) ? postObject.getTitle() : "" }}" required>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Chapô</label>
+                                <input type="text" class="form-control"
+									   placeholder="Chapô" id="heading" name="heading"
+									   required value="{{ (postObject is not empty) ? postObject.getHeading() : "" }}"
+								>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Contenu</label>
+                                <textarea rows="5" class="form-control"
+										  placeholder="Contenu de l'article" id="content" name="content"
+										  required
+								>{{ (postObject is not empty) ? postObject.getContent() : "" }}</textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="success"></div>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit"
+										class="btn btn-success btn-lg">Envoyer
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="CSRFToken" name="CSRFToken" value="{{ CSRFToken }}">
+						{% if postObject is not empty %}
+							<input type="hidden" id="postId" name="postId" value="{{ postObject.getId() }}">
+						{% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+

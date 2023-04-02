@@ -54,7 +54,7 @@ class PostController extends CoreController
     {
         try{
 
-            $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"] ]);
+            $this->twigEnvironment->display('/new-post.html.twig', ["loggedInUser" => $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"] ]);
 
             return true;
         }catch (Exception $exception){
@@ -95,7 +95,7 @@ class PostController extends CoreController
             AuthService::unsetDataInGlobalPost();
 
             $this->twigEnvironment->display('/landing-blog.html.twig',
-                ["latestPosts" => $this->latestPosts, "userObject" => $_SESSION["userObject"] ,"success" => "L'article a bien été enregistré"]);
+                ["latestPosts" => $this->latestPosts, "userObject" => $_SESSION["userObject"] ,"success" => "L'article a bien été soumis pour modération"]);
 
             return true;
         } catch (Exception $exception) {
@@ -116,7 +116,7 @@ class PostController extends CoreController
 
             $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
             $postObject = PostService::getPostById($postId);
-            $this->twigEnvironment->display('/landing-blog.html.twig', ["postObject" => $postObject ,"loggedInUser" =>
+            $this->twigEnvironment->display('/new-post.html.twig', ["postObject" => $postObject ,"loggedInUser" =>
                 $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"] ]);
             return true;
 
@@ -144,7 +144,7 @@ class PostController extends CoreController
                 ->setContent(htmlspecialchars($_POST['content']))
                 ->setTitle(htmlspecialchars($_POST['title']))
                 ->setUpdatedAt(PostModel::getCurrentDateTime())
-                ->setUderId($_SESSION["userObject"]-getId());
+                ->setUserId($_SESSION["userObject"]->getId());
 
             $currentPost->updateSelectedPost();
 
@@ -152,7 +152,7 @@ class PostController extends CoreController
 
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"], "error" => $exception->getMessage() ]);
+                $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"], "error" => $exception->getMessage() ]);
             return false;
         }
     }

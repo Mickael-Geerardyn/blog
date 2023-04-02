@@ -120,48 +120,4 @@ class AdminPostController extends AdminCoreController
             return false;
         }
     }
-
-	/**
-	 * Function which allows to update one post and save it in database
-	 * If there is a problem with update, a message exception will catch
-	 * @param int $postId
-	 * @return void
-	 */
-	public function updatePost(int $postId): void
-	{
-		try {
-			$currentPost = PostService::getOnePostById($postId);
-
-			$currentPost
-				->setHeading(htmlspecialchars($_POST['header']))
-				->setContent(htmlspecialchars($_POST['content']))
-				->setTitle(htmlspecialchars($_POST['title']))
-				->setUpdatedAt($currentPost::getCurrentDateTime());
-
-			$currentPost->updateSelectedPost();
-
-		} catch (Exception $exception) {
-
-			echo $exception->getMessage();
-		}
-	}
-
-	/**
-	 * Function which allows to delete definitely one post in database
-	 * If there is a problem with the deletion, a message exception will catch
-	 * @param int $postId
-	 * @return void
-	 */
-	public function deletePost(int $postId): void
-	{
-		try {
-			$currentPost = PostService::getOnePostById($postId);
-
-			$currentPost->deleteSelectedPost();
-
-		} catch (Exception $exception) {
-
-			echo $exception->getMessage();
-		}
-	}
 }

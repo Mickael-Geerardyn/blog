@@ -57,7 +57,6 @@ class PostService
 
         $result =  $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
 
-        var_dump($result); die;
 		return $result;
 	}
 

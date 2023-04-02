@@ -220,12 +220,15 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                 <div class=\"col-lg-8 col-lg-offset-2\">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name=\"sentMessage\" id=\"contactForm\" novalidate>
+                    <form name=\"sentMessage\" id=\"formContact\" method=\"post\" action=\"";
+        // line 126
+        echo twig_escape_filter($this->env, (($__internal_compile_2 = ($context["_SERVER"] ?? null)) && is_array($__internal_compile_2) || $__internal_compile_2 instanceof ArrayAccess ? ($__internal_compile_2["BASE_URI"] ?? null) : null), "html", null, true);
+        echo "index.php?action=send-message\" novalidate>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Nom</label>
                                 <input type=\"text\" class=\"form-control\"
-                                       placeholder=\"Nom\" id=\"name\" required
+                                       placeholder=\"Nom\" id=\"name\" name=\"name\" required
                                        data-validation-required-message=\"Please enter your name.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
@@ -234,7 +237,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Courriel</label>
                                 <input type=\"email\" class=\"form-control\"
-                                       placeholder=\"Email\" id=\"email\"
+                                       placeholder=\"Email\" id=\"email\" name=\"email\"
                                        required
                                        data-validation-required-message=\"Please enter your email address.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -244,8 +247,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Numéro de téléphone</label>
                                 <input type=\"tel\" class=\"form-control\"
-                                       placeholder=\"Numéro de téléphone\" id=\"phone\"
-                                       required
+                                       placeholder=\"Numéro de téléphone\" id=\"phone\" name=\"phone\"
                                        data-validation-required-message=\"Please enter your phone number.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
@@ -254,7 +256,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Message</label>
                                 <textarea rows=\"5\" class=\"form-control\"
-                                          placeholder=\"Message\" id=\"message\"
+                                          placeholder=\"Message\" id=\"message\" name=\"message\"
                                           required
                                           data-validation-required-message=\"Please enter a message.\"></textarea>
                                 <p class=\"help-block text-danger\"></p>
@@ -289,7 +291,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
 
     public function getDebugInfo()
     {
-        return array (  181 => 84,  175 => 80,  169 => 78,  167 => 77,  163 => 76,  147 => 63,  133 => 52,  121 => 43,  120 => 42,  119 => 43,  111 => 37,  108 => 36,  102 => 32,  98 => 30,  87 => 25,  76 => 17,  73 => 16,  69 => 15,  66 => 14,  64 => 13,  57 => 9,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  225 => 126,  181 => 84,  175 => 80,  169 => 78,  167 => 77,  163 => 76,  147 => 63,  133 => 52,  121 => 43,  120 => 42,  119 => 43,  111 => 37,  108 => 36,  102 => 32,  98 => 30,  87 => 25,  76 => 17,  73 => 16,  69 => 15,  66 => 14,  64 => 13,  57 => 9,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -419,12 +421,12 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                 <div class=\"col-lg-8 col-lg-offset-2\">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name=\"sentMessage\" id=\"contactForm\" novalidate>
+                    <form name=\"sentMessage\" id=\"formContact\" method=\"post\" action=\"{{ _SERVER[\"BASE_URI\"] }}index.php?action=send-message\" novalidate>
                         <div class=\"row control-group\">
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Nom</label>
                                 <input type=\"text\" class=\"form-control\"
-                                       placeholder=\"Nom\" id=\"name\" required
+                                       placeholder=\"Nom\" id=\"name\" name=\"name\" required
                                        data-validation-required-message=\"Please enter your name.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
@@ -433,7 +435,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Courriel</label>
                                 <input type=\"email\" class=\"form-control\"
-                                       placeholder=\"Email\" id=\"email\"
+                                       placeholder=\"Email\" id=\"email\" name=\"email\"
                                        required
                                        data-validation-required-message=\"Please enter your email address.\">
                                 <p class=\"help-block text-danger\"></p>
@@ -443,8 +445,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Numéro de téléphone</label>
                                 <input type=\"tel\" class=\"form-control\"
-                                       placeholder=\"Numéro de téléphone\" id=\"phone\"
-                                       required
+                                       placeholder=\"Numéro de téléphone\" id=\"phone\" name=\"phone\"
                                        data-validation-required-message=\"Please enter your phone number.\">
                                 <p class=\"help-block text-danger\"></p>
                             </div>
@@ -453,7 +454,7 @@ class __TwigTemplate_a8617b9d2835948fe9461755258519626b1758f2671b50f7bb6458b6319
                             <div class=\"form-group col-xs-12 floating-label-form-group controls\">
                                 <label>Message</label>
                                 <textarea rows=\"5\" class=\"form-control\"
-                                          placeholder=\"Message\" id=\"message\"
+                                          placeholder=\"Message\" id=\"message\" name=\"message\"
                                           required
                                           data-validation-required-message=\"Please enter a message.\"></textarea>
                                 <p class=\"help-block text-danger\"></p>
