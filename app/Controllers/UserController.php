@@ -14,13 +14,23 @@ use Twig\Error\SyntaxError;
 
 class UserController extends CoreController
 {
-	public function getLoginPage()
-	{
+    /**
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+	public function getLoginPage(): bool
+    {
 		try {
 			$this->twigEnvironment->display("/loginMain/sign-in.html.twig");
+
+            return true;
 		} catch(Exception $exception){
 			$this->twigEnvironment->display('/loginMain/sign-in.html.twig', ["error" => $exception->getMessage
             ()]);
+
+            return false;
 		}
 	}
 

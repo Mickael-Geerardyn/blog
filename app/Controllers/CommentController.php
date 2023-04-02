@@ -8,10 +8,19 @@ use App\Services\PostService;
 use App\Services\UserExceptions;
 use App\Services\UserService;
 use Exception;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class CommentController extends CoreController
 {
-    public function sendNewComment()
+    /**
+     * @return bool
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function sendNewComment(): bool
     {
         try {
             if(!UserService::checkIfUserIsAlreadyLoginInSession()){
@@ -41,8 +50,12 @@ class CommentController extends CoreController
             $commentModel->createComment();
 
             $this->twigEnvironment->display("/landing-blog.html.twig", ["latestPosts" => $this->latestPosts, "success" => "Commentaire envoyé pour modération avec succès"]);
+
+            return true;
         }catch (Exception $exception) {
             $this->twigEnvironment->display("/landing-blog.html.twig", ["error" => $exception->getMessage()]);
+
+            return false;
         }
     }
 }
