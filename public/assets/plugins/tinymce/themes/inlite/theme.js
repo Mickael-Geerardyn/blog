@@ -1228,7 +1228,7 @@ define('tinymce/inlite/ui/Buttons', [
 				stateSelector: name,
 				onclick: formatBlock(name),
 				onPostRender: function () {
-					// TODO: Remove this hack that produces bold H1-H6 when we have proper icons
+
 					var span = this.getEl().firstChild.firstChild;
 					span.style.fontWeight = 'bold';
 				}

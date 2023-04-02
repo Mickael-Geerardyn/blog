@@ -2535,7 +2535,7 @@ module.exports = {
             this._shortMonthsParse = [];
         }
 
-        // TODO: add sorting
+
         // Sorting makes sure if one month (or abbr) is a prefix of another
         // see sorting in computeMonthsParse
         for (i = 0; i < 12; i++) {
@@ -2575,7 +2575,7 @@ module.exports = {
                 value = toInt(value);
             } else {
                 value = mom.localeData().monthsParse(value);
-                // TODO: Another silent failure?
+
                 if (typeof value !== 'number') {
                     return mom;
                 }
@@ -3418,7 +3418,7 @@ module.exports = {
 
     function loadLocale(name) {
         var oldLocale = null;
-        // TODO: Find a better way to register and load all the locales in Node
+
         if (!locales[name] && (typeof module !== 'undefined') &&
                 module && module.exports) {
             try {
@@ -3782,7 +3782,7 @@ module.exports = {
             dow = 1;
             doy = 4;
 
-            // TODO: We need to take the current isoWeekYear, but that depends on
+
             // how we interpret now (local, utc, fixed offset). So create
             // a now version of current config (take local/utc/offset flags, and
             // create now).
@@ -3832,7 +3832,7 @@ module.exports = {
 
     // date from string and format string
     function configFromStringAndFormat(config) {
-        // TODO: Move this to another part of the creation flow to prevent circular deps
+
         if (config._f === utils_hooks__hooks.ISO_8601) {
             configFromISO(config);
             return;
@@ -4124,7 +4124,6 @@ module.exports = {
         return res;
     }
 
-    // TODO: Use [].sort instead?
     function min () {
         var args = [].slice.call(arguments, 0);
 
@@ -4504,7 +4503,7 @@ module.exports = {
         }
     }
 
-    // TODO: remove 'name' arg after deprecation is removed
+
     function createAdder(direction, name) {
         return function (val, period) {
             var dur, tmp;
@@ -5586,7 +5585,7 @@ module.exports = {
         }
     }
 
-    // TODO: Use this.as('ms')?
+
     function duration_as__valueOf () {
         return (
             this._milliseconds +
@@ -8171,7 +8170,7 @@ module.exports = function(Chart) {
 
 				scales[scale.id] = scale;
 
-				// TODO(SB): I think we should be able to remove this custom case (options.scale)
+
 				// and consider it as a regular scale part of the "scales"" map only! This would
 				// make the logic easier and remove some useless? custom code.
 				if (item.isDefault) {
@@ -11267,7 +11266,7 @@ module.exports = function(Chart) {
 					// A horizontal axis is more constrained by the height.
 					me.longestLabelWidth = largestTextWidth;
 
-					// TODO - improve this calculation
+
 					var labelHeight = (Math.sin(helpers.toRadians(me.labelRotation)) * me.longestLabelWidth) + (tickFontSize * tallestLabelHeightInLines) + (lineSpace * tallestLabelHeightInLines);
 
 					minSize.height = Math.min(me.maxHeight, minSize.height + labelHeight);

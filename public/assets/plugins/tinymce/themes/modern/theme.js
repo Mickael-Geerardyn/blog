@@ -91,7 +91,7 @@ tinymce.ThemeManager.add('modern', function(editor) {
 					}
 
 					if (editor.buttons[item]) {
-						// TODO: Move control creation to some UI class
+
 						itemName = item;
 						item = editor.buttons[itemName];
 
@@ -671,7 +671,7 @@ tinymce.ThemeManager.add('modern', function(editor) {
 
 		function reposition() {
 			if (panel && panel.moveRel && panel.visible() && !panel._fixed) {
-				// TODO: This is kind of ugly and doesn't handle multiple scrollable elements
+
 				var scrollContainer = editor.selection.getScrollContainer(), body = editor.getBody();
 				var deltaX = 0, deltaY = 0;
 
@@ -900,7 +900,7 @@ tinymce.ThemeManager.add('modern', function(editor) {
 			}
 
 			// Load special skin for IE7
-			// TODO: Remove this when we drop IE7 support
+
 			if (tinymce.Env.documentMode <= 7) {
 				args.skinUiCss = skinUrl + '/skin.ie7.min.css';
 			} else {

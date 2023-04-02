@@ -3977,7 +3977,7 @@ module.exports = function(Chart) {
 
 				scales[scale.id] = scale;
 
-				// TODO(SB): I think we should be able to remove this custom case (options.scale)
+
 				// and consider it as a regular scale part of the "scales"" map only! This would
 				// make the logic easier and remove some useless? custom code.
 				if (item.isDefault) {
@@ -7073,7 +7073,7 @@ module.exports = function(Chart) {
 					// A horizontal axis is more constrained by the height.
 					me.longestLabelWidth = largestTextWidth;
 
-					// TODO - improve this calculation
+
 					var labelHeight = (Math.sin(helpers.toRadians(me.labelRotation)) * me.longestLabelWidth) + (tickFontSize * tallestLabelHeightInLines) + (lineSpace * tallestLabelHeightInLines);
 
 					minSize.height = Math.min(me.maxHeight, minSize.height + labelHeight);

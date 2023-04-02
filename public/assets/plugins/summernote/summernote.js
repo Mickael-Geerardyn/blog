@@ -1741,7 +1741,7 @@
         var includeAncestor = options && options.includeAncestor;
         var fullyContains = options && options.fullyContains;
 
-        // TODO compare points and sort
+        //  compare points and sort
         var startPoint = this.getStartPoint();
         var endPoint = this.getEndPoint();
 
@@ -5125,7 +5125,7 @@
    * @class EventHandler
    *
    * EventHandler
-   *  - TODO: new instance per a editor
+   *  - : new instance per a editor
    */
   var EventHandler = function () {
     /**
@@ -5558,7 +5558,7 @@
       $editable.on('paste', bindCustomEvent($holder, callbacks, 'paste'));
       
       // [workaround] for old IE - IE8 don't have input events
-      //  - TODO check IE version
+      //  -  check IE version
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
       $editable.on(changeEventName, function () {
         bindCustomEvent($holder, callbacks, 'change')($editable.html(), $editable);
@@ -6798,7 +6798,7 @@
           var moduleAndMethod = list.head(list.from(arguments));
           var args = list.tail(list.from(arguments));
 
-          // TODO now external API only works for editor
+          //  now external API only works for editor
           var params = [moduleAndMethod, layoutInfo.editable()].concat(args);
           return eventHandler.invoke.apply(eventHandler, params);
         } else if (options.focus) {

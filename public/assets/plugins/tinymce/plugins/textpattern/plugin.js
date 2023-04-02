@@ -115,7 +115,7 @@ tinymce.PluginManager.add('textpattern', function(editor) {
 		}
 
 		// Find start of matched pattern
-		// TODO: Might need to improve this if there is nested formats
+
 		startOffset = Math.max(0, offset - delta);
 		startOffset = text.lastIndexOf(pattern.start, startOffset - pattern.end.length - 1);
 

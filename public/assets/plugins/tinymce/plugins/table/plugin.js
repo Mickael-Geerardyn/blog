@@ -3268,7 +3268,7 @@ define("tinymce/tableplugin/ResizeBars", [
 			var widths = getWidths(tableGrid, percentageBased, table);
 
 			var step = percentageBased ? getCellPercentDelta(table, delta) : delta;
-			// TODO: change the min for percentage maybe?
+
 			var deltas = determineDeltas(widths, index, step, RESIZE_MINIMUM_WIDTH, percentageBased, table);
 			var newWidths = [];
 

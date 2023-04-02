@@ -862,8 +862,7 @@ tinymce.PluginManager.add('media', function(editor, url) {
 	});
 
 	editor.on('setContent', function() {
-		// TODO: This shouldn't be needed there should be a way to mark bogus
-		// elements so they are never removed except external save
+
 		editor.$('span.mce-preview-object').each(function(index, elm) {
 			var $elm = editor.$(elm);
 
