@@ -47,62 +47,42 @@ class CommentService
     }
 
     /**
-     * @param string $commentTitle
+     * @param int $commentId
      * @return bool
      * @throws Exception
      */
-    public static function approvedComment(string $commentTitle): bool
+    public static function approvedComment(int $commentId): bool
     {
         $statement = CommentModel::getDataBase()
-            ->prepare("UPDATE comment SET comment.status = :status, comment.updated_at = :updated_at WHERE (comment.title = :title)");
+            ->prepare("UPDATE comment SET comment.status = :status, comment.updated_at = :updated_at WHERE (comment.id = :commentId)");
 
         $status =  $statement->execute([":status" => CommentModel::STATUS_PUBLISHED,
             ":updated_at" => CommentModel::getCurrentDateTime(),
-            ":title" => $commentTitle]);
+            ":commentId" => $commentId]);
 
         if (empty($status)){
-            throw new Exception("Erreur lors de la mise à jour du commentaire ${commentTitle}, veuillez réessayer");
+            throw new Exception("Erreur lors de la mise à jour du commentaire, veuillez réessayer");
         }
         return true;
     }
 
     /**
-     * @param string $commentTitle
+     * @param int $commentId
      * @return bool
      * @throws Exception
      */
-    public static function rejectedComment(string $commentTitle): bool
+    public static function rejectedComment(int $commentId): bool
     {
         $statement = CommentModel::getDataBase()
             ->prepare("DELETE FROM comment
-					   WHERE comment.title = :commentTitle");
+					   WHERE comment.id = :commentId");
 
-        $status = $statement->execute([":commentTitle" => $commentTitle]);
+        $status = $statement->execute([":commentId" => $commentId]);
 
         if (empty($status)) {
-            throw new Exception("La suppression du commentaire ${commentTitle} a échoué");
+            throw new Exception("La suppression du commentaire a échoué");
         }
         return true;
-    }
-
-    /**
-     * @param string $commentTitle
-     * @return object
-     * @throws Exception
-     */
-    public static function getPublishedComment(string $commentTitle): object
-    {
-        $statement = CommentModel::getDataBase()->prepare("SELECT * FROM comment WHERE comment.title = :commentTitle");
-        $statement->execute([
-            ':commentTitle' => $commentTitle,
-        ]);
-
-        $status = $statement->fetchObject(CommentModel::class);
-
-        if(empty($status)){
-            throw new Exception("Erreur lors de la recherche du commentaire");
-        }
-        return $status;
     }
 
     /**

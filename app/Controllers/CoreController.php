@@ -29,7 +29,7 @@ abstract class CoreController
         try {
             $this->directory = dirname(__DIR__, 1);
 
-            $this->loader = new FilesystemLoader([$this->directory . '/templates/main', $this->directory . '/templates/login',
+            $this->loader = new FilesystemLoader([$this->directory . '/templates', $this->directory . '/templates/main', $this->directory . '/templates/login',
                 $this->directory . '/templates/admin']);
 
             $this->twigEnvironment = new Environment($this->loader, [

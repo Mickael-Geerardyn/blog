@@ -51,63 +51,11 @@
                             <input type="hidden" name="post-id" value="{{ post.getId() }}">
                         </form>
                     </div>
-
                 </div>
                 {% endfor %}
                 {% endif %}
-                
-                {# PARTIE LISTE DES COMMENTAIRES #}
-                {% if (pendingComments is not empty and pendingComments is iterable) %}
-                {% for comment in pendingComments %}
-                <div class="card single_post">
-                    <div class="body">
-                        <h3 class="m-t-0 m-b-5">{{ comment.getTitle() }}</h3>
-                        {% if comment.author is defined %}
-                        <ul class="meta">
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: {{
-                                    comment.author.getFirstname()
-                                    ~" "~ comment.author.getLastname() }}</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Créé le: {{
-                                    comment.getCreatedAt()}}</a></li>
-                            {% if comment.getUpdatedAt() is not empty %}
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Mis à jour le: {{
-                                    comment.getUpdatedAt()}}</a></li>
-                            {% endif %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                    <div class="body">
-                        <div class="img-post m-b-15">
-                        </div>
-                        <p>{{ comment.getContent() }}</p>
-                        <div class="container-fluid">
-                            <div class="row">
-                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=comment-validated">
-                            <button title="Valider le commentaire" class="btn btn-round
-                            btn-info">Valider</button>
-                            <input type="hidden" name="commentTitle" value="{{ comment.getTitle() }}">
-                            <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
-                        </form>
-                        <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=rejected-comment">
-                            <button title="Valider le commentaire" class="btn btn-round
-                            btn-danger">Supprimer</button>
-                            <input type="hidden" name="commentTitle" value="{{ comment.getTitle() }}">
-                            <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
-                        </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <div class="container-fluid">
-                    <div class="row">
-                        <h3>Aucun commentaire à valider</h3>
-                    </div>
             </div>
-                {% endif %}
         </div>
-    </div>
     </div>
 </section>
 

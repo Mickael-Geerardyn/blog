@@ -26,10 +26,10 @@ class AdminCommentController extends AdminCoreController
                 $comment->author = UserService::getCommentAuthorById($comment->getUserId());
             }
 
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' => $pendingComments, "CSRFToken" => $_SESSION["CSRFToken"]]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, "CSRFToken" => $_SESSION["CSRFToken"]]);
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['error' => $exception->getMessage()]);
             return false;
         }
     }
@@ -44,15 +44,16 @@ class AdminCommentController extends AdminCoreController
     {
         try {
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
-            $commentTitle = htmlspecialchars($_POST["commentTitle"]);
-            CommentService::approvedComment($commentTitle);
+            $commentId = filter_input(INPUT_POST,"commentId", FILTER_VALIDATE_INT);
+            CommentService::approvedComment($commentId);
             $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire ${commentTitle} a bien été approuvé`]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire a bien été
+            approuvé`]);
 
             return true;
         } catch (Exception $exception) {
             $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
 
             return false;
         }
@@ -68,15 +69,16 @@ class AdminCommentController extends AdminCoreController
     {
         try {
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
-            $commentTitle = htmlspecialchars($_POST["commentTitle"]);
-            CommentService::rejectedComment($commentTitle);
+            $commentId = filter_input(INPUT_POST ,"commentId", FILTER_VALIDATE_INT);
+            CommentService::rejectedComment($commentId);
             $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire ${commentTitle} a bien été supprimé`]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire a bien été
+            supprimé`]);
 
             return true;
         } catch (Exception $exception) {
             $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
 
             return false;
         }

@@ -12,6 +12,7 @@ class AdminRoleController extends AdminCoreController
 	/**
 	 * @param string $roleTitle
 	 * @return object|bool
+     * @throws Exception
 	 */
 	public function getOneRoleByTitle(string $roleTitle): object|bool
 	{
@@ -22,7 +23,7 @@ class AdminRoleController extends AdminCoreController
 
 		}catch(Exception $exceptions)
 		{
-			$this->twigEnvironment->display("/adminMain/landing-dashboard.html.twig", ["error" => $exceptions->getMessage()]);
+			$this->twigEnvironment->display("/adminMain/blog-list.html.twig", ["error" => $exceptions->getMessage()]);
 			return false;
 		}
 	}

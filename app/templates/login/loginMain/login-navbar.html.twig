@@ -15,9 +15,8 @@
 				</li>
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary btn-round" href="{{ (referer is empty)?
-					_SERVER["BASE_URI"]~"index
-					.php?action=sign-up-page" : _SERVER['BASE_URI']~"index.php?action=login-page" }}">{{
-					(referer is empty)? "S'ENREGISTRER" : "SE CONNECTER" }}</a>
+					_SERVER["BASE_URI"]~"index.php?action=sign-up-page" : _SERVER['BASE_URI']~'index.php?action='}}{{ referer }}">
+						{{ (referer is empty)? "S'ENREGISTRER" : "SE CONNECTER" }}</a>
                 </li>
 			</ul>
 		</div>

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\CoreController;
 use App\Models\PostModel;
+use App\Models\UserModel;
 use App\Services\AuthService;
 use App\Services\CommentService;
 use App\Services\PostService;
@@ -54,7 +55,7 @@ class PostController extends CoreController
     {
         try{
 
-            $this->twigEnvironment->display('/new-post.html.twig', ["loggedInUser" => $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"] ]);
+            $this->twigEnvironment->display('/new-post.html.twig', ["loggedInUser" => $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN ]);
 
             return true;
         }catch (Exception $exception){
@@ -117,7 +118,7 @@ class PostController extends CoreController
             $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
             $postObject = PostService::getPostById($postId);
             $this->twigEnvironment->display('/new-post.html.twig', ["postObject" => $postObject ,"loggedInUser" =>
-                $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"] ]);
+                $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN ]);
             return true;
 
         }catch(Exception $exception){

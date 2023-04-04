@@ -66,7 +66,7 @@ class AuthController extends CoreController
             return true;
         } catch (UserExceptions|Exception $exceptions) {
 
-            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['error' =>
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' =>
                 $exceptions->getMessage()]);
 
             return false;
@@ -81,7 +81,7 @@ class AuthController extends CoreController
     {
         try {
 
-            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['userObject' =>
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['userObject' =>
                 $this->ownerUser]);
 
             return true;
@@ -92,24 +92,4 @@ class AuthController extends CoreController
             return false;
         }
     }
-
-    /**
-     * @return bool
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function checkRoleUser(): bool
-    {
-        try{
-            if(!empty($_SESSION["userObject"]) && $_SESSION["userObject"]->getRoleId() == UserModel::ROLE_ADMIN)
-            {
-                self::displayLandingDashboard();
-            }
-            return true;
-        }catch(Exception $exception){
-            $this->twigEnvironment->display('/landing-portfolio.html.twig', ['error' => $exception->getMessage()]);
-        }
-    }
-
 }

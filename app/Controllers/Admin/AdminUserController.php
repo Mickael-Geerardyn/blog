@@ -158,21 +158,6 @@ class AdminUserController extends AdminCoreController
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function displayLandingDashboardIfUserIsAlreadyLoggedInSession(): bool
-	{
-		try {
-            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig');
-			return true;
-		} catch (UserExceptions $userExceptions) {
-            $this->twigEnvironment->display('/loginMain/sign-in', ['error' => $userExceptions->getMessage()]);
-			return false;
-		}
-	}
-
-	/**
-	 * @return bool
-	 * @throws Exception
-	 */
 	public function displayAddFormUser(): bool
 	{
 		try {

@@ -32,7 +32,7 @@ class AdminPostController extends AdminCoreController
 
 		}catch (Exception $exception){
 
-            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
 		}
 
 	}
@@ -55,22 +55,6 @@ class AdminPostController extends AdminCoreController
 			return false;
 		}
 
-	}
-
-	/**
-	 * @return bool
-     * @throws Exception
-	 */
-	public function newPostPage(): bool
-	{
-        try{
-            $this->twigEnvironment->display('/adminMain/blog-post.html.twig', ["loggedInUser" => $_SESSION["userObject"]]);
-            return true;
-        }catch(Exception $exception)
-        {
-            $this->twigEnvironment->display('/adminMain/landing-dashboard.html.twig', ["error" => $exception->getMessage()]);
-            return false;
-        }
 	}
 
     /**
@@ -96,7 +80,6 @@ class AdminPostController extends AdminCoreController
     }
 
     /**
-     * @param int $postId
      * @return bool
      * @throws LoaderError
      * @throws RuntimeError

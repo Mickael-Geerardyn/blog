@@ -41,10 +41,6 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$userLogout = new AuthController();
 			$userLogout->userLogout();
 			break;
-		case 'landing-dashboard':
-			$landingDashboard = new AuthController();
-			$landingDashboard->displayLandingDashboard();
-			break;
 		case 'display-add-form-user':
 			$AddFormUser = new AdminUserController();
 			$AddFormUser->displayAddFormUser();
@@ -68,10 +64,6 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 		case 'single-post-page':
 			$postPage = new AdminPostController();
 			$postPage->displayOnePostById();
-			break;
-		case 'new-admin-post-page':
-			$adminPostController = new AdminPostController();
-            $adminPostController->newPostPage();
 			break;
         case 'new-post-page':
             $postController = new PostController();

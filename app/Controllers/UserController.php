@@ -43,7 +43,7 @@ class UserController extends CoreController
 	public function getSignUpPage():bool
 	{
 		try {
-            $this->twigEnvironment->display('/loginMain/sign-up.html.twig');
+            $this->twigEnvironment->display('/loginMain/sign-up.html.twig', ["referer" => "login-page"]);
             return true;
 		}catch (Exception $exception){
             $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>

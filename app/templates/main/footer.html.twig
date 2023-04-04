@@ -25,15 +25,14 @@
 					{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
 						(ROLE_ADMIN)%}
 						<div class="mt-5">
-					<a class="h2" href="/projet5/blog/public/index.php?action=landing-dashboard">Administration</a>
+					<a class="h2" href="/projet5/blog/public/index.php?action=blog-list">Administration</a>
 				</div>
 					{% endif %}
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>En tant que Freelancer</h3>
 					<p>Freelance is a free to use, open source Bootstrap
-						theme created by <a href="public/index.php">{{ ownerUser
-								.getFirstname()~" "~ownerUser.getLastname() }}</a>.</p>
+						theme created by <a href="public/index.php">{{ ownerUser.getFirstname()~" "~ownerUser.getLastname() }}</a>.</p>
 				</div>
 			</div>
 		</div>
