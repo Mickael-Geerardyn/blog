@@ -164,7 +164,7 @@ class UserService
 	/**
 	 * @param string $email
 	 * @return object|bool
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public static function checkUserAuthenticationByEmail(string $email): object|bool
 	{
@@ -178,7 +178,7 @@ class UserService
 
 		if (empty($userObject)) {
 
-			throw new UserExceptions("Une erreur est survenue lors de la recherche de l'utilisateur");
+			throw new Exception("Une erreur est survenue lors de la recherche de l'utilisateur");
 		}
 
 		return $userObject;
@@ -188,13 +188,13 @@ class UserService
 	 * @param string $userPassword
 	 * @param string $userHashPassword
 	 * @return bool
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public static function checkPasswordUserAuthentication(string $userPassword, string $userHashPassword): bool
 	{
 		if (!password_verify($userPassword, $userHashPassword))
 		{
-			throw new UserExceptions('Problème lors de la vérification du mot de passe');
+			throw new Exception('Problème lors de la vérification du mot de passe');
 		}
 
 		return true;

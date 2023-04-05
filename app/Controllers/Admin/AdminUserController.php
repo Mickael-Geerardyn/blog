@@ -7,7 +7,6 @@ use App\Controllers\HomePageController;
 use App\Models\UserModel;
 use App\Services\AuthService;
 use App\Services\UserService;
-use App\Services\UserExceptions;
 use Exception;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -72,6 +71,7 @@ class AdminUserController extends AdminCoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError

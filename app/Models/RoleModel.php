@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Services\RoleExceptions;
 use Exception;
 use PDO;
-use PDOException;
 
 class RoleModel extends CoreModel
 {
     private string $title;
 
-	/**
-	 * @return object
-	 * @PDO
-	 */
+    /**
+     * @return object
+     * @PDO
+     * @throws Exception
+     */
 	public function getAllRoles(): object
 	{
 		$statement = RoleModel::getDataBase();
@@ -29,7 +28,7 @@ class RoleModel extends CoreModel
 
 		if(empty($result))
 		{
-			throw new RoleExceptions("Une erreur est intervenue lors de l'extraction des roles");
+			throw new Exception("Une erreur est intervenue lors de l'extraction des roles");
 		}
 
 		return $result;
@@ -38,11 +37,10 @@ class RoleModel extends CoreModel
 	/**
 	 * @param string $roleTitle
 	 * @return object|bool
-	 * @throws RoleExceptions
+	 * @throws Exception
 	 */
 	public function getOneRoleByTitle(string $roleTitle): object|bool
 	{
-		try {
 			$statement = RoleModel::getDataBase()->prepare('SELECT id, title, created_at, updated_at
 							FROM role
 							WHERE title = :title');
@@ -54,14 +52,10 @@ class RoleModel extends CoreModel
 
 			if (empty($result)) {
 				$statement->rollBack();
-				throw new RoleExceptions("Une erreur est intervenue lors de la recherche du role");
+				throw new Exception("Une erreur est intervenue lors de la recherche du role");
 			}
 
 			return $result;
-
-		} catch (PDOException $exception) {
-			echo $exception->getMessage();
-		}
 
 	}
 

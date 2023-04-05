@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Exception;
-use App\Services\UserExceptions;
 
 class UserModel extends CoreModel
 {
@@ -54,7 +53,7 @@ class UserModel extends CoreModel
 	/**
 	 * Create user data and throw exception if an error occurs ($statement->execute return false if an error occurs)
 	 * @return bool|string
-	 * @throws UserExceptions
+	 * @throws Exception
 	 */
 	public function createUser(): bool|string
 	{
@@ -76,7 +75,7 @@ class UserModel extends CoreModel
 
 		if (!$status)
 		{
-			throw new UserExceptions("Une erreur est intervenue durant l'enregistrement de l'utilisateur");
+			throw new Exception("Une erreur est intervenue durant l'enregistrement de l'utilisateur");
 		}
 
 

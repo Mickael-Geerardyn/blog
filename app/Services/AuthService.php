@@ -27,7 +27,7 @@ class AuthService
 
     /**
      * @return bool
-     * @throws UserExceptions;
+     * @throws Exception;
      */
     public static function checkCSRFTokenSubmittedCorrespondWithSession(): bool
     {
@@ -37,13 +37,13 @@ class AuthService
             return true;
         } else {
 
-            throw new UserExceptions("Une erreur est survenue lors de l'authentification du token de l'utilisateur");
+            throw new Exception("Une erreur est survenue lors de l'authentification du token de l'utilisateur");
         }
     }
 
     /**
      * @return bool
-     * @throws UserExceptions
+     * @throws Exception
      */
     public static function unsetDataInSession(): bool
     {
@@ -52,7 +52,7 @@ class AuthService
 
         if (!empty($_SESSION['userObject']) && !empty($_SESSION['isConnected']) && !empty($_SESSION['CSRFToken']))
         {
-            throw new UserExceptions("Une erreur est intervenue lors de la tentative de déconnexion");
+            throw new Exception("Une erreur est intervenue lors de la tentative de déconnexion");
         }
 
         return true;

@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\CommentModel;
 use App\Services\AuthService;
 use App\Services\PostService;
-use App\Services\UserExceptions;
 use App\Services\UserService;
 use Exception;
 use Twig\Error\LoaderError;
@@ -16,6 +15,7 @@ class CommentController extends CoreController
 {
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -24,7 +24,7 @@ class CommentController extends CoreController
     {
         try {
             if(!UserService::checkIfUserIsAlreadyLoginInSession()){
-                throw new UserExceptions('Créez un compte ou connectez-vous pour pouvoir laisser un commentaire');
+                throw new Exception('Créez un compte ou connectez-vous pour pouvoir laisser un commentaire');
             }
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
 

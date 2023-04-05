@@ -4,7 +4,6 @@ namespace App\Controllers\Admin;
 
 use App\Models\RoleModel;
 use App\Models\UserModel;
-use App\Services\RoleExceptions;
 use App\Services\UserService;
 use Exception;
 

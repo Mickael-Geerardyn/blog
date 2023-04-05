@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Services\AuthService;
-use App\Services\UserExceptions;
 use App\Services\UserService;
 use Exception;
 use Twig\Error\LoaderError;
@@ -43,10 +42,10 @@ class AuthController extends CoreController
 
             return true;
 
-        } catch (UserExceptions|Exception $UserExceptions) {
+        } catch (Exception $exception) {
 
             $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $UserExceptions->getMessage()]);
+                $exception->getMessage()]);
 
             return false;
         }
@@ -64,10 +63,10 @@ class AuthController extends CoreController
             $homePage->getHomePage();
 
             return true;
-        } catch (UserExceptions|Exception $exceptions) {
+        } catch (Exception $exception) {
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' =>
-                $exceptions->getMessage()]);
+                $exception->getMessage()]);
 
             return false;
         }
