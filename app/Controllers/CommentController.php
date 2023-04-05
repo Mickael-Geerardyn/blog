@@ -30,11 +30,10 @@ class CommentController extends CoreController
 
             $content = strip_tags(htmlspecialchars($_POST['content']));
             $title = strip_tags(htmlspecialchars($_POST['title']));
-            $postTitle = htmlspecialchars($_POST["postTitle"]);
+            $postId = htmlspecialchars($_POST["postId"]);
             $userEmail = filter_input(INPUT_POST, "userEmail", FILTER_VALIDATE_EMAIL);
 
-            $currentPost = PostService::getOnePostByTitle($postTitle);
-            $postId = $currentPost->getId();
+            $currentPost = PostService::getPostById($postId);
 
             if(empty($_SESSION["userObject"]->getEmail() || !empty($_SESSION["userObject"]->getEmail()) != $userEmail)) {
                 throw new Exception("Une erreur est intervenue lors de l'enregistrement du commentaire");
