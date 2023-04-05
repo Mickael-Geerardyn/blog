@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Admin;
 use App\Models\PostModel;
+use App\Models\UserModel;
 use App\Services\AuthService;
 use App\Services\CommentService;
 use App\Services\PostService;
@@ -16,12 +17,13 @@ class AdminPostController extends AdminCoreController
 {
 
 	/**
-	 * @return void
+	 * @return bool
      * @throws Exception
 	 */
-	public function displayPostsPage(): void
+	public function displayPostsPage(): bool
 	{
 		try{
+            UserService::checkUserRole();
             $postsArray = PostService::getAllNotValidatedPosts();
             foreach($postsArray as $post){
                 $post->author = UserService::getPostAuthorById($post->getUserId());
@@ -30,11 +32,19 @@ class AdminPostController extends AdminCoreController
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['postsArray' => $postsArray]);
 
+            return true;
+
 		}catch (Exception $exception){
 
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
-		}
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
+            } else {
 
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
+            return false;
+		}
 	}
 
 	/**
@@ -45,14 +55,23 @@ class AdminPostController extends AdminCoreController
 	public function displayOnePostById(): bool
 	{
 		try{
+            UserService::checkUserRole();
 			$postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' =>
-                PostService::getPostById($postId), "CSRFToken" => $_SESSION["CSRFToken"]]);
+
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getPostById($postId)]);
+
 			return true;
 		}catch (Exception $exception){
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['error' => $exception->getMessage()]);
 
-			return false;
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['error' => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
+            return false;
+
 		}
 
 	}
@@ -66,16 +85,28 @@ class AdminPostController extends AdminCoreController
     public function validatePostById(): bool
     {
         try {
+            UserService::checkUserRole();
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::approvedPost($postId);
+            $postObject = PostService::getPostById($postId);
+            $postObject->author = UserService::getPostAuthorById($postObject->getUserId());
+            $postObject->comments = CommentService::getNumberOfComments($postId);
 
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getPostById($postId), "loggedInUser" => $_SESSION["userObject"]]);
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => $postObject]);
 
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage(), "loggedInUser" => $_SESSION["userObject"]]);
+
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
             return false;
+
         }
     }
 
@@ -88,6 +119,7 @@ class AdminPostController extends AdminCoreController
         public function rejectedPostById(): bool
         {
         try{
+            UserService::checkUserRole();
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::rejectedPost($postId);
@@ -98,7 +130,14 @@ class AdminPostController extends AdminCoreController
             return true;
 
         }catch(Exception $exception){
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
             return false;
         }
     }

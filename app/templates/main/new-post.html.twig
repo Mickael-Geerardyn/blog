@@ -54,7 +54,7 @@
                                 </button>
                             </div>
                         </div>
-                        <input type="hidden" id="CSRFToken" name="CSRFToken" value="{{ CSRFToken }}">
+                        <input type="hidden" id="CSRFToken" name="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
 						{% if postObject is not empty %}
 							<input type="hidden" id="postId" name="postId" value="{{ postObject.getId() }}">
 						{% endif %}

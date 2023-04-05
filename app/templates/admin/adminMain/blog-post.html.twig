@@ -9,13 +9,6 @@
                     <h2>Nouvel article
                     </h2>
                 </div>
-                <div class="col-lg-5 col-md-6 col-sm-12">
-                    <ul class="breadcrumb float-md-right">
-                        <li class="breadcrumb-item"><a href="{{ _SERVER["BASE_URI"] }}"><i class="zmdi zmdi-home"></i>Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ _SERVER["BASE_URI"] }}?action=landing-dashboard">Blog</a></li>
-                        <li class="breadcrumb-item active">Nouvel article</li>
-                    </ul>
-                </div>
             </div>
         </div>
         <form action="{{ _SERVER["BASE_URI"] }}index.php?action={{ (postObject is empty) ? "send-new-post" :
@@ -60,8 +53,8 @@
                             <h3>Pellentesque adipiscing</h3>
                             <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
                         </textarea>
-                                <input type="hidden" class="form-control" name="CSRFToken" value="{{CSRFToken}}">
-                                <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser.getEmail()
+                                <input type="hidden" class="form-control" name="CSRFToken" value="{{_SESSION["CSRFToken"]}}">
+                                <input type="hidden" name="userEmail" id="userEmail" value="{{ _SESSION["userObject"].getEmail()
                                 }}" >
                             <button type="button" class="btn btn-primary btn-round waves-effect m-t-20">Valider</button>
                             {% elseif postObject is not empty %}
@@ -79,8 +72,8 @@
                             <h3>Pellentesque adipiscing</h3>
                             <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
                         </textarea>
-                                <input type="hidden" class="form-control" name="CSRFToken" value="{{CSRFToken}}">
-                                <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser.getEmail()
+                                <input type="hidden" class="form-control" name="CSRFToken" value="{{_SESSION["CSRFToken"]}}">
+                                <input type="hidden" name="userEmail" id="userEmail" value="{{ _SESSION["userObject"].getEmail()
                                 }}" >
                             <button type="button" class="btn btn-primary btn-round waves-effect m-t-20">Valider</button>
                             {% endif %}

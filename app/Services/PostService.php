@@ -49,59 +49,15 @@ class PostService
 	public static function getAllValidatedPosts(): array
 	{
 		$statement = PostModel::getDataBase()
-        ->prepare('SELECT id, title, heading, content, user_id, created_at, updated_at
+        ->prepare('SELECT *
 					 FROM post
-					 WHERE published_at IS NOT NULL');
+					 WHERE ((published_at IS NOT NULL) AND (updated_at IS NOT NULL) AND (DATEDIFF(published_at, updated_at) >= DATEDIFF(updated_at, published_at)) OR (updated_at IS NULL) AND (published_at IS NOT NULL))');
 
         $statement->execute();
 
         $result =  $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
 
 		return $result;
-	}
-
-	/**
-	 * Method who return all posts of the current user
-	 * @param int $userId
-	 * @return object
-	 */
-	public static function getAllPostsOfTheCurrentUser(int $userId): object
-	{
-		$statement = PostModel::getDataBase()
-			->query('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
-					   FROM post
-					   WHERE (user_id = :userId AND published_at IS NOT NULL)')
-			->execute([
-				':userId' => $userId,
-			]);
-
-		return $statement->fetchAll();
-	}
-
-	/**
-	 * Method who return one post by its unique identifier
-	 * @param string $postTitle
-	 * @return object
-	 * @throws Exception
-	 */
-	public static function getOnePostByTitle(string $postTitle): object
-	{
-		$statement = PostModel::getDataBase()
-			->prepare('SELECT *
-					   FROM post
-					   WHERE title = :postTitle');
-
-		$statement->execute([
-				':postTitle' => $postTitle,
-			]);
-
-			$status = $statement->fetchObject(PostModel::class);
-
-			if(empty($status)){
-				throw new Exception("Une erreur est intervenue lors de la recherche de l'article");
-			}
-
-		return $status;
 	}
 
 	/**
@@ -136,9 +92,9 @@ class PostService
 	public static function getAllNotValidatedPosts(): array
 	{
 		$statement = PostModel::getDataBase()
-			->prepare('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
-					   FROM post
-					   WHERE published_at IS NULL');
+			->prepare('SELECT *
+					 FROM post
+					 WHERE ((published_at IS NULL) OR (published_at IS NOT NULL) AND (created_at IS NOT NULL) AND (DATEDIFF(updated_at, published_at) >= DATEDIFF(published_at, updated_at)))');
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);

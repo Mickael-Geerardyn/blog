@@ -23,14 +23,14 @@
 				<li class="page-scroll">
 					<a href="#contact">Contact</a>
 				</li>
-				{% if loggedInUser is empty %}
+				{% if _SESSION is empty %}
 				<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=login-page">Se connecter</a>
 				</li>
 					<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=sign-up-page">Créer un compte</a>
 				</li>
-				{% elseif loggedInUser is not empty %}
+				{% elseif _SESSION is not empty %}
 					<li class="page-scroll">
 					<a href="{{ _SERVER["BASE_URI"] }}index.php?action=new-post-page">Rédiger un article</a>
 				<li class="page-scroll">

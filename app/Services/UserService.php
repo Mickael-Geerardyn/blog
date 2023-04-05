@@ -74,7 +74,6 @@ class UserService
 
 		if(empty($status))
 		{
-			$statement->rollBack();
 			throw new Exception("L'utilisateur n'a pas été trouvé ou n'existe pas");
 		}
 
@@ -199,4 +198,20 @@ class UserService
 
 		return true;
 	}
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public static function checkUserRole(): bool
+    {
+        if(!empty($_SESSION["userObject"]) && $_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+        {
+            return true;
+
+        } else {
+
+            throw new Exception("Vous n'êtes pas autorisé à accéder à cette page");
+        }
+    }
 }

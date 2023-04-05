@@ -58,8 +58,8 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 			$userUpdate->displayUpdateFormUser();
 			break;
 		case 'blog-list':
-			$postsPage = new AdminPostController();
-			$postsPage->displayPostsPage();
+			$adminPostController = new AdminPostController();
+            $adminPostController->displayPostsPage();
 			break;
 		case 'single-post-page':
 			$postPage = new AdminPostController();
@@ -97,10 +97,6 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $userController = new UserController();
             $userController->getSignUpPage();
             break;
-		case 'single-blog':
-			$postPage = new PostController();
-			$postPage->displayPostPage();
-			break;
         case "send-new-comment":
             $commentController = new CommentController();
             $commentController->sendNewComment();
@@ -124,6 +120,10 @@ if(isset($_GET['action']) && !empty($_GET['action']))
         case "send-message":
             $contactController = new ContactController();
             $contactController->sendEmail();
+            break;
+        case "posts-page":
+            $postController = new PostController();
+            $postController->displayPostsPage();
             break;
 		default:
             $notFoundPage = new HomePageController();

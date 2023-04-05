@@ -9,13 +9,6 @@
                 <h2>Article
                 </h2>
             </div>
-            <div class="col-lg-5 col-md-6 col-sm-12">
-                <ul class="breadcrumb float-md-right">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Compass</a></li>
-                    <li class="breadcrumb-item"><a href="blog-dashboard.html">Blog</a></li>
-                    <li class="breadcrumb-item active">Blog Detail</li>
-                </ul>
-            </div>
         </div>
     </div>
     <div class="container-fluid">
@@ -25,11 +18,10 @@
                     <div class="body">
                         <h3 class="m-t-0 m-b-5"><a href="blog-details.html">{{ postObject.getTitle() }}</a></h3>
                         <ul class="meta">
-                            <li><a href="#"><i class="zmdi zmdi-account col-blue"></i>Auteur: </a></li>
-                            <li><a href="#"><i class="zmdi zmdi-label col-red"></i>Photography</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Comments: </a></li>
-                            <li><a href="#"><i class="zmdi zmdi-comment-text col-blue"></i>Validé le:
-                                    </a></li>
+                            <li><i class="zmdi zmdi-account col-blue"></i>Auteur: {{ (postObject.author is not empty) ? postObject.author.getFirstname()~"
+"~postObject.author.getLastName():"" }}</li>
+                            <li><i class="zmdi zmdi-comment-text col-blue"></i>Comments: {{ (postObject.comments is not empty) ? postObject.comments.total : "" }}</li>
+                            <li><i class="zmdi zmdi-comment-text col-blue"></i>Validé le: {{ (postObject is not empty) ? postObject.getPublishedAt() : "" }}</li>
                         </ul>
                     </div>                    
                     <div class="body">
@@ -44,13 +36,13 @@
                         <button class="btn btn-round
                         btn-success">Valider</button>
                         <input type="hidden" name="post-id" value="{{ postObject.getId() }}">
-                        <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
+                        <input type="hidden" name="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
                     </form>
                     <form id="form_validation" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=rejected-post" novalidate="novalidate">
                         <button class="btn btn-round
                         btn-danger">Rejeter</button>
                         <input type="hidden" name="post-id" value="{{ postObject.getId() }}">
-                        <input type="hidden" name="CSRFToken" value="{{ CSRFToken }}">
+                        <input type="hidden" name="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
                     </form>
                 </div>
             </div>

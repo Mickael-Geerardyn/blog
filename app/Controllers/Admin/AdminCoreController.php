@@ -31,6 +31,7 @@ abstract class AdminCoreController
 
         $this->twigEnvironment->addExtension(new DebugExtension());
         $this->twigEnvironment->addGlobal('ownerUser', UserService::getOneUserByEmail(self::OWNER_USER_EMAIL));
+        self::storeInAddGlobalIfServerIsNotEmpty();
 
         /**
          * filter_input is used to check the url contained in the 'REQUEST_URI'
@@ -46,6 +47,25 @@ abstract class AdminCoreController
         }
 
         $this->twigEnvironment->addGlobal('_SERVER', $_SERVER);
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    protected function storeInAddGlobalIfServerIsNotEmpty():bool
+    {
+        try {
+            if(!empty($_SESSION["userObject"]) && !empty($_SESSION["CSRFToken"]))
+            {
+                $this->twigEnvironment->addGlobal("_SESSION", $_SESSION);
+
+            }
+        }catch(Exception $exception){
+            $this->twigEnvironment->diplay("/landing-blog.html.twig", ["error" => $exception->getMessage()]);
+            return false;
+        }
+        return true;
     }
 }
 

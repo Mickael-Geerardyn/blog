@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use App\Models\UserModel;
 use App\Services\AuthService;
 use App\Services\CommentService;
 use App\Services\UserService;
@@ -20,6 +21,7 @@ class AdminCommentController extends AdminCoreController
     public function displayPendingCommentsPage(): bool
     {
         try {
+            UserService::checkUserRole();
             $pendingComments = CommentService::getPendingComments();
 
             foreach ($pendingComments as $comment) {
@@ -28,8 +30,16 @@ class AdminCommentController extends AdminCoreController
 
             $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, "CSRFToken" => $_SESSION["CSRFToken"]]);
             return true;
+
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['error' => $exception->getMessage()]);
+
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['error' => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
             return false;
         }
     }
@@ -43,6 +53,7 @@ class AdminCommentController extends AdminCoreController
     public function approvedComment(): bool
     {
         try {
+            UserService::checkUserRole();
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $commentId = filter_input(INPUT_POST,"commentId", FILTER_VALIDATE_INT);
             CommentService::approvedComment($commentId);
@@ -52,9 +63,15 @@ class AdminCommentController extends AdminCoreController
 
             return true;
         } catch (Exception $exception) {
-            $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
 
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $pendingComments = CommentService::getPendingComments();
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
             return false;
         }
     }
@@ -68,6 +85,7 @@ class AdminCommentController extends AdminCoreController
     public function deletedComment(): bool
     {
         try {
+            UserService::checkUserRole();
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $commentId = filter_input(INPUT_POST ,"commentId", FILTER_VALIDATE_INT);
             CommentService::rejectedComment($commentId);
@@ -77,8 +95,15 @@ class AdminCommentController extends AdminCoreController
 
             return true;
         } catch (Exception $exception) {
-            $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $pendingComments = CommentService::getPendingComments();
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
 
             return false;
         }

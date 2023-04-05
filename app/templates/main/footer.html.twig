@@ -22,7 +22,7 @@
 							fa-fw fa-linkedin"></i></a>
 						</li>
 					</ul>
-					{% if loggedInUser is not empty and loggedInUser.getRoleId() is same as
+					{% if _SESSION is not empty and _SESSION["userObject"].getRoleId() is same as
 						(ROLE_ADMIN)%}
 						<div class="mt-5">
 					<a class="h2" href="/projet5/blog/public/index.php?action=blog-list">Administration</a>

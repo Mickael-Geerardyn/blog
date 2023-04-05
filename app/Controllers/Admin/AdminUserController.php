@@ -22,6 +22,7 @@ class AdminUserController extends AdminCoreController
 	public function registeredNewUser(): bool
 	{
 		try {
+            UserService::checkUserRole();
 			AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
 
 			$email = filter_input(INPUT_POST, 'email' ,FILTER_VALIDATE_EMAIL);
@@ -53,10 +54,17 @@ class AdminUserController extends AdminCoreController
 
 			return true;
 
-		} catch (UserExceptions | Exception $Exception) {
+		} catch (Exception $exception) {
 
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ['error' =>
-                $Exception->getMessage()]);
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ['error' => $exception->getMessage()]);
+
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
+
 
 			return false;
 		}
@@ -71,6 +79,7 @@ class AdminUserController extends AdminCoreController
     public function updatedUser (): bool
     {
         try {
+            UserService::checkUserRole();
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
 
             $lastEmail = filter_input(INPUT_POST, "lastEmail", FILTER_VALIDATE_EMAIL);
@@ -104,8 +113,14 @@ class AdminUserController extends AdminCoreController
 
         } catch (Exception $exception) {
 
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["error" => $exception->getMessage()]);
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ["error" => $exception->getMessage()]);
+
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
 
             return false;
         }
@@ -113,10 +128,12 @@ class AdminUserController extends AdminCoreController
 
 	/**
 	 * @return bool
+     * @throws Exception
 	 */
 	public function deleteUser():bool
 	{
 		try {
+            UserService::checkUserRole();
 			$userEmail = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
 			if(!AuthService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkUserAuthenticationByEmail($userEmail)){
@@ -127,31 +144,50 @@ class AdminUserController extends AdminCoreController
 
 			self::displayUsersPage();
 
+            return true;
 		} catch(Exception $exception){
-			echo $exception->getMessage();
+
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display("/adminMain/users-page.html.twig", ["error" => $exception->getMessage()]);
+
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
+
 			return false;
 		}
-
-		return true;
 	}
 
 	/**
 	 * @return bool
-	 *
+	 * @throws Exception
 	 */
 	public function displayUsersPage(): bool
 	{
 		try {
+            UserService::checkUserRole();
 			if(!UserService::checkIfUserIsAlreadyLoginInSession())
 			{
 				$this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 			}
-            $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["usersArrayObject" => UserService::getAllUsers(), "CSRFToken" => $_SESSION["CSRFToken"]]);
+
+            $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["usersArrayObject" => UserService::getAllUsers()]);
+
+            return true;
+
 		} catch (Exception $exception){
-			echo $exception->getMessage();
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display("/adminMain/blog-details.html.twig", ["error" => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
 			return false;
 		}
-		return true;
+
 	}
 
 	/**
@@ -161,13 +197,20 @@ class AdminUserController extends AdminCoreController
 	public function displayAddFormUser(): bool
 	{
 		try {
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ["CSRFToken" => $_SESSION["CSRFToken"]]);
+            UserService::checkUserRole();
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 			return true;
 
-		} catch (UserExceptions $userExceptions)
+		} catch (Exception $exception)
 		{
-            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $userExceptions->getMessage()]);
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' => $exception->getMessage()]);
+            } else {
+
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
+
 			return false;
 		}
 	}
@@ -179,7 +222,7 @@ class AdminUserController extends AdminCoreController
 	public function displayUpdateFormUser(): bool
 	{
 		try {
-
+            UserService::checkUserRole();
 			if(!AuthService::checkCSRFTokenSubmittedCorrespondWithSession() && !UserService::checkIfUserIsAlreadyLoginInSession())
 			{
 				self::displayUsersPage();
@@ -189,14 +232,18 @@ class AdminUserController extends AdminCoreController
 			$updatedUser = UserService::getOneUserByEmail($email);
 
             $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["userObject" => $updatedUser, "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN, "ROLE_USER" => UserModel::ROLE_USER]);
+                ["ROLE_ADMIN" => UserModel::ROLE_ADMIN, "ROLE_USER" => UserModel::ROLE_USER]);
 
 			return true;
 		} catch (Exception $exception){
 
-            $this->twigEnvironment->display('/adminMain/users-page.html.twig',
-                ["error" => $exception->getMessage()]);
+            if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
+            {
+                $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["error" => $exception->getMessage()]);
+            } else {
 
+                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            }
 			return false;
 		}
 	}

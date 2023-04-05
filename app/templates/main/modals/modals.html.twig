@@ -39,7 +39,7 @@
                                 </strong>
                             </li>
                         </ul>
-                        {% if loggedInUser is not empty %}
+                        {% if _SESSION is not empty %}
                             <div class="row">
                             <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=update-post-page">
                                 <div class="form-group col-xs-12">
@@ -67,7 +67,7 @@
                         {% endfor %}
                         <br><br>
                         <div class="row">
-                            {% if loggedInUser is not empty %}
+                            {% if _SESSION is not empty %}
                             <div class="col-lg-8 col-lg-offset-2">
                                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
@@ -92,11 +92,11 @@
                                                   id="Commentaire" name="content"
                                                   required></textarea>
                                         <p class="help-block text-danger"></p>
-                                        <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ CSRFToken
+                                        <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ _SESSION["CSRFToken"]
                                         }}" >
-                                        <input type="hidden" name="userEmail" id="userEmail" value="{{ loggedInUser.getEmail()
+                                        <input type="hidden" name="userEmail" id="userEmail" value="{{ _SESSION["userObject"].getEmail()
                                         }}" >
-                                        <input type="hidden" name="postTitle" id="postTitle" value="{{ post.getId()
+                                        <input type="hidden" name="postId" id="postId" value="{{ post.getId()
                                         }}" >
                                     </div>
                                     </div>

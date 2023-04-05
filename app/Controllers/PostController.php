@@ -16,36 +16,26 @@ use Twig\Error\SyntaxError;
 
 class PostController extends CoreController
 {
+
     /**
      * @return bool
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-	public function displayPostPage(): bool
+    public function displayPostsPage():bool
     {
-		try {
-			$postTitle = htmlspecialchars($_GET['title']);
+        try {
 
-			$postObject = PostService::getOnePostByTitle($postTitle);
-
-            $postObject->postAuthorObject = UserService::getPostAuthorById($postObject->getUserId());
-
-			$postObject->commentsObject = CommentService::getPostComments($postObject->getId());
-
-            foreach ($postObject->commentsObject as $comment){
-                $comment->commentAuthorObject = UserService::getCommentAuthorById($comment->getUserId());
-            }
-
-			$this->twigEnvironment->display('/modals.html.twig', ["postObject" => $postObject]);
+            $this->twigEnvironment->display("/posts-page.html.twig", ["latestPosts" => PostService::getAllValidatedPosts(), "ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
 
             return true;
-		}catch(Exception $exception){
-            $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+        }catch(Exception $exception){
 
+            $this->twigEnvironment->display("/landing-blog.html.twig", ["error" => $exception->getMessage()]);
             return false;
-		}
-	}
+        }
+    }
 
     /**
      * @return bool
