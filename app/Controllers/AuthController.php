@@ -72,24 +72,4 @@ class AuthController extends CoreController
             return false;
         }
     }
-
-    /**
-     * @return bool
-     * @throws Exception
-     */
-    public function displayLandingDashboard(): bool
-    {
-        try {
-
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['userObject' =>
-                $this->ownerUser]);
-
-            return true;
-        } catch(Exception $exception){
-            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $exception->getMessage()]);
-
-            return false;
-        }
-    }
 }

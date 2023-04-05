@@ -10,6 +10,7 @@ use PDO;
 
 class UserService
 {
+    protected const NEW_USER_KEYS = ["firstname", "lastname", "email", "password"];
 	/**
 	 * Return an array which contains user objects
 	 * @return array|bool
@@ -213,5 +214,20 @@ class UserService
 
             throw new Exception("Vous n'êtes pas autorisé à accéder à cette page");
         }
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public static function checkInputs(): bool
+    {
+        foreach(self::NEW_USER_KEYS as $key){
+            if(!array_key_exists($key, $_POST) || empty($_POST[$key])){
+
+                throw new Exception("Veuillez renseigner tous les champs");
+            }
+        }
+        return true;
     }
 }

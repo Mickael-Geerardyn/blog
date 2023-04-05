@@ -61,12 +61,14 @@ class UserController extends CoreController
 public function newUserRegister(): bool
 {
     try {
-        $email = filter_input(INPUT_POST, 'email' ,FILTER_VALIDATE_EMAIL);
+        UserService::checkInputs();
 
+        $email = filter_input(INPUT_POST, 'email' ,FILTER_VALIDATE_EMAIL);
         UserService::checkIfUserEmailAlreadyExist($email);
 
         $firstname = htmlspecialchars($_POST['firstname']);
         $lastname = htmlspecialchars($_POST['lastname']);
+
         $hash_password = $_POST['password'];
 
         $userModel = new UserModel();
@@ -85,8 +87,9 @@ public function newUserRegister(): bool
 
         return true;
     } catch(Exception $exception){
-        $this->twigEnvironment->display('/loginMain/sign-in.html.twig',
-            ["error" => $exception->getMessage()]);
+
+        $this->twigEnvironment->display('/loginMain/sign-up.html.twig', ["error" => $exception->getMessage()]);
+
         return false;
     }
 }
