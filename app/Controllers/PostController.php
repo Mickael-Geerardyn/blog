@@ -26,8 +26,13 @@ class PostController extends CoreController
     public function displayPostsPage():bool
     {
         try {
+            $postsArray = PostService::getAllValidatedPosts();
+            foreach($postsArray as $post){
+                $post->postAuthor = UserService::getPostAuthorById($post->getUserId());
+                $post->postComments = CommentService::getPostComments($post->getId());
+            }
 
-            $this->twigEnvironment->display("/posts-page.html.twig", ["latestPosts" => PostService::getAllValidatedPosts(), "ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
+            $this->twigEnvironment->display("/posts-page.html.twig", ["latestPosts" => $postsArray, "ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
 
             return true;
         }catch(Exception $exception){

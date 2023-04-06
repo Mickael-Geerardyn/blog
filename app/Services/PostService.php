@@ -51,7 +51,8 @@ class PostService
 		$statement = PostModel::getDataBase()
         ->prepare('SELECT *
 					 FROM post
-					 WHERE ((published_at IS NOT NULL) AND (updated_at IS NOT NULL) AND (DATEDIFF(published_at, updated_at) >= DATEDIFF(updated_at, published_at)) OR (updated_at IS NULL) AND (published_at IS NOT NULL))');
+					 WHERE ((published_at IS NOT NULL) AND (updated_at IS NOT NULL) AND (DATEDIFF(published_at, updated_at) >= DATEDIFF(updated_at, published_at)) OR (updated_at IS NULL) AND (published_at IS NOT NULL))
+					 ORDER BY published_at ASC');
 
         $statement->execute();
 
