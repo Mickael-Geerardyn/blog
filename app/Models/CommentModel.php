@@ -67,6 +67,27 @@ class CommentModel extends CoreModel
     }
 
     /**
+     * @param int|string $userId
+     * @return bool
+     * @throws Exception
+     */
+    public static function deleteUserComments(int|string $userId): bool
+    {
+        $statement = parent::getDataBase()
+            ->prepare("DELETE FROM comment WHERE user_id = :userId");
+
+        $status = $statement->execute([
+            ":userId" => $userId
+        ]);
+
+        if(!$status){
+            throw new Exception("La suppression du commentaire à échoué");
+        }
+
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function getTitle(): string

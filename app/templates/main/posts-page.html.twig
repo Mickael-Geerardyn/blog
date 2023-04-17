@@ -10,13 +10,22 @@
                     <hr class="star-primary">
                 </div>
             </div>
-			{% if latestPosts is not empty %}
+			{% if postsArray is not empty %}
 				<div class="row">
-                {% for post in latestPosts %}
-					<div class="col-sm-4 portfolio-item">
+                {% for post in postsArray %}
+					<div class="col-sm-6 portfolio-item">
                     <a href="#portfolioModal{{ post.getId() }}"
 					   class="portfolio-link"
 					   data-toggle="modal">
+						<div class="row">
+						<br>
+						<hr>
+						<h3 style="text-align: center; color: #000;">{{ post.getTitle() }}</h3>
+						<br>
+						<p style="text-align: center; color: #000;">{{ post.getHeading() }}</p>
+						<br>
+						<p style="text-align: center; color: #000;"><small>Publié le: {{ post.getPublishedAt()|date("d/m/Y") }}</small></p>
+							</div>
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>

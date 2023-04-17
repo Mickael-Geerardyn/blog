@@ -190,18 +190,18 @@ class PostModel extends CoreModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPublishedAt(): string
+    public function getPublishedAt(): string|null
     {
-        return $this->published_at;
+        return (string) $this->published_at;
     }
 
     /**
-     * @param string $published_at
+     * @param string|null $published_at
 	 * @return object
      */
-    public function setPublishedAt(string $published_at): object
+    public function setPublishedAt(string|null $published_at): object
     {
         $this->published_at = $published_at;
 

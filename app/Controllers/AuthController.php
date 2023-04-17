@@ -37,15 +37,14 @@ class AuthController extends CoreController
 
             self::storeBaseUriInGlobalServer();
 
-            $homePage = new HomePageController();
-            $homePage->getHomePageAfterLoggedIn();
-
+            RouterController::redirectToHomepage();
             return true;
 
         } catch (Exception $exception) {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $exception->getMessage()]);
+            $this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 
             return false;
         }
@@ -58,15 +57,17 @@ class AuthController extends CoreController
     public function userLogout(): bool
     {
         try{
+
             AuthService::unsetDataInSession();
-            $homePage = new HomePageController();
-            $homePage->getHomePage();
+
+            RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' =>
-                $exception->getMessage()]);
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
 
             return false;
         }

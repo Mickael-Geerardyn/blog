@@ -15,6 +15,7 @@
 
         /**
          * @return bool
+         * @throws Exception
          * @throws LoaderError
          * @throws RuntimeError
          * @throws SyntaxError
@@ -32,16 +33,17 @@
 
                     } else{
 
-                        throw new Exception("Les champs Nom, Email et Message sont requis");
+                        throw new Exception("Veuillez renseigner tous les champs");
                     }
                 }
 
-                $phoneNumber = htmlspecialchars($_POST["phone"]);
                 $headers = ["From" => $email];
 
                 if(mail(self::TO, self::SUBJECT.$name, $message, $headers)){
+                    $_SESSION["success"] = "Votre message a bien été transmis";
+                    self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-                    $this->twigEnvironment->display("/landing-blog.html.twig", ["loggedInUser" => $_SESSION["userObject"],"latestPosts" => $this->latestPosts, "success" => "Votre message a bien été transmis"]);
+                    RouterController::redirectToHomepage();
                     return true;
                 }else{
 
@@ -49,8 +51,10 @@
                 }
 
             }catch(Exception $exception){
+                $_SESSION["error"] = $exception->getMessage();
+                self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ["error" => $exception->getMessage() ]);
+               RouterController::redirectToHomepage();
 
                 return false;
             }

@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace App\Controllers\Admin;
 
 use App\Controllers\HomePageController;
+use App\Controllers\RouterController;
+use App\Models\CommentModel;
 use App\Models\UserModel;
 use App\Services\AuthService;
+use App\Services\PostService;
 use App\Services\UserService;
 use Exception;
 use Twig\Error\LoaderError;
@@ -47,21 +50,27 @@ class AdminUserController extends AdminCoreController
 			$lastRegisteredUserId = $userModel->createUser();
 
 			AuthService::unsetDataInGlobalPost();
+            $_SESSION["success"] = "L'utilisateur a bien été enregistré";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            $this->twigEnvironment->addGlobal("userObject", UserService::getOneUserById($lastRegisteredUserId));
 
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["userObject" => UserService::getOneUserById($lastRegisteredUserId), "success" => "L'utilisateur a bien été enregistré"]);
+            AdminRouterController::redirectToUsersPage();
 
 			return true;
 
 		} catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ['error' => $exception->getMessage()]);
+
+                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
 
 
@@ -103,23 +112,29 @@ class AdminUserController extends AdminCoreController
             $userModel = new UserModel();
 
             $userModel->setFirstname($firstname)->setLastname($lastname)->setEmail($email)->setPhoneNumber($phone_number)->setSocialLinkedin($linkedin)->setSocialTwitter($twitter)->setRoleId($selectedRole->getId());
+            $userModel->updateUser();
 
+            $_SESSION["success"] = "L'utilisateur ${email} à été mis à jour";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
             AuthService::unsetDataInGlobalPost();
+            $this->twigEnvironment->addGlobal("userObject", UserService::getOneUserByEmail($userModel->getEmail()));
 
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["userObject" => UserService::getOneUserByEmail($userModel->getEmail()), "success" => "L'utilisateur ${email} à été mis à jour"]);
+            AdminRouterController::redirectToUsersPage();
 
         return true;
 
         } catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig', ["error" => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
 
             return false;
@@ -140,20 +155,29 @@ class AdminUserController extends AdminCoreController
 				self::displayUsersPage();
 			}
 
+            $userObject = UserService::getOneUserByEmail($userEmail);
+            PostService::deleteUserPosts($userObject->getId());
+            CommentModel::deleteUserComments($userObject->getId());
 			UserModel::deleteUser($userEmail);
 
-			self::displayUsersPage();
+            AuthService::unsetDataInGlobalPost();
+
+			AdminRouterController::redirectToUsersPage();
 
             return true;
 		} catch(Exception $exception){
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display("/adminMain/users-page.html.twig", ["error" => $exception->getMessage()]);
+
+                AdminRouterController::redirectToUsersPage();
 
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
 
 			return false;
@@ -178,12 +202,16 @@ class AdminUserController extends AdminCoreController
             return true;
 
 		} catch (Exception $exception){
+
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display("/adminMain/blog-details.html.twig", ["error" => $exception->getMessage()]);
+                $this->twigEnvironment->display("/adminMain/blog-list.html.twig");
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display("/landing-blog.html.twig");
             }
 			return false;
 		}
@@ -201,14 +229,19 @@ class AdminUserController extends AdminCoreController
             $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 			return true;
 
-		} catch (Exception $exception)
-		{
+		} catch (Exception $exception){
+
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/loginMain/sign-in.html.twig');
+
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display("/landing-blog.html.twig");
+
             }
 
 			return false;
@@ -230,19 +263,23 @@ class AdminUserController extends AdminCoreController
 
 			$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 			$updatedUser = UserService::getOneUserByEmail($email);
+            $this->twigEnvironment->addGlobal("userObject", $updatedUser);
+            AuthService::unsetDataInGlobalPost();
 
-            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig',
-                ["ROLE_ADMIN" => UserModel::ROLE_ADMIN, "ROLE_USER" => UserModel::ROLE_USER]);
+            $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 
 			return true;
 		} catch (Exception $exception){
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/users-page.html.twig', ["error" => $exception->getMessage()]);
+                AdminRouterController::redirectToUsersPage();
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
 			return false;
 		}

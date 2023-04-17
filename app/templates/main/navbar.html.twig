@@ -39,13 +39,13 @@
 				{% endif %}
 			</ul>
 		</div>
-		{% if success is not empty %}
+		{% if _SESSION["success"] is not empty %}
 			<div class="alert alert-success" role="alert">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="zmdi zmdi-thumb-up"></i>
 					</div>
-					<strong>Well done!</strong> {{ success }}
+					<strong>Well done!</strong> {{ _SESSION["success"] }}
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">
             <i class="zmdi zmdi-close"></i>
@@ -54,13 +54,13 @@
 				</div>
 			</div>
 		{% endif %}
-		{% if error is not empty %}
+		{% if _SESSION["error"] is not empty %}
 			<div class="alert alert-danger" role="alert">
 				<div class="container">
 					<div class="alert-icon">
 						<i class="zmdi zmdi-block"></i>
 					</div>
-					<strong>Oh snap! </strong> {{ error }}
+					<strong>Oh snap! </strong> {{ _SESSION["error"] }}
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
                                 <i class="zmdi zmdi-close"></i>

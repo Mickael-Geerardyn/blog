@@ -10,36 +10,40 @@ use PDO;
 
 class PostService
 {
-    const POSTS_PER_PAGE = 4;
-    const COMMENT_STATUS_PUBLISHED = CommentModel::STATUS_PUBLISHED;
-    const COMMENT_STATUS_PENDING = CommentModel::STATUS_PENDING;
+    const HOMEPAGE_POSTS_LIMIT = 3;
+
 	/**
-	 * Method which return a number of recent posts with optionally parameter
-	 * @param int $limit
+	 * @param int $maxPerPage
 	 * @return array
 	 * @throws Exception
 	 */
-	public static function getHomePageRecentPosts(int $limit = self::POSTS_PER_PAGE): array
+	public static function getHomePageRecentPosts(int $maxPerPage = 0): array
 	{
-		$statement = PostModel::getDataBase()
-			->prepare('SELECT id, title, heading, content, user_id, published_at, created_at, updated_at
-					   FROM `post`
-					   WHERE published_at IS NOT NULL
-					   ORDER BY created_at ASC 
-					   LIMIT :limit');
+        $select = "SELECT * ";
+        $from = "FROM post ";
+        $where = "WHERE published_at ";
+        $isNotNull = "IS NOT NULL ";
+        $orderBy = "ORDER BY created_at ";
+        $asc = "ASC ";
+        $limit = "";
 
-		$statement->bindParam(
-				':limit', $limit, PDO::PARAM_INT
-			);
+        if(!empty($maxPerPage))
+        {
+            $limit = "LIMIT :limit";
+        }
+		$statement = PostModel::getDataBase()
+			->prepare($select . $from . $where . $isNotNull . $orderBy . $asc . $limit);
+
+        if(!empty($limit))
+        {
+            $statement->bindParam(
+                ':limit', $maxPerPage, PDO::PARAM_INT
+            );
+        }
+
 		$statement->execute();
 
-		$status = $statement->fetchAll(PDO::FETCH_CLASS,PostModel::class);
-
-		if(empty($status))
-		{
-			throw new Exception("Une erreur est intervenue lors de la recherche des ${limit} derniers posts");
-		}
-		return $status;
+        return  $statement->fetchAll(PDO::FETCH_CLASS,PostModel::class);
 	}
 
 	/**
@@ -56,9 +60,7 @@ class PostService
 
         $statement->execute();
 
-        $result =  $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
-
-		return $result;
+		return $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
 	}
 
 	/**
@@ -66,15 +68,16 @@ class PostService
 	 * @return object
 	 * @throws Exception
 	 */
-	public static function getPostById(int|string $postId): object
+	public static function getPostById(int|string $postId, int $postUserId): object
 	{
 		$statement = PostModel::getDataBase()
 			->prepare('SELECT *
 					   FROM post
-					   WHERE post.id = :postId');
+					   WHERE (post.id = :postId) AND (post.user_id = :postUserId)');
 
 		$statement->execute([
-				':postId' => $postId
+				':postId' => $postId,
+            'postUserId' => $postUserId
 			]);
 
 		$status = $statement->fetchObject(PostModel::class);
@@ -98,10 +101,25 @@ class PostService
 					 WHERE ((published_at IS NULL) OR (published_at IS NOT NULL) AND (created_at IS NOT NULL) AND (DATEDIFF(updated_at, published_at) >= DATEDIFF(published_at, updated_at)))');
         $statement->execute();
 
-        $result = $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
-
-		return $result;
+		return $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
 	}
+
+    /**
+     * @param int|string $postId
+     * @return bool|object
+     */
+    public static function getPostByAdmin(int|string $postId): bool|object
+    {
+
+        $statement = PostModel::getDataBase()
+            ->prepare("SELECT * FROM post WHERE post.id = :postId");
+
+        $statement->execute([":postId" => $postId]);
+
+        $status = $statement->fetchObject(PostModel::class);
+
+        return $status;
+    }
 
     /**
      * @param int $postId
@@ -130,16 +148,35 @@ class PostService
      */
     public static function rejectedPost(int $postId): bool
     {
-        $statement = PostModel::getDataBase()
-            ->prepare("UPDATE post SET post.published_at = :published_at WHERE (post.id = :postId)");
+        $statement = CommentModel::getDataBase()
+            ->prepare("DELETE FROM comment WHERE (comment.post_id = :postId)");
 
-        $status =  $statement->execute([":postId" => $postId,
-            ":published_at" => null,
+        $status =  $statement->execute([":postId" => $postId
+        ]);
+
+        $statement = PostModel::getDataBase()
+            ->prepare("DELETE FROM post WHERE (post.id = :postId)");
+
+        $status =  $statement->execute([":postId" => $postId
         ]);
 
         if (empty($status)){
-            throw new Exception("Erreur lors de la validation de l'article, veuillez réessayer");
+            throw new Exception("Erreur lors de la suppression de l'article, veuillez réessayer");
         }
         return true;
+    }
+
+    /**
+     * @param int|string $userId
+     * @return bool|object
+     */
+    public static function deleteUserPosts(int|string $userId): bool|object
+    {
+        $statement = PostModel::getDataBase()
+            ->prepare("DELETE FROM post WHERE user_id = :userId");
+
+        $status = $statement->execute([":userId" => $userId]);
+
+        return $status;
     }
 }

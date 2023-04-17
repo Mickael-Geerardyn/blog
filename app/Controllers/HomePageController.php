@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Services\PostService;
 use Exception;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -10,6 +11,7 @@ use Twig\Error\SyntaxError;
 
 class HomePageController extends CoreController
 {
+    protected array $homePagePosts = [];
     /**
      * @throws LoaderError
      * @throws RuntimeError
@@ -19,10 +21,15 @@ class HomePageController extends CoreController
 	{
 		try {
 			parent::__construct();
+            $this->homePagePosts = PostService::getHomePageRecentPosts(PostService::HOMEPAGE_POSTS_LIMIT);
+            self::insertPostAuthorAndPostCommentsInArray($this->homePagePosts);
+            self::insertCommentAuthorInCommentObject($this->homePagePosts);
+            $this->twigEnvironment->addGlobal('postsArray', $this->homePagePosts);
 
 		} catch (Exception $exception){
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
 
-			$this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+			$this->twigEnvironment->display('/landing-blog.html.twig');
 		}
 	}
 
@@ -35,63 +42,15 @@ class HomePageController extends CoreController
 	public function getHomePage(): bool
 	{
 		try {
-            if(!empty($_SESSION["userObject"]) && !empty($_SESSION["CSRFToken"]))
-            {
-                $this->getHomePageAfterLoggedIn();
-                return false;
-            }
-			$this->twigEnvironment->display("/landing-blog.html.twig",
-				["latestPosts" => $this->latestPosts]);
+
+			$this->twigEnvironment->display("/landing-blog.html.twig");
 
 			return true;
 		} catch (Exception $exception){
-			$this->twigEnvironment->display("/landing-blog.html.twig", ['error'
-            => $exception->getMessage()]);
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+			$this->twigEnvironment->display("/landing-blog.html.twig");
 			return false;
 		}
 	}
-
-    /**
-     * @return bool
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function getHomePageAfterLoggedIn (): bool
-    {
-        try {
-            if(empty($_SESSION["userObject"]) && empty($_SESSION["CSRFToken"]))
-            {
-                $this->getHomePage();
-                return false;
-            }
-
-            $this->twigEnvironment->display("/landing-blog.html.twig",
-                ["latestPosts" => $this->latestPosts, "loggedInUser" => $_SESSION["userObject"], "CSRFToken" =>
-                    $_SESSION["CSRFToken"] ,"ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
-
-            return true;
-        } catch (Exception $exception){
-            $this->twigEnvironment->display("/landing-blog.html.twig", ['error'
-            => $exception->getMessage()]);
-            return false;
-        }
-    }
-
-    /**
-     * @return bool
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function getNotFoundPage(): bool
-    {
-        try{
-            $this->twigEnvironment->display("/errors/404.html.twig");
-            return true;
-        }catch (Exception $exception){
-            $this->twigEnvironment->display("/errors/404.html.twig", ["error" => $exception->getMessage()]);
-            return false;
-        }
-    }
 }

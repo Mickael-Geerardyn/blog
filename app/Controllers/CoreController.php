@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
 use App\Services\CommentService;
 use App\Services\PostService;
 use App\Services\UserService;
@@ -20,10 +21,15 @@ abstract class CoreController
 	protected object $ownerUser;
 	protected string $directory;
 	private FilesystemLoader $loader;
-    protected array $latestPosts = [];
 	protected Environment $twigEnvironment;
 	// parse and clean the base url before index.php and store it in BASE_URI key on
 	// the $_SERVER['BASE_URI'] global variable for link and script html entities
+    /**
+     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
 	public function __construct()
 	{
         try {
@@ -37,23 +43,26 @@ abstract class CoreController
             ]);
 
             $this->twigEnvironment->addExtension(new DebugExtension());
-            $this->twigEnvironment->addGlobal('ownerUser', UserService::getOneUserByEmail(self::OWNER_USER_EMAIL));
             $this->ownerUser = UserService::getOneUserByEmail(self::OWNER_USER_EMAIL);
 
-            self::storeBaseUriInGlobalServer();
-            self::storeInAddGlobalIfServerIsNotEmpty();
-
+            $this->twigEnvironment->addGlobal('ownerUser', $this->ownerUser);
             $this->twigEnvironment->addGlobal('_SERVER', $_SERVER);
-            $this->latestPosts = PostService::getHomePageRecentPosts();
-            self::insertPostAuthorAndPostCommentsInArray();
-            self::insertCommentAuthorInCommentObject();
+            $this->twigEnvironment->addGlobal('ROLE_ADMIN', UserModel::ROLE_ADMIN);
+
+            self::storeBaseUriInGlobalServer();
+            self::storeInAddGlobalIfSessionIsNotEmpty();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
         }catch(Exception $exception){
-            echo $exception->getMessage();
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+            $this->twigEnvironment->display("/landing-blog.html.twig");
         }
 	}
 
     /**
      * @return bool
+     * @throws Exception
      */
     protected function storeBaseUriInGlobalServer(): bool
     {
@@ -73,7 +82,9 @@ abstract class CoreController
 
             return true;
         } catch (Exception $exception){
-            echo $exception->getMessage();
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+            $this->twigEnvironment->display("/landing-blog.html.twig");
             return false;
         }
     }
@@ -82,7 +93,7 @@ abstract class CoreController
      * @return bool
      * @throws Exception
      */
-    protected function storeInAddGlobalIfServerIsNotEmpty():bool
+    protected function storeInAddGlobalIfSessionIsNotEmpty():bool
     {
         try {
             if(!empty($_SESSION["userObject"]) && !empty($_SESSION["CSRFToken"]))
@@ -91,7 +102,9 @@ abstract class CoreController
 
             }
         }catch(Exception $exception){
-            $this->twigEnvironment->diplay("/landing-blog.html.twig", ["error" => $exception->getMessage()]);
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+            $this->twigEnvironment->display("/landing-blog.html.twig");
             return false;
         }
         return true;
@@ -99,35 +112,59 @@ abstract class CoreController
 
     /**
      * @return bool
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws Exception
      */
-    public function insertPostAuthorAndPostCommentsInArray(): bool
+    protected function storeSuccessOrErrorMessageInAddGlobalSession():bool
     {
         try {
-            foreach ($this->latestPosts as $post)
+            if(!empty($_SESSION["success"]) || !empty($_SESSION["error"]))
+            {
+
+                $this->twigEnvironment->addGlobal("_SESSION", $_SESSION);
+                unset($_SESSION["success"]);
+                unset($_SESSION["error"]);
+            }
+        }catch(Exception $exception){
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+            RouterController::redirectToHomepage();
+            unset($_SESSION["error"]);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param array $postsArray
+     * @return bool
+     * @throws Exception
+     */
+    public function insertPostAuthorAndPostCommentsInArray(array $postsArray): bool
+    {
+        try {
+            foreach ($postsArray as $post)
             {
                 $post->postAuthor = UserService::getPostAuthorById($post->getUserId());
                 $post->postComments = CommentService::getPostComments($post->getId());
             }
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+
+            RouterController::redirectToHomepage();
             return false;
         }
     }
 
     /**
+     * @param array $postsArray
      * @return bool
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws Exception
      */
-    public function insertCommentAuthorInCommentObject(): bool
+    public function insertCommentAuthorInCommentObject(array $postsArray): bool
     {
         try {
-            foreach ($this->latestPosts as $post){
+            foreach ($postsArray as $post){
                 foreach($post->postComments as $comment){
                     $comment->commentAuthor = CommentService::getAuthorComments($comment->getUserId());
                 }
@@ -136,8 +173,9 @@ abstract class CoreController
             return true;
 
         } catch (Exception $exception) {
+            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
 
-            $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            RouterController::redirectToHomepage();
             return false;
 
         }

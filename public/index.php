@@ -8,7 +8,8 @@ use App\Controllers\CommentController;
     use App\Controllers\ContactController;
     use App\Controllers\HomePageController;
 use App\Controllers\PostController;
-use App\Controllers\UserController;
+    use App\Controllers\RouterController;
+    use App\Controllers\UserController;
 
 require_once '../vendor/autoload.php';
 /**
@@ -81,6 +82,10 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $postController = new PostController();
             $postController->updatePost();
             break;
+        case 'delete-post':
+            $postController = new PostController();
+            $postController->deletePost();
+            break;
         case 'validated-post':
             $adminPostController = new AdminPostController();
             $adminPostController->validatePostById();
@@ -113,10 +118,6 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $adminCommentController = new AdminCommentController();
             $adminCommentController->deletedComment();
             break;
-        case "homepage":
-            $homePageController = new HomePageController();
-            $homePageController->getHomePage();
-            break;
         case "send-message":
             $contactController = new ContactController();
             $contactController->sendEmail();
@@ -126,8 +127,9 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $postController->displayPostsPage();
             break;
 		default:
-            $notFoundPage = new HomePageController();
+            $notFoundPage = new RouterController();
             $notFoundPage->getNotFoundPage();
+            break;
 	}
 
 } else {

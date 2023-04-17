@@ -16,6 +16,7 @@ class UserController extends CoreController
 {
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -27,8 +28,10 @@ class UserController extends CoreController
 
             return true;
 		} catch(Exception $exception){
-			$this->twigEnvironment->display('/loginMain/sign-in.html.twig', ["error" => $exception->getMessage
-            ()]);
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+			$this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 
             return false;
 		}
@@ -36,6 +39,7 @@ class UserController extends CoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -43,17 +47,22 @@ class UserController extends CoreController
 	public function getSignUpPage():bool
 	{
 		try {
-            $this->twigEnvironment->display('/loginMain/sign-up.html.twig', ["referer" => "login-page"]);
+            $_SESSION["referer"] = "login-page";
+            self::storeInAddGlobalIfSessionIsNotEmpty();
+            $this->twigEnvironment->display('/loginMain/sign-up.html.twig');
             return true;
 		}catch (Exception $exception){
-            $this->twigEnvironment->display('/loginMain/sign-in.html.twig', ['error' =>
-                $exception->getMessage()]);
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            $this->twigEnvironment->display('/loginMain/sign-in.html.twig');
             return false;
 		}
 	}
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -82,13 +91,17 @@ public function newUserRegister(): bool
 
         $authService = new AuthService();
         $authService->setDataInGlobalSession($newUser);
+        $_SESSION["success"] = "Vous êtes maintenant inscrit!";
+        self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-        $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"] ,"success" => "Vous êtes maintenant inscrit!", "latestPosts" => $this->latestPosts]);
+        RouterController::redirectToHomepage();
 
         return true;
     } catch(Exception $exception){
+        $_SESSION["error"] = $exception->getMessage();
+        self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-        $this->twigEnvironment->display('/loginMain/sign-up.html.twig', ["error" => $exception->getMessage()]);
+        $this->twigEnvironment->display('/loginMain/sign-up.html.twig');
 
         return false;
     }

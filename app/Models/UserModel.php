@@ -126,7 +126,7 @@ class UserModel extends CoreModel
 	public static function deleteUser(string $userEmail): bool
 	{
 		$statement = parent::getDataBase()
-			->prepare('DELETE FROM user
+			->prepare('DELETE  FROM user
 					   WHERE email = :userEmail');
 
 		$status = $statement->execute([

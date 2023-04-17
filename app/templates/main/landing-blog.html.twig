@@ -6,14 +6,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Les derniers articles</h2>
+                    <h2>Les {{ constant('App\\Services\\PostService::HOMEPAGE_POSTS_LIMIT') }} derniers articles</h2>
                     <hr class="star-primary">
                 </div>
             </div>
-            {% if latestPosts is not empty %}
+            {% if postsArray is not empty %}
             <div class="row">
-                {% for post in latestPosts %}
+                {% for post in postsArray %}
                 <div class="col-sm-4 portfolio-item">
+                    <h3 style="text-align: center">{{ post.getTitle() }}</h3>
+                    <hr class="star-primary">
+                    <p style="text-align: center">{{ post.getHeading() }}</p>
                     <a href="#portfolioModal{{ post.getId() }}"
                        class="portfolio-link"
                        data-toggle="modal">
@@ -29,15 +32,13 @@
                 {% endfor %}
             </div>
             {% endif %}
-            <form method="post" action="{{ _SERVER["BASE_URI"] }}index.php?action=posts-page">
                 <div class="row">
                     <div class="row form-group col-xs-12 align-content-center" style="display: flex">
-                        <button type="submit"
+                        <a href="{{ _SERVER["BASE_URI"] }}index.php?action=posts-page" type="submit"
                                 class="btn btn-success btn-lg align-self-center" style="margin: auto">Voir tous les articles
-                        </button>
+                        </a>
                     </div>
                 </div>
-            </form>
         </div>
     </section>
 
@@ -52,16 +53,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Freelancer is a free bootstrap theme created by Start
-                        Bootstrap. The download includes the complete source
-                        files including HTML, CSS, and JavaScript as well as
-                        optional LESS stylesheets for easy customization.</p>
+                    <p>En tant que développeur web freelance, je m'implique dans les projets de mes clients et leur apporte l'expertise dont ils ont besoin pour mener leurs
+                        projets vers la réussite</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Whether you're a student looking to showcase your work, a
-                        professional looking to attract clients, or a graphic
-                        artist looking to share your projects, this template is
-                        the perfect starting point!</p>
+                    <p>Pour cela, je me tiens régulièrement au fait des évolutions des langages de programmation ainsi que des bonnes pratiques de développement.</p>
                 </div>
             </div>
         </div>

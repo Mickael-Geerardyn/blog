@@ -21,6 +21,10 @@
 							<a href="{{ ownerUser.getSocialLinkedin() }}" class="btn-social btn-outline"><i class="fa
 							fa-fw fa-linkedin"></i></a>
 						</li>
+						<li>
+							<a href="https://github.com/Mickael-Geerardyn" class="btn-social btn-outline"><i class="fa
+							fa-fw fa-github"></i></a>
+						</li>
 					</ul>
 					{% if _SESSION is not empty and _SESSION["userObject"].getRoleId() is same as
 						(ROLE_ADMIN)%}
@@ -31,8 +35,14 @@
 				</div>
 				<div class="footer-col col-md-4">
 					<h3>En tant que Freelancer</h3>
-					<p>Freelance is a free to use, open source Bootstrap
-						theme created by <a href="public/index.php">{{ ownerUser.getFirstname()~" "~ownerUser.getLastname() }}</a>.</p>
+					<p>Ma mission consiste à développer vos projets web en appliquant les pratiques reconnues dans leur sécurité et leur conception. <a
+								href="public/index
+					.php">{{ ownerUser
+								.getFirstname
+								()~"
+"~ownerUser
+								.getLastname() }}</a>
+						.</p>
 				</div>
 			</div>
 		</div>

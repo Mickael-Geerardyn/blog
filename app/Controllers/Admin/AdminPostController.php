@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controllers\Admin;
+use App\Controllers\RouterController;
 use App\Models\PostModel;
 use App\Models\UserModel;
 use App\Services\AuthService;
@@ -15,8 +16,67 @@ use Twig\Error\SyntaxError;
 
 class AdminPostController extends AdminCoreController
 {
+    protected array $postsArray;
+    protected bool|object $postObject;
 
-	/**
+    public function __construct()
+    {
+        parent::__construct();
+        $this->getPostsArray();
+        $this->twigEnvironment->addGlobal("postsArray", $this->postsArray);
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function getPostsArray(): bool
+    {
+        try {
+            $this->postsArray = PostService::getAllNotValidatedPosts();
+            foreach($this->postsArray as $post){
+                $post->author = UserService::getPostAuthorById($post->getUserId());
+                $post->commentsNumber = CommentService::getNumberOfComments($post->getId());
+            }
+
+            return true;
+        } catch(Exception $exception)
+        {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
+            return false;
+        }
+    }
+
+    /**
+     * @param int|string $postId
+     * @return bool
+     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function getPostObject(int|string $postId): bool
+    {
+        try {
+            $this->postObject = PostService::getPostByAdmin($postId);
+            $this->postObject->author = UserService::getPostAuthorById($this->postObject->getUserId());
+            $this->postObject->comments = CommentService::getNumberOfComments($postId);
+
+            return true;
+        } catch(Exception $exception)
+        {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
+            return false;
+        }
+    }
+
+    /**
 	 * @return bool
      * @throws Exception
 	 */
@@ -24,24 +84,22 @@ class AdminPostController extends AdminCoreController
 	{
 		try{
             UserService::checkUserRole();
-            $postsArray = PostService::getAllNotValidatedPosts();
-            foreach($postsArray as $post){
-                $post->author = UserService::getPostAuthorById($post->getUserId());
-                $post->commentsNumber = CommentService::getNumberOfComments($post->getId());
-            }
 
-            $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['postsArray' => $postsArray]);
+            $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
 
             return true;
 
 		}catch (Exception $exception){
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/blog-list.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/landing-blog.html.twig');
             }
             return false;
 		}
@@ -57,18 +115,24 @@ class AdminPostController extends AdminCoreController
 		try{
             UserService::checkUserRole();
 			$postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
+            $this->getPostObject($postId);
+            $this->twigEnvironment->addGlobal("postObject", $this->postObject);
+            AuthService::unsetDataInGlobalPost();
 
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => PostService::getPostById($postId)]);
+            $this->twigEnvironment->display('/adminMain/blog-details.html.twig');
 
 			return true;
 		}catch (Exception $exception){
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/landing-blog.html.twig');
             }
             return false;
 
@@ -78,6 +142,7 @@ class AdminPostController extends AdminCoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -89,21 +154,25 @@ class AdminPostController extends AdminCoreController
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::approvedPost($postId);
-            $postObject = PostService::getPostById($postId);
-            $postObject->author = UserService::getPostAuthorById($postObject->getUserId());
-            $postObject->comments = CommentService::getNumberOfComments($postId);
 
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' => $postObject]);
+            $_SESSION["success"] = "L'article a bien été validé";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            AuthService::unsetDataInGlobalPost();
+
+            AdminRouterController::redirectToBlogListPage();
 
             return true;
         } catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+                AdminRouterController::redirectToBlogListPage();
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
             return false;
 
@@ -112,6 +181,7 @@ class AdminPostController extends AdminCoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -124,19 +194,25 @@ class AdminPostController extends AdminCoreController
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::rejectedPost($postId);
 
-            $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ['postObject' =>
-                PostService::getPostById($postId), "success" => "L'article a bien été refusé"]);
+            $_SESSION["success"] = "L'article a bien été supprimé";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            AuthService::unsetDataInGlobalPost();
+
+            AdminRouterController::redirectToBlogListPage();
 
             return true;
 
         }catch(Exception $exception){
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/blog-details.html.twig', ["error" => $exception->getMessage()]);
+                AdminRouterController::redirectToBlogListPage();
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
             return false;
         }

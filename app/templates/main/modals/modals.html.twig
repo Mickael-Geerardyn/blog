@@ -4,7 +4,7 @@
 		<i class="fa fa-chevron-up"></i>
 	</a>
 </div>
-{% for post in latestPosts %}
+{% for post in postsArray %}
 <!-- Portfolio Modals -->
 <div class="portfolio-modal modal fade" id="portfolioModal{{ post.getId() }}" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -23,23 +23,19 @@
                         <hr class="star-primary">
                         <img src="{{ _SERVER["BASE_URI"] }}assets/img/portfolio/cabin.png"
                              class="img-responsive img-centered" alt="">
-                        <p>{{ post.getHeading() }}</p>
+                        <h3>{{ post.getHeading() }}</h3>
                         <p>{{ post.getContent() }}</p>
                         <ul class="list-inline item-details">
                             <li>Auteur:
                                 <strong>{{ post.postAuthor.getFirstname()~" "~post.postAuthor.getLastname() }}
                                 </strong>
                             </li>
-                            <li>Date:
+                            <li>Publié le:
                                 <strong>{{ post.getCreatedAt()|date("d/m/Y") }}
                                 </strong>
                             </li>
-                            <li>Service:
-                                <strong><a href="http://startbootstrap.com">Web Development</a>
-                                </strong>
-                            </li>
                         </ul>
-                        {% if _SESSION is not empty %}
+                        {% if (_SESSION is not empty ) and (_SESSION["userObject"].getId() is same as (post.userId())) %}
                             <div class="row">
                             <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=update-post-page">
                                 <div class="form-group col-xs-12">
@@ -47,6 +43,16 @@
                                     </button>
                                 </div>
                                 <input type="hidden" name="postId" value="{{ post.getId() }}">
+                            </form>
+                            </div>
+                            <div class="row">
+                            <form class="form" method="POST" action="{{ _SERVER["BASE_URI"] }}index.php?action=delete-post">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-danger btn-lg">Supprimer l'article
+                                    </button>
+                                </div>
+                                <input type="hidden" name="postId" value="{{ post.getId() }}">
+                                <input type="hidden" name="CSRFToken" value="{{ _SESSION["CSRFToken"] }}">
                             </form>
                             </div>
                         {% endif %}
@@ -92,11 +98,11 @@
                                                   id="Commentaire" name="content"
                                                   required></textarea>
                                         <p class="help-block text-danger"></p>
-                                        <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ _SESSION["CSRFToken"]
+                                        <input type="hidden" name="postId" id="postId" value="{{ post.getId()
                                         }}" >
                                         <input type="hidden" name="userEmail" id="userEmail" value="{{ _SESSION["userObject"].getEmail()
                                         }}" >
-                                        <input type="hidden" name="postId" id="postId" value="{{ post.getId()
+                                        <input type="hidden" name="CSRFToken" id="CSRFToken" value="{{ _SESSION["CSRFToken"]
                                         }}" >
                                     </div>
                                     </div>

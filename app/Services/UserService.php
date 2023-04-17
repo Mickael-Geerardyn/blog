@@ -73,11 +73,6 @@ class UserService
 
 		$status = $statement->fetchObject(UserModel::class);
 
-		if(empty($status))
-		{
-			throw new Exception("L'utilisateur n'a pas été trouvé ou n'existe pas");
-		}
-
 		return $status;
 	}
 

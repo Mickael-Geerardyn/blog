@@ -13,7 +13,40 @@ use Twig\Error\SyntaxError;
 
 class AdminCommentController extends AdminCoreController
 {
+    protected array $pendingComments;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->getPendingComments();
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function getPendingComments(): bool
+    {
+        try {
+            $this->pendingComments = CommentService::getPendingComments();
+
+            foreach ($this->pendingComments as $comment) {
+                $comment->author = UserService::getCommentAuthorById($comment->getUserId());
+            }
+
+            return true;
+        } catch(Exception $exception)
+        {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig');
+            return false;
+        }
+    }
     /**
      * @return bool
      * @throws Exception
@@ -22,23 +55,23 @@ class AdminCommentController extends AdminCoreController
     {
         try {
             UserService::checkUserRole();
-            $pendingComments = CommentService::getPendingComments();
 
-            foreach ($pendingComments as $comment) {
-                $comment->author = UserService::getCommentAuthorById($comment->getUserId());
-            }
+            $this->twigEnvironment->addGlobal("pendingComments", $this->pendingComments);
 
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, "CSRFToken" => $_SESSION["CSRFToken"]]);
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig');
             return true;
 
         } catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig');
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/landing-blog.html.twig');
             }
             return false;
         }
@@ -46,6 +79,7 @@ class AdminCommentController extends AdminCoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -57,20 +91,25 @@ class AdminCommentController extends AdminCoreController
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $commentId = filter_input(INPUT_POST,"commentId", FILTER_VALIDATE_INT);
             CommentService::approvedComment($commentId);
-            $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire a bien été
-            approuvé`]);
+            $_SESSION["success"] = "Le commentaire a bien été approuvé";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            $this->twigEnvironment->addGlobal("pendingComments", $this->pendingComments);
+
+            AdminRouterController::redirectToCommentsListPage();
 
             return true;
         } catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
                 $pendingComments = CommentService::getPendingComments();
-                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments]);
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/landing-blog.html.twig');
             }
             return false;
         }
@@ -78,6 +117,7 @@ class AdminCommentController extends AdminCoreController
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -90,21 +130,25 @@ class AdminCommentController extends AdminCoreController
             $commentId = filter_input(INPUT_POST ,"commentId", FILTER_VALIDATE_INT);
             CommentService::rejectedComment($commentId);
             $pendingComments = CommentService::getPendingComments();
-            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'success' => `Le commentaire a bien été
-            supprimé`]);
+            $_SESSION["success"] = "Le commentaire a bien été supprimé";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments]);
 
             return true;
         } catch (Exception $exception) {
 
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
                 $pendingComments = CommentService::getPendingComments();
-                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments, 'error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments]);
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                $this->twigEnvironment->display('/landing-blog.html.twig');
             }
-
             return false;
         }
     }

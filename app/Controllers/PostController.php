@@ -16,9 +16,19 @@ use Twig\Error\SyntaxError;
 
 class PostController extends CoreController
 {
+    protected array $allValidatedPosts = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->allValidatedPosts = PostService::getHomePageRecentPosts();
+        self::insertPostAuthorAndPostCommentsInArray($this->allValidatedPosts);
+        self::insertCommentAuthorInCommentObject($this->allValidatedPosts);
+    }
 
     /**
      * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -26,18 +36,16 @@ class PostController extends CoreController
     public function displayPostsPage():bool
     {
         try {
-            $postsArray = PostService::getAllValidatedPosts();
-            foreach($postsArray as $post){
-                $post->postAuthor = UserService::getPostAuthorById($post->getUserId());
-                $post->postComments = CommentService::getPostComments($post->getId());
-            }
+            $this->twigEnvironment->addGlobal("postsArray", $this->allValidatedPosts);
 
-            $this->twigEnvironment->display("/posts-page.html.twig", ["latestPosts" => $postsArray, "ROLE_ADMIN" => UserModel::ROLE_ADMIN]);
+            $this->twigEnvironment->display("/posts-page.html.twig");
 
             return true;
         }catch(Exception $exception){
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display("/landing-blog.html.twig", ["error" => $exception->getMessage()]);
+            RouterController::redirectToHomepage();
             return false;
         }
     }
@@ -50,12 +58,14 @@ class PostController extends CoreController
     {
         try{
 
-            $this->twigEnvironment->display('/new-post.html.twig', ["loggedInUser" => $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN ]);
+            $this->twigEnvironment->display('/new-post.html.twig');
 
             return true;
         }catch (Exception $exception){
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            $this->twigEnvironment->display('/landing-blog.html.twig');
 
             return false;
         }
@@ -63,9 +73,6 @@ class PostController extends CoreController
     }
 
     /**
-     * Function which allows to try to create a new post and save it in
-     * database with createPost method
-     * If there is a problem with the creation, a message exception will catch.
      * @return bool
      * @throws Exception
      */
@@ -89,19 +96,56 @@ class PostController extends CoreController
             $thisNewPostId = $newPost->createOnePost();
 
             AuthService::unsetDataInGlobalPost();
+            $_SESSION["success"] = "L'article a bien été soumis pour modération";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display('/landing-blog.html.twig',
-                ["latestPosts" => $this->latestPosts, "userObject" => $_SESSION["userObject"] ,"success" => "L'article a bien été soumis pour modération"]);
+            RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
-            $this->twigEnvironment->display('/adminMain/blog-post.html.twig', ["error" => $exception->getMessage()]);
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            RouterController::redirectToHomepage();
             return false;
         }
     }
 
     /**
      * @return bool
+     * @throws Exception
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function deletePost(): bool
+    {
+        try{
+            AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
+            $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
+            $postObject = PostService::getPostById($postId, $_SESSION["userObject"]->getId());
+            PostService::rejectedPost($postId);
+
+            $_SESSION["success"] = "L'article a bien été supprimé";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            RouterController::redirectToHomepage();
+
+            return true;
+
+        }catch(Exception $exception)
+        {
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            RouterController::redirectToHomepage();
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -111,13 +155,16 @@ class PostController extends CoreController
         try {
 
             $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
-            $postObject = PostService::getPostById($postId);
-            $this->twigEnvironment->display('/new-post.html.twig', ["postObject" => $postObject ,"loggedInUser" =>
-                $_SESSION["userObject"], "CSRFToken" => $_SESSION["CSRFToken"], "ROLE_ADMIN" => UserModel::ROLE_ADMIN ]);
+            $postObject = PostService::getPostById($postId, $_SESSION["userObject"]->getId());
+
+            $this->twigEnvironment->display('/new-post.html.twig', ["postObject" => $postObject]);
             return true;
 
         }catch(Exception $exception){
-            $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            RouterController::redirectToHomepage();
             return false;
         }
     }
@@ -133,22 +180,26 @@ class PostController extends CoreController
         try {
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
-            $currentPost = PostService::getPostById($postId);
+            $currentPost = PostService::getPostById($postId, $_SESSION["userObject"]->getId());
 
-            $currentPost
-                ->setHeading(htmlspecialchars($_POST['heading']))
-                ->setContent(htmlspecialchars($_POST['content']))
-                ->setTitle(htmlspecialchars($_POST['title']))
-                ->setUpdatedAt(PostModel::getCurrentDateTime())
-                ->setUserId($_SESSION["userObject"]->getId());
+            $currentPost->setHeading(htmlspecialchars($_POST['heading']));
+                $currentPost->setContent(htmlspecialchars($_POST['content']));
+                $currentPost->setTitle(htmlspecialchars($_POST['title']));
+                $currentPost->setUpdatedAt(PostModel::getCurrentDateTime());
+                $currentPost->setUserId($_SESSION["userObject"]->getId());
 
             $currentPost->updateSelectedPost();
+            $_SESSION["success"] = "La demande de mise à jour de l'article a bien été transmise pour validation";
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
-            $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"], "success" => "La demande de mise à jour de l'article a bien été transmise pour vérification" ]);
+            RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
-                $this->twigEnvironment->display('/landing-blog.html.twig', ["loggedInUser" => $_SESSION["userObject"], "error" => $exception->getMessage() ]);
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            RouterController::redirectToHomepage();
             return false;
         }
     }

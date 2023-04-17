@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use App\Controllers\RouterController;
 use App\Models\RoleModel;
 use App\Models\UserModel;
 use App\Services\UserService;
@@ -25,12 +26,15 @@ class AdminRoleController extends AdminCoreController
 
 		}catch(Exception $exception)
 		{
+            $_SESSION["error"] = $exception->getMessage();
+            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
-                $this->twigEnvironment->display("/adminMain/blog-list.html.twig", ["error" => $exception->getMessage()]);
+                AdminRouterController::redirectToBlogListPage();
             } else {
 
-                $this->twigEnvironment->display('/landing-blog.html.twig', ['error' => $exception->getMessage()]);
+                RouterController::redirectToHomepage();
             }
 			return false;
 		}
