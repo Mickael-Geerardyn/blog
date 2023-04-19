@@ -25,7 +25,7 @@
             try {
                 foreach(self::REQUIRED_FIELD_KEYS as $key){
 
-                    if(array_key_exists($key, $_POST) && !empty($_POST[$key])){
+                    if(!empty($_POST[$key])){
 
                         $name = htmlspecialchars($_POST["name"]);
                         $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
@@ -40,8 +40,7 @@
                 $headers = ["From" => $email];
 
                 if(mail(self::TO, self::SUBJECT.$name, $message, $headers)){
-                    $_SESSION["success"] = "Votre message a bien été transmis";
-                    self::storeSuccessOrErrorMessageInAddGlobalSession();
+                    self::makeFlashMessage("success", "Votre message a bien été transmis");
 
                     RouterController::redirectToHomepage();
                     return true;
@@ -51,8 +50,7 @@
                 }
 
             }catch(Exception $exception){
-                $_SESSION["error"] = $exception->getMessage();
-                self::storeSuccessOrErrorMessageInAddGlobalSession();
+                self::makeFlashMessage("error", $exception->getMessage());
 
                RouterController::redirectToHomepage();
 

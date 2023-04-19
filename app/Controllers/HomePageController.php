@@ -11,7 +11,6 @@ use Twig\Error\SyntaxError;
 
 class HomePageController extends CoreController
 {
-    protected array $homePagePosts = [];
     /**
      * @throws LoaderError
      * @throws RuntimeError
@@ -21,13 +20,9 @@ class HomePageController extends CoreController
 	{
 		try {
 			parent::__construct();
-            $this->homePagePosts = PostService::getHomePageRecentPosts(PostService::HOMEPAGE_POSTS_LIMIT);
-            self::insertPostAuthorAndPostCommentsInArray($this->homePagePosts);
-            self::insertCommentAuthorInCommentObject($this->homePagePosts);
-            $this->twigEnvironment->addGlobal('postsArray', $this->homePagePosts);
 
 		} catch (Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage("error", $exception->getMessage());
 
 			$this->twigEnvironment->display('/landing-blog.html.twig');
 		}
@@ -42,12 +37,15 @@ class HomePageController extends CoreController
 	public function getHomePage(): bool
 	{
 		try {
+            $homePagePosts = PostService::getHomePageRecentPosts(PostService::HOMEPAGE_POSTS_LIMIT);
+            $homePagePosts = self::insertPostAuthorAndPostCommentsInArray($homePagePosts);
+            $homePagePosts = self::insertCommentAuthorInCommentObject($homePagePosts);
 
-			$this->twigEnvironment->display("/landing-blog.html.twig");
+			$this->twigEnvironment->display("/landing-blog.html.twig", ["postsArray" => $homePagePosts]);
 
 			return true;
 		} catch (Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage("error", $exception->getMessage());
 
 			$this->twigEnvironment->display("/landing-blog.html.twig");
 			return false;

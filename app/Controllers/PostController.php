@@ -16,34 +16,28 @@ use Twig\Error\SyntaxError;
 
 class PostController extends CoreController
 {
-    protected array $allValidatedPosts = [];
 
     public function __construct()
     {
         parent::__construct();
-        $this->allValidatedPosts = PostService::getHomePageRecentPosts();
-        self::insertPostAuthorAndPostCommentsInArray($this->allValidatedPosts);
-        self::insertCommentAuthorInCommentObject($this->allValidatedPosts);
     }
 
     /**
      * @return bool
      * @throws Exception
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      */
     public function displayPostsPage():bool
     {
         try {
-            $this->twigEnvironment->addGlobal("postsArray", $this->allValidatedPosts);
+            $allValidatedPosts = PostService::getHomePageRecentPosts();
+            $allValidatedPosts = self::insertPostAuthorAndPostCommentsInArray($allValidatedPosts);
+            $allValidatedPosts = self::insertCommentAuthorInCommentObject($allValidatedPosts);
 
-            $this->twigEnvironment->display("/posts-page.html.twig");
+            $this->twigEnvironment->display("/posts-page.html.twig", ["postsArray" => $allValidatedPosts]);
 
             return true;
         }catch(Exception $exception){
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;
@@ -62,8 +56,7 @@ class PostController extends CoreController
 
             return true;
         }catch (Exception $exception){
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/landing-blog.html.twig');
 
@@ -81,6 +74,8 @@ class PostController extends CoreController
         try {
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
 
+            PostService::checkInputs();
+
             $content = strip_tags(htmlspecialchars($_POST["content"]));
             $heading = strip_tags(htmlspecialchars($_POST["heading"]));
             $title = strip_tags(htmlspecialchars($_POST["title"]));
@@ -95,16 +90,13 @@ class PostController extends CoreController
 
             $thisNewPostId = $newPost->createOnePost();
 
-            AuthService::unsetDataInGlobalPost();
-            $_SESSION["success"] = "L'article a bien été soumis pour modération";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("success", "Votre article a bien été soumis pour validation");
 
             RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;
@@ -126,8 +118,7 @@ class PostController extends CoreController
             $postObject = PostService::getPostById($postId, $_SESSION["userObject"]->getId());
             PostService::rejectedPost($postId);
 
-            $_SESSION["success"] = "L'article a bien été supprimé";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("success", "L'article à bien été supprimé");
 
             RouterController::redirectToHomepage();
 
@@ -135,8 +126,7 @@ class PostController extends CoreController
 
         }catch(Exception $exception)
         {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;
@@ -150,7 +140,7 @@ class PostController extends CoreController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function modifiedPostPage(): bool
+    public function updatePostPage(): bool
     {
         try {
 
@@ -161,8 +151,7 @@ class PostController extends CoreController
             return true;
 
         }catch(Exception $exception){
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;
@@ -190,14 +179,14 @@ class PostController extends CoreController
 
             $currentPost->updateSelectedPost();
             $_SESSION["success"] = "La demande de mise à jour de l'article a bien été transmise pour validation";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::storeInAddGlobalIfSessionIsNotEmpty();
+            self::makeFlashMessage("success", "L'article a été mis à jour et soumis pour validation");
 
             RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;

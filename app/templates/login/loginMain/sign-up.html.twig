@@ -6,13 +6,13 @@
     <div class="page-header-image" style="background-image:url({{ _SERVER['BASE_URI'] }}assets/images/login.jpg)"></div>
     <div class="container">
         <div class="col-md-12 content-center">
-			{% if _SESSION["error"] is not empty %}
+			{% if error is not empty %}
                 <div class="alert alert-danger" role="alert">
                     <div class="container">
                         <div class="alert-icon">
                             <i class="zmdi zmdi-block"></i>
                         </div>
-                        <strong>Oh snap! </strong> {{ _SESSION["error"] }}
+                        <strong>Oh snap! </strong> {{ error }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
                                 <i class="zmdi zmdi-close"></i>

@@ -42,8 +42,7 @@ class AdminPostController extends AdminCoreController
             return true;
         } catch(Exception $exception)
         {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
             return false;
@@ -68,8 +67,7 @@ class AdminPostController extends AdminCoreController
             return true;
         } catch(Exception $exception)
         {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
             return false;
@@ -91,8 +89,7 @@ class AdminPostController extends AdminCoreController
 
 		}catch (Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -117,15 +114,13 @@ class AdminPostController extends AdminCoreController
 			$postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             $this->getPostObject($postId);
             $this->twigEnvironment->addGlobal("postObject", $this->postObject);
-            AuthService::unsetDataInGlobalPost();
 
             $this->twigEnvironment->display('/adminMain/blog-details.html.twig');
 
 			return true;
 		}catch (Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -155,17 +150,14 @@ class AdminPostController extends AdminCoreController
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::approvedPost($postId);
 
-            $_SESSION["success"] = "L'article a bien été validé";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
-            AuthService::unsetDataInGlobalPost();
+            self::makeFlashMessage("success", "L'article a bien été validé");
 
             AdminRouterController::redirectToBlogListPage();
 
             return true;
         } catch (Exception $exception) {
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -194,9 +186,7 @@ class AdminPostController extends AdminCoreController
             $postId = filter_input(INPUT_POST, "post-id", FILTER_VALIDATE_INT);
             PostService::rejectedPost($postId);
 
-            $_SESSION["success"] = "L'article a bien été supprimé";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
-            AuthService::unsetDataInGlobalPost();
+            self::makeFlashMessage("success", "L'article a bien été supprimé");
 
             AdminRouterController::redirectToBlogListPage();
 
@@ -204,8 +194,7 @@ class AdminPostController extends AdminCoreController
 
         }catch(Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {

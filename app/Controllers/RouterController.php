@@ -7,6 +7,7 @@
     use App\Services\PostService;
     use App\Services\UserService;
     use Exception;
+    use JetBrains\PhpStorm\NoReturn;
     use Twig\Error\LoaderError;
     use Twig\Error\RuntimeError;
     use Twig\Error\SyntaxError;
@@ -15,20 +16,26 @@
     {
 
         /**
-         * @return bool
+         * @return void
          */
-        public static function redirectToHomepage(): bool
+        public static function redirectToHomepage(): void
         {
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php");
-                return true;
+                exit();
         }
 
         /**
-         * @return bool
+         * @param string|null $exceptionMessage
+         * @return void
          */
-        public static function getNotFoundPage(): bool
+        public function getNotFoundPage(string $exceptionMessage = null): void
         {
+            if(!empty($exceptionMessage))
+            {
+                self::makeFlashMessage("error", $exceptionMessage);
+            }
+
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php?action=default");
-                return true;
+                exit();
         }
     }

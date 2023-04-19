@@ -28,8 +28,7 @@ class UserController extends CoreController
 
             return true;
 		} catch(Exception $exception){
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            $this->makeFlashMessage("error", $exception->getMessage());
 
 			$this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 
@@ -47,13 +46,12 @@ class UserController extends CoreController
 	public function getSignUpPage():bool
 	{
 		try {
-            $_SESSION["referer"] = "login-page";
-            self::storeInAddGlobalIfSessionIsNotEmpty();
+            self::makeFlashMessage("referer", "login-page");
+
             $this->twigEnvironment->display('/loginMain/sign-up.html.twig');
             return true;
 		}catch (Exception $exception){
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/loginMain/sign-in.html.twig');
             return false;
@@ -87,19 +85,16 @@ public function newUserRegister(): bool
         $lastRegisteredUserId = $userModel->createUser();
         $newUser = UserService::getOneUserById($lastRegisteredUserId);
 
-        AuthService::unsetDataInGlobalPost();
-
         $authService = new AuthService();
         $authService->setDataInGlobalSession($newUser);
-        $_SESSION["success"] = "Vous êtes maintenant inscrit!";
-        self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+        self::makeFlashMessage("success", "Vous êtes maintenant inscrit!");
 
         RouterController::redirectToHomepage();
 
         return true;
     } catch(Exception $exception){
-        $_SESSION["error"] = $exception->getMessage();
-        self::storeSuccessOrErrorMessageInAddGlobalSession();
+        self::makeFlashMessage("error", $exception->getMessage());
 
         $this->twigEnvironment->display('/loginMain/sign-up.html.twig');
 

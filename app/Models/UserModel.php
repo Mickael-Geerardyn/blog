@@ -97,9 +97,11 @@ class UserModel extends CoreModel
 					       phone_number = :phone_number,
 					       social_linkedin = :social_linkedin,
 					       social_twitter = :social_twitter,
-					       role_id = :role_id');
+					       role_id = :role_id
+					       WHERE user.id = :userId');
 
 		$status = $statement->execute([
+            ':userId' => $this->id,
 			':firstname' => $this->firstname,
 			':lastname' => $this->lastname,
 			':email' => $this->email,

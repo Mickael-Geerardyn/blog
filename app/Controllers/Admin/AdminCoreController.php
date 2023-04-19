@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\Admin;
 
+use App\Controllers\RouterController;
 use App\Models\UserModel;
 use App\Services\UserService;
 use Exception;
@@ -108,6 +109,26 @@ abstract class AdminCoreController
             unset($_SESSION["error"]);
             return false;
         }
+    }
+
+    /**
+     * @param string $type
+     * @param string $message
+     * @return bool
+     */
+    public function makeFlashMessage(string $type, string $message): bool
+    {
+        try {
+            $this->twigEnvironment->addGlobal($type, $message);
+
+        } catch(Exception $exception)
+        {
+            $this->twigEnvironment->addGlobal("error", $exception->getMessage());
+
+            RouterController::redirectToHomepage();
+            return false;
+        }
+        return true;
     }
 }
 

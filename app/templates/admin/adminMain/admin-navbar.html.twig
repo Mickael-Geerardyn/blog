@@ -15,13 +15,13 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{{ _SERVER["BASE_URI"] }}index.php?action=logout" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
 			</ul>
-			{% if (_SESSION["error"] is not empty or _SESSION["success"] is not empty) %}
-				<div class="alert alert-{{ (_SESSION["error"] is not empty)?"danger":"success" }}" role="alert">
+			{% if (error is not empty or success is not empty) %}
+				<div class="alert alert-{{ (error is not empty)?"danger":"success" }}" role="alert">
 					<div class="container">
 						<div class="alert-icon">
 							<i class="zmdi zmdi-block"></i>
 						</div>
-						<strong>Oh snap! </strong> {{ (_SESSION["error"] is not empty)? _SESSION["error"] : _SESSION["success"] }}
+						<strong>Oh snap! </strong> {{ (error is not empty)? error : success }}
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
                                 <i class="zmdi zmdi-close"></i>

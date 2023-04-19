@@ -40,8 +40,7 @@ class AdminCommentController extends AdminCoreController
             return true;
         } catch(Exception $exception)
         {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/adminMain/comments-list.html.twig');
             return false;
@@ -63,8 +62,7 @@ class AdminCommentController extends AdminCoreController
 
         } catch (Exception $exception) {
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -91,8 +89,8 @@ class AdminCommentController extends AdminCoreController
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $commentId = filter_input(INPUT_POST,"commentId", FILTER_VALIDATE_INT);
             CommentService::approvedComment($commentId);
-            $_SESSION["success"] = "Le commentaire a bien été approuvé";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            self::makeFlashMessage("success", "Le commentaire a bien été approuvé");
             $this->twigEnvironment->addGlobal("pendingComments", $this->pendingComments);
 
             AdminRouterController::redirectToCommentsListPage();
@@ -100,8 +98,7 @@ class AdminCommentController extends AdminCoreController
             return true;
         } catch (Exception $exception) {
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -130,16 +127,15 @@ class AdminCommentController extends AdminCoreController
             $commentId = filter_input(INPUT_POST ,"commentId", FILTER_VALIDATE_INT);
             CommentService::rejectedComment($commentId);
             $pendingComments = CommentService::getPendingComments();
-            $_SESSION["success"] = "Le commentaire a bien été supprimé";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+
+            self::makeFlashMessage("success", "Le commentaire a bien été supprimé");
 
             $this->twigEnvironment->display('/adminMain/comments-list.html.twig', ['pendingComments' => $pendingComments]);
 
             return true;
         } catch (Exception $exception) {
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {

@@ -76,7 +76,7 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             break;
         case 'update-post-page':
             $postController = new PostController();
-            $postController->modifiedPostPage();
+            $postController->updatePostPage();
             break;
         case 'send-update-post':
             $postController = new PostController();
@@ -136,7 +136,10 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 	try {
 	$homePage = new HomePageController();
 		$homePage->getHomePage();
+
 	} catch (Exception $exception) {
-		echo $exception->getMessage();
+        $notFoundPage = new RouterController();
+        $notFoundPage->getNotFoundPage($exception->getMessage());
+
 	}
 }

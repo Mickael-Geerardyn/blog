@@ -35,14 +35,11 @@ class AuthController extends CoreController
                 $authService->setDataInGlobalSession($userObject);
             }
 
-            self::storeBaseUriInGlobalServer();
-
             RouterController::redirectToHomepage();
             return true;
 
         } catch (Exception $exception) {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/loginMain/sign-in.html.twig');
 
@@ -59,13 +56,13 @@ class AuthController extends CoreController
         try{
 
             AuthService::unsetDataInSession();
+            self::makeFlashMessage("success", "Vous avez été déconnecté");
 
             RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             $this->twigEnvironment->display('/adminMain/blog-list.html.twig');
 

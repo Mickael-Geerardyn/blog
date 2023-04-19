@@ -39,35 +39,21 @@
 				{% endif %}
 			</ul>
 		</div>
-		{% if _SESSION["success"] is not empty %}
-			<div class="alert alert-success" role="alert">
-				<div class="container">
-					<div class="alert-icon">
-						<i class="zmdi zmdi-thumb-up"></i>
-					</div>
-					<strong>Well done!</strong> {{ _SESSION["success"] }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">
-            <i class="zmdi zmdi-close"></i>
-        </span>
-					</button>
-				</div>
-			</div>
-		{% endif %}
-		{% if _SESSION["error"] is not empty %}
-			<div class="alert alert-danger" role="alert">
-				<div class="container">
-					<div class="alert-icon">
-						<i class="zmdi zmdi-block"></i>
-					</div>
-					<strong>Oh snap! </strong> {{ _SESSION["error"] }}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<pre>{{ error }}</pre>
+		{% if (error is not empty or success is not empty) %}
+			<div class="alert alert-{{ (error is not empty)?"danger":"success" }}" role="alert">
+					<div class="container">
+						<div class="alert-icon">
+							<i class="zmdi zmdi-block"></i>
+						</div>
+						<strong>Oh snap! </strong> {{ (error is not empty)? error : success }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">
                                 <i class="zmdi zmdi-close"></i>
                             </span>
-					</button>
+						</button>
+					</div>
 				</div>
-			</div>
 		{% endif %}
 		<!-- /.navbar-collapse -->
 	</div>

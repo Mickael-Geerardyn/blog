@@ -18,6 +18,7 @@ use Twig\Loader\FilesystemLoader;
 abstract class CoreController
 {
 	protected const OWNER_USER_EMAIL = "contact@mickael-geerardyn.com";
+    protected const SESSION_TEMPORARY_KEYS = ["referer", "error", "success"];
 	protected object $ownerUser;
 	protected string $directory;
 	private FilesystemLoader $loader;
@@ -51,10 +52,9 @@ abstract class CoreController
 
             self::storeBaseUriInGlobalServer();
             self::storeInAddGlobalIfSessionIsNotEmpty();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
 
         }catch(Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage('error', $exception->getMessage());
 
             $this->twigEnvironment->display("/landing-blog.html.twig");
         }
@@ -82,7 +82,7 @@ abstract class CoreController
 
             return true;
         } catch (Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage('error', $exception->getMessage());
 
             $this->twigEnvironment->display("/landing-blog.html.twig");
             return false;
@@ -96,13 +96,18 @@ abstract class CoreController
     protected function storeInAddGlobalIfSessionIsNotEmpty():bool
     {
         try {
-            if(!empty($_SESSION["userObject"]) && !empty($_SESSION["CSRFToken"]))
+            if(!empty($_SESSION))
             {
                 $this->twigEnvironment->addGlobal("_SESSION", $_SESSION);
 
+                foreach(self::SESSION_TEMPORARY_KEYS as $key)
+                {
+                    unset($_SESSION[$key]);
+                }
+
             }
         }catch(Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage('error', $exception->getMessage());
 
             $this->twigEnvironment->display("/landing-blog.html.twig");
             return false;
@@ -111,35 +116,11 @@ abstract class CoreController
     }
 
     /**
-     * @return bool
-     * @throws Exception
-     */
-    protected function storeSuccessOrErrorMessageInAddGlobalSession():bool
-    {
-        try {
-            if(!empty($_SESSION["success"]) || !empty($_SESSION["error"]))
-            {
-
-                $this->twigEnvironment->addGlobal("_SESSION", $_SESSION);
-                unset($_SESSION["success"]);
-                unset($_SESSION["error"]);
-            }
-        }catch(Exception $exception){
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
-
-            RouterController::redirectToHomepage();
-            unset($_SESSION["error"]);
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * @param array $postsArray
-     * @return bool
+     * @return array
      * @throws Exception
      */
-    public function insertPostAuthorAndPostCommentsInArray(array $postsArray): bool
+    public function insertPostAuthorAndPostCommentsInArray(array $postsArray): array
     {
         try {
             foreach ($postsArray as $post)
@@ -147,21 +128,21 @@ abstract class CoreController
                 $post->postAuthor = UserService::getPostAuthorById($post->getUserId());
                 $post->postComments = CommentService::getPostComments($post->getId());
             }
-            return true;
+            return $postsArray;
         } catch (Exception $exception) {
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage('error', $exception->getMessage());
 
             RouterController::redirectToHomepage();
-            return false;
+            return [];
         }
     }
 
     /**
      * @param array $postsArray
-     * @return bool
+     * @return array
      * @throws Exception
      */
-    public function insertCommentAuthorInCommentObject(array $postsArray): bool
+    public function insertCommentAuthorInCommentObject(array $postsArray): array
     {
         try {
             foreach ($postsArray as $post){
@@ -170,14 +151,35 @@ abstract class CoreController
                 }
             }
 
-            return true;
+            return $postsArray;
 
         } catch (Exception $exception) {
-            $this->twigEnvironment->addGlobal("_SESSION", $_SESSION["error"] = $exception->getMessage());
+            self::makeFlashMessage('error', $exception->getMessage());
+
+            RouterController::redirectToHomepage();
+            return [];
+
+        }
+    }
+
+    /**
+     * @param string $type
+     * @param string $message
+     * @return bool
+     */
+    public function makeFlashMessage(string $type, string $message): bool
+    {
+        try {
+
+           $this->twigEnvironment->addGlobal($type, $message);
+
+        } catch(Exception $exception)
+        {
+            $this->twigEnvironment->addGlobal("error", $exception->getMessage());
 
             RouterController::redirectToHomepage();
             return false;
-
         }
+        return true;
     }
 }

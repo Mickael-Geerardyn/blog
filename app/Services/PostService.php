@@ -10,7 +10,8 @@ use PDO;
 
 class PostService
 {
-    const HOMEPAGE_POSTS_LIMIT = 3;
+    public const HOMEPAGE_POSTS_LIMIT = 3;
+    protected const POST_KEYS = ["content" => "Contenu", "heading" => "Chapô", "title" => "Titre"];
 
 	/**
 	 * @param int $maxPerPage
@@ -34,7 +35,7 @@ class PostService
 		$statement = PostModel::getDataBase()
 			->prepare($select . $from . $where . $isNotNull . $orderBy . $asc . $limit);
 
-        if(!empty($limit))
+        if(!empty($maxPerPage))
         {
             $statement->bindParam(
                 ':limit', $maxPerPage, PDO::PARAM_INT
@@ -173,10 +174,31 @@ class PostService
     public static function deleteUserPosts(int|string $userId): bool|object
     {
         $statement = PostModel::getDataBase()
-            ->prepare("DELETE FROM post WHERE user_id = :userId");
+            ->prepare("DELETE FROM post WHERE post.user_id = :userId");
 
         $status = $statement->execute([":userId" => $userId]);
 
         return $status;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public static function checkInputs(): bool
+    {
+        $emptyInputs = "";
+        foreach(self::POST_KEYS as $key => $value){
+            if(!array_key_exists($key, $_POST) || empty($_POST[$key])){
+                $emptyInputs .= ", " . $value;
+            }
+        }
+
+        if(!empty($emptyInputs))
+        {
+            throw new Exception("Les champs" . $emptyInputs . " sont requis");
+        }
+
+        return true;
     }
 }

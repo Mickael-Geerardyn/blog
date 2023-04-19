@@ -26,8 +26,7 @@ class AdminRoleController extends AdminCoreController
 
 		}catch(Exception $exception)
 		{
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {

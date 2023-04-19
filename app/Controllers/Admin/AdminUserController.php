@@ -49,9 +49,8 @@ class AdminUserController extends AdminCoreController
 
 			$lastRegisteredUserId = $userModel->createUser();
 
-			AuthService::unsetDataInGlobalPost();
-            $_SESSION["success"] = "L'utilisateur a bien été enregistré";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("success", "L'utilisateur a bien été enregistré");
+
             $this->twigEnvironment->addGlobal("userObject", UserService::getOneUserById($lastRegisteredUserId));
 
             AdminRouterController::redirectToUsersPage();
@@ -59,9 +58,7 @@ class AdminUserController extends AdminCoreController
 			return true;
 
 		} catch (Exception $exception) {
-
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -72,7 +69,6 @@ class AdminUserController extends AdminCoreController
 
                 RouterController::redirectToHomepage();
             }
-
 
 			return false;
 		}
@@ -109,14 +105,13 @@ class AdminUserController extends AdminCoreController
 
             $selectedRole = $newAdminRole->getOneRoleByTitle($role_title);
 
-            $userModel = new UserModel();
+            $userModel = UserService::getOneUserByEmail($lastEmail);
 
             $userModel->setFirstname($firstname)->setLastname($lastname)->setEmail($email)->setPhoneNumber($phone_number)->setSocialLinkedin($linkedin)->setSocialTwitter($twitter)->setRoleId($selectedRole->getId());
             $userModel->updateUser();
 
-            $_SESSION["success"] = "L'utilisateur ${email} à été mis à jour";
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
-            AuthService::unsetDataInGlobalPost();
+            self::makeFlashMessage("success", "L'utilisateur ${email} a été mis à jour");
+
             $this->twigEnvironment->addGlobal("userObject", UserService::getOneUserByEmail($userModel->getEmail()));
 
             AdminRouterController::redirectToUsersPage();
@@ -125,8 +120,7 @@ class AdminUserController extends AdminCoreController
 
         } catch (Exception $exception) {
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -156,19 +150,18 @@ class AdminUserController extends AdminCoreController
 			}
 
             $userObject = UserService::getOneUserByEmail($userEmail);
-            PostService::deleteUserPosts($userObject->getId());
+
             CommentModel::deleteUserComments($userObject->getId());
+            PostService::deleteUserPosts($userObject->getId());
 			UserModel::deleteUser($userEmail);
 
-            AuthService::unsetDataInGlobalPost();
-
+            self::makeFlashMessage("success", "L'utilisateur ${userEmail} a été supprimé");
 			AdminRouterController::redirectToUsersPage();
 
             return true;
 		} catch(Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -203,8 +196,7 @@ class AdminUserController extends AdminCoreController
 
 		} catch (Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -231,8 +223,7 @@ class AdminUserController extends AdminCoreController
 
 		} catch (Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
@@ -264,15 +255,13 @@ class AdminUserController extends AdminCoreController
 			$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 			$updatedUser = UserService::getOneUserByEmail($email);
             $this->twigEnvironment->addGlobal("userObject", $updatedUser);
-            AuthService::unsetDataInGlobalPost();
 
             $this->twigEnvironment->display('/adminMain/form-add-or-update-user.html.twig');
 
 			return true;
 		} catch (Exception $exception){
 
-            $_SESSION["error"] = $exception->getMessage();
-            self::storeSuccessOrErrorMessageInAddGlobalSession();
+            self::makeFlashMessage("error", $exception->getMessage());
 
             if($_SESSION["userObject"]->getRoleId() === UserModel::ROLE_ADMIN)
             {
