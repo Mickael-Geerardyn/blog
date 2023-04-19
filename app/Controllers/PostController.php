@@ -88,7 +88,7 @@ class PostController extends CoreController
                 ->setContent($content)
                 ->setUserId($_SESSION["userObject"]->getId());
 
-            $thisNewPostId = $newPost->createOnePost();
+            $newPost->createOnePost();
 
             self::makeFlashMessage("success", "Votre article a bien été soumis pour validation");
 
@@ -178,8 +178,7 @@ class PostController extends CoreController
                 $currentPost->setUserId($_SESSION["userObject"]->getId());
 
             $currentPost->updateSelectedPost();
-            $_SESSION["success"] = "La demande de mise à jour de l'article a bien été transmise pour validation";
-            self::storeInAddGlobalIfSessionIsNotEmpty();
+
             self::makeFlashMessage("success", "L'article a été mis à jour et soumis pour validation");
 
             RouterController::redirectToHomepage();

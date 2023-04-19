@@ -16,19 +16,19 @@
     {
 
         /**
-         * @return void
+         * @return bool
          */
-        public static function redirectToHomepage(): void
+        public static function redirectToHomepage(): bool
         {
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php");
-                exit();
+                return true;
         }
 
         /**
          * @param string|null $exceptionMessage
-         * @return void
+         * @return bool
          */
-        public function getNotFoundPage(string $exceptionMessage = null): void
+        public function getNotFoundPage(string $exceptionMessage = null): bool
         {
             if(!empty($exceptionMessage))
             {
@@ -36,6 +36,6 @@
             }
 
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php?action=default");
-                exit();
+                return true;
         }
     }

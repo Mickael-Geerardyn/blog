@@ -10,6 +10,7 @@ use App\Controllers\CommentController;
 use App\Controllers\PostController;
     use App\Controllers\RouterController;
     use App\Controllers\UserController;
+    use Exception;
 
 require_once '../vendor/autoload.php';
 /**
@@ -22,14 +23,15 @@ if(isset($_GET['action']) && !empty($_GET['action']))
 {
 	switch ($_GET['action'])
 	{
-		case 'sign-in':
+
+        case 'sign-in':
             $authController = new AuthController();
             $authController->userSignIn();
-			break;
-		case 'user-register':
-			$adminUserController = new AdminUserController();
+            break;
+        case 'user-register':
+            $adminUserController = new AdminUserController();
             $adminUserController->registeredNewUser();
-			break;
+            break;
         case 'new-user-register':
             $userController = new UserController();
             $userController->newUserRegister();
@@ -38,41 +40,41 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $newUser = new AdminUserController();
             $newUser->updatedUser();
             break;
-		case 'logout':
-			$userLogout = new AuthController();
-			$userLogout->userLogout();
-			break;
-		case 'display-add-form-user':
-			$AddFormUser = new AdminUserController();
-			$AddFormUser->displayAddFormUser();
-			break;
-		case 'users-page':
-			$usersPage = new AdminUserController();
-			$usersPage->displayUsersPage();
-			break;
-		case 'user-delete':
-			$userDelete = new AdminUserController();
-			$userDelete->deleteUser();
-			break;
-		case 'user-modifications-page':
-			$userUpdate = new AdminUserController();
-			$userUpdate->displayUpdateFormUser();
-			break;
-		case 'blog-list':
-			$adminPostController = new AdminPostController();
+        case 'logout':
+            $userLogout = new AuthController();
+            $userLogout->userLogout();
+            break;
+        case 'display-add-form-user':
+            $AddFormUser = new AdminUserController();
+            $AddFormUser->displayAddFormUser();
+            break;
+        case 'users-page':
+            $usersPage = new AdminUserController();
+            $usersPage->displayUsersPage();
+            break;
+        case 'user-delete':
+            $userDelete = new AdminUserController();
+            $userDelete->deleteUser();
+            break;
+        case 'user-modifications-page':
+            $userUpdate = new AdminUserController();
+            $userUpdate->displayUpdateFormUser();
+            break;
+        case 'blog-list':
+            $adminPostController = new AdminPostController();
             $adminPostController->displayPostsPage();
-			break;
-		case 'single-post-page':
-			$postPage = new AdminPostController();
-			$postPage->displayOnePostById();
-			break;
+            break;
+        case 'single-post-page':
+            $postPage = new AdminPostController();
+            $postPage->displayOnePostById();
+            break;
         case 'new-post-page':
             $postController = new PostController();
             $postController->displayNewPostPage();
             break;
         case 'send-new-post':
-            $postController = new PostController();
-            $postController->createPost();
+                $postController = new PostController();
+                $postController->createPost();
             break;
         case 'update-post-page':
             $postController = new PostController();
@@ -94,10 +96,10 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $adminPostController = new AdminPostController();
             $adminPostController->rejectedPostById();
             break;
-		case 'login-page':
-			$loginPage = new UserController();
-			$loginPage->getLoginPage();
-			break;
+        case 'login-page':
+            $loginPage = new UserController();
+            $loginPage->getLoginPage();
+            break;
         case "sign-up-page":
             $userController = new UserController();
             $userController->getSignUpPage();
@@ -126,12 +128,11 @@ if(isset($_GET['action']) && !empty($_GET['action']))
             $postController = new PostController();
             $postController->displayPostsPage();
             break;
-		default:
+        default:
             $notFoundPage = new RouterController();
             $notFoundPage->getNotFoundPage();
             break;
-	}
-
+}
 } else {
 	try {
 	$homePage = new HomePageController();
