@@ -14,6 +14,7 @@
 
     class RouterController extends CoreController
     {
+
         public function __construct()
         {
             parent::__construct();
@@ -22,7 +23,7 @@
         /**
          * @return bool
          */
-        public static function redirectToHomepage(): bool
+        public function redirectToHomepage(): bool
         {
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php");
                 return true;

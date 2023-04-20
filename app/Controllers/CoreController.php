@@ -55,7 +55,6 @@ abstract class CoreController
 
         }catch(Exception $exception){
             self::makeFlashMessage('error', $exception->getMessage());
-
             $this->twigEnvironment->display("/landing-blog.html.twig");
         }
 	}
@@ -177,7 +176,8 @@ abstract class CoreController
         {
             $this->twigEnvironment->addGlobal("error", $exception->getMessage());
 
-            RouterController::redirectToHomepage();
+            $routerController = new RouterController();
+            $routerController->redirectToHomepage();
             return false;
         }
         return true;
