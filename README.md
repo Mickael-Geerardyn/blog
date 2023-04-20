@@ -6,7 +6,7 @@ Copiez l'url à l'aide du bouton situé à droite de celle-ci puis rendez-vous d
 
 Dans le terminal, entrez la commande: 
 ```bash
-git clone https://github.com/Mickael-Geerardyn/blog.git
+git clone https://github.com/Mickael-Geerardyn/blog.git nom_de_votre_dossier
 ```
 
 Le projet sera installé dans votre dossier et vous pourrez y accéder.
