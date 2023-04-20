@@ -92,15 +92,13 @@ class PostController extends CoreController
 
             self::makeFlashMessage("success", "Votre article a bien été soumis pour validation");
 
-            $routerController = new RouterController();
-            $routerController->redirectToHomepage();
+            RouterController::redirectToHomepage();
 
             return true;
         } catch (Exception $exception) {
             self::makeFlashMessage("error", $exception->getMessage());
 
-            $routerController = new RouterController();
-            $routerController->redirectToHomepage();
+            RouterController::redirectToHomepage();
             return false;
         }
     }

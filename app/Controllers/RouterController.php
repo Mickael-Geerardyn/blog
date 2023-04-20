@@ -23,7 +23,7 @@
         /**
          * @return bool
          */
-        public function redirectToHomepage(): bool
+        public static function redirectToHomepage(): bool
         {
                 header("Location:" . $_SERVER["BASE_URI"] . "index.php");
                 return true;

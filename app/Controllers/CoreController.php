@@ -176,8 +176,7 @@ abstract class CoreController
         {
             $this->twigEnvironment->addGlobal("error", $exception->getMessage());
 
-            $routerController = new RouterController();
-            $routerController->redirectToHomepage();
+            RouterController::redirectToHomepage();
             return false;
         }
         return true;
