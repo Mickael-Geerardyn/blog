@@ -170,6 +170,7 @@ class PostController extends CoreController
             AuthService::checkCSRFTokenSubmittedCorrespondWithSession();
             $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
             $currentPost = PostService::getPostById($postId, $_SESSION["userObject"]->getId());
+            var_dump($currentPost);
 
             $currentPost->setHeading(htmlspecialchars($_POST['heading']));
                 $currentPost->setContent(htmlspecialchars($_POST['content']));

@@ -22,9 +22,11 @@ class PostService
 	{
         $select = "SELECT * ";
         $from = "FROM post ";
-        $where = "WHERE published_at ";
-        $isNotNull = "IS NOT NULL ";
-        $orderBy = "ORDER BY created_at ";
+        $where = "WHERE ((published_at ";
+        $isNotNull = "IS NOT NULL) ";
+        $and = "AND (updated_at IS NOT NULL) AND (DATEDIFF(published_at, updated_at) >= DATEDIFF(updated_at, published_at)) ";
+        $or = "OR (updated_at IS NULL AND published_at IS NOT NULL)) ";
+        $orderBy = "ORDER BY published_at ";
         $asc = "ASC ";
         $limit = "";
 
@@ -33,7 +35,7 @@ class PostService
             $limit = "LIMIT :limit";
         }
 		$statement = PostModel::getDataBase()
-			->prepare($select . $from . $where . $isNotNull . $orderBy . $asc . $limit);
+			->prepare($select . $from . $where . $isNotNull . $and . $or . $orderBy . $asc . $limit);
 
         if(!empty($maxPerPage))
         {
@@ -47,28 +49,12 @@ class PostService
         return  $statement->fetchAll(PDO::FETCH_CLASS,PostModel::class);
 	}
 
-	/**
-	 * Method who return all posts without condition
-	 * @return array
-	 */
-	public static function getAllValidatedPosts(): array
-	{
-		$statement = PostModel::getDataBase()
-        ->prepare('SELECT *
-					 FROM post
-					 WHERE ((published_at IS NOT NULL) AND (updated_at IS NOT NULL) AND (DATEDIFF(published_at, updated_at) >= DATEDIFF(updated_at, published_at)) OR (updated_at IS NULL) AND (published_at IS NOT NULL))
-					 ORDER BY published_at ASC');
-
-        $statement->execute();
-
-		return $statement->fetchAll(PDO::FETCH_CLASS, PostModel::class);
-	}
-
-	/**
-	 * @param int|string $postId
-	 * @return object
-	 * @throws Exception
-	 */
+    /**
+     * @param int|string $postId
+     * @param int $postUserId
+     * @return object
+     * @throws Exception
+     */
 	public static function getPostById(int|string $postId, int $postUserId): object
 	{
 		$statement = PostModel::getDataBase()
