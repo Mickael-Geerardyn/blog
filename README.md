@@ -1,4 +1,4 @@
-#Installation du projet
+# Installation du projet
 
 Pour installer le projet, cliquez sur le bouton "Code" vert en haut à droite puis sur l'onglet "HTTPS".
 
