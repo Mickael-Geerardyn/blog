@@ -14,6 +14,10 @@
 
     class RouterController extends CoreController
     {
+        public function __construct()
+        {
+            parent::__construct();
+        }
 
         /**
          * @return bool
